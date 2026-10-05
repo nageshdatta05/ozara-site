@@ -76,13 +76,13 @@ export function PurchasePanel({
         ) : (
           <p className="text-[1.02rem] text-[var(--c-strong)]">
             {launch.status}
-            <span className="block text-[0.92rem] text-faint mt-1">Nothing is charged to reserve.</span>
+            <span className="block text-[0.92rem] text-faint mt-1">Priced by the number of stones — agreed with you before you pay.</span>
           </p>
         )}
         <p className="t-eyebrow">{AVAILABILITY_LABEL[p.availability]}</p>
       </div>
 
-      {/* Customisation — stones either side of the eye */}
+      {/* Customisation — stones along the band and at the heart of the star */}
       <fieldset className="mt-8">
         <legend className="t-eyebrow !text-[var(--c-strong)] mb-1.5">
           {customise.eyebrow} <span className="text-faint ml-2 normal-case tracking-normal font-normal">{gemName(gem)}</span>

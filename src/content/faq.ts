@@ -101,11 +101,11 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
       },
       {
         title: "How do I customise my bracelet?",
-        body: "Start from the Base Model and choose a stone to set either side of the eye.",
+        body: "Start from the Base Model — the Eye alone — or choose a stone. Stones are set along the band and at the centre of the star; how many is up to you.",
       },
       {
         title: "Which gemstones are available?",
-        body: "Sapphire, ruby, emerald, amethyst and diamond — always beside the eye, never over it.",
+        body: "Sapphire, ruby, emerald, amethyst and diamond — set along the band and at the centre of the star. The Base Model has no stones.",
       },
       {
         title: "Can I personalise my jewellery further?",
@@ -119,7 +119,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are pre-orders?",
-        body: `${preorder.why} Nothing is charged until price, size and timing are confirmed.`,
+        body: `${preorder.why} Base Models are ₹15,000, paid securely at checkout. Pieces with stones are priced by the number of stones: we agree it with you, then send a secure payment link.`,
       },
       {
         title: "Are the bracelets made to order?",
@@ -127,11 +127,11 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
       },
       {
         title: "How long does delivery take, and what does it cost?",
-        body: "Confirmed with you before you pay.",
+        body: "For Base Models, delivery is shown at checkout. For pieces with stones, it is confirmed with you before you pay.",
       },
       {
         title: "Can I cancel or return?",
-        body: "Cancel a reservation any time before you pay. Terms for paid orders are confirmed before you pay, alongside your statutory rights. See our Terms.",
+        body: "You can cancel a reservation any time before you pay. Every piece is made to order; the terms for paid orders are in our Terms, alongside your statutory rights.",
       },
       {
         title: "How should I care for my bracelet?",

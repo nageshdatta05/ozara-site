@@ -8,6 +8,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { GEMS, formatPrice, gemName, getProduct, isPreorder, sizeLabel, unitPrice, validSize, type GemKey } from "@/data/products";
 import { preorder } from "@/config/site";
 import { ease } from "@/lib/motion";
+import { shopifyCheckoutUrl } from "@/lib/shopify";
 import { Gem } from "@/components/product/Gem";
 import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
@@ -244,9 +245,7 @@ function CartDrawer() {
                     </p>
                   )}
                   <Totals lines={lines} />
-                  <Link href="/checkout" className="btn-solid w-full">
-                    {anyPreorder ? "Continue to reservation" : "Checkout"}
-                  </Link>
+                  <BagAction lines={lines} anyPreorder={anyPreorder} />
                 </footer>
               </>
             )}
@@ -254,6 +253,34 @@ function CartDrawer() {
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+/**
+ * Base Models only → straight to Shopify's checkout (paid in full).
+ * Anything with stones → a reservation; the price is agreed, then a Shopify
+ * payment link is sent.
+ */
+function BagAction({ lines, anyPreorder }: { lines: CartLine[]; anyPreorder: boolean }) {
+  const pay = shopifyCheckoutUrl(lines);
+  if (pay)
+    return (
+      <>
+        <a href={pay} className="btn-solid w-full">
+          Checkout — pay securely
+        </a>
+        <p className="text-[0.85rem] text-faint text-center">Payment and delivery through Shopify.</p>
+      </>
+    );
+  return (
+    <>
+      <Link href="/checkout" className="btn-solid w-full">
+        {anyPreorder ? "Continue to reservation" : "Checkout"}
+      </Link>
+      {lines.some((l) => l.gem) && (
+        <p className="text-[0.85rem] text-faint text-center">Pieces with stones are priced with you, then paid by a secure link.</p>
+      )}
+    </>
   );
 }
 
@@ -325,7 +352,7 @@ export function Totals({ lines }: { lines: CartLine[] }) {
       </div>
       <div className="flex justify-between">
         <dt className="text-muted">Delivery</dt>
-        <dd className="text-[var(--c-strong)]">Confirmed with you</dd>
+        <dd className="text-[var(--c-strong)]">{shopifyCheckoutUrl(lines) ? "At checkout" : "Confirmed with you"}</dd>
       </div>
     </dl>
   );

@@ -18,8 +18,9 @@ const sections: LegalSection[] = [
     id: "preorders",
     title: "Reservations and pre-orders",
     body: [
-      "Collection 01 is offered by pre-order. Placing a reservation on this website does not take payment and does not yet form a contract of sale. It asks us to hold a piece for you in the first production run.",
-      "After you reserve, we contact you to confirm the price, your size, the stones you chose, delivery and timing. A contract is formed only when you accept that confirmation and pay. Until then either of us may cancel the reservation, at no cost to you.",
+      "Collection 01 is offered by pre-order and made in a first production run, in the order pieces are paid for or reserved.",
+      "Base Models are sold at the price shown and paid in full at checkout, through Shopify. A contract of sale is formed when your payment is accepted and we confirm your order.",
+      "Pieces with stones are priced by the number of stones you choose. Placing a reservation for one does not take payment and does not form a contract: we contact you to agree the stones, price, size, delivery and timing, then send a secure payment link. A contract is formed when you pay. Until then either of us may cancel the reservation, at no cost to you.",
       "Delivery dates are estimates until confirmed in writing.",
     ],
   },
@@ -27,7 +28,7 @@ const sections: LegalSection[] = [
     id: "custom",
     title: "Made-to-order and customised jewellery",
     body: [
-      "Each piece is made to order, with the stones and size you confirm. Images on this website, including the stone previews, illustrate the design; natural stones and hand finishing mean every piece varies slightly in colour, inclusions and finish. The OZARA eye always remains on the piece; stones are set beside it, never over it.",
+      "Each piece is made to order, with the stones and size you confirm. Images on this website, including the stone previews, illustrate the design; natural stones and hand finishing mean every piece varies slightly in colour, inclusions and finish. The Base Model carries the OZARA eye alone; on pieces with stones, they are set along the band and at the centre of the star.",
       "Pieces are offered in sizes S, M and L. We confirm the fit with you before production.",
     ],
   },
@@ -35,14 +36,14 @@ const sections: LegalSection[] = [
     id: "prices",
     title: "Prices and payment",
     body: [
-      "Prices are confirmed with you before payment. Where a price is shown on the website, it is the price at that time for the piece as configured. Payment is taken through our payment provider; we never see or store your full card details.",
+      "Base Model prices are shown on the website and charged at checkout. Prices for pieces with stones are agreed with you before payment. Payment is taken through Shopify and its payment providers; we never see or store your full card details.",
     ],
   },
   {
     id: "cancellations",
     title: "Cancellations, returns and repairs",
     body: [
-      "Before you pay, you can cancel a reservation at any time by contacting us.",
+      "Before you pay, you can cancel a reservation for a piece with stones at any time by contacting us.",
       "Because confirmed pieces are made to your specification, the conditions for cancelling a paid order, returns, repairs and warranty are set out in your order confirmation before you pay, together with any statutory rights you have.",
     ],
   },

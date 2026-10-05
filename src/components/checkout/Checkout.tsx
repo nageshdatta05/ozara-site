@@ -7,6 +7,7 @@ import { LineRow, Totals, useCart } from "@/components/commerce/Cart";
 import { Field } from "@/components/account/AuthForm";
 import { gemName, getProduct, isPreorder, sizeLabel } from "@/data/products";
 import { payments, preorder } from "@/config/site";
+import { shopifyCheckoutUrl } from "@/lib/shopify";
 
 type Me = { name: string; email: string; phone: string | null } | null;
 
@@ -101,6 +102,19 @@ export function Checkout() {
         <Link href="/shop" className="btn-line mt-8">
           The collection
         </Link>
+      </div>
+    );
+
+  // Base Models only: they are paid in full through Shopify's checkout
+  const pay = shopifyCheckoutUrl(lines);
+  if (pay)
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
+        <p className="t-title">Ready to pay.</p>
+        <p className="t-body mt-3 max-w-[40ch]">Your Base Model is paid securely through Shopify, where you add your delivery details.</p>
+        <a href={pay} className="btn-solid mt-8">
+          Checkout — pay securely
+        </a>
       </div>
     );
 

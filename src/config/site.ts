@@ -67,9 +67,9 @@ export const preorder = {
   why: "Made in a single first run, in order of reservation.",
   /** What happens after reserving — shown on product pages and at checkout. */
   steps: [
-    "Reserve — nothing is charged.",
-    "We confirm price, size and timing.",
-    "Made, and registered to you.",
+    "Base Model: pay securely at checkout.",
+    "With stones: we price it with you, then send a payment link.",
+    "Made in the first run, and registered to you.",
   ],
   note: "",
 };
@@ -83,6 +83,22 @@ export const preorder = {
  */
 export const payments = {
   provider: null as null | "stripe",
+};
+
+/**
+ * SHOPIFY — Base Models are paid in full through the Shopify store's checkout.
+ * `baseModel` maps each piece and size to its Shopify variant ID (Shopify
+ * admin → Products → the product → the variant). Pieces with stones are priced
+ * by the number of stones, so they are reserved here and paid by a Shopify
+ * payment link (a draft order) once the price is agreed.
+ */
+export const shopify = {
+  store: env(process.env.NEXT_PUBLIC_SHOPIFY_STORE) ?? "z4seei-7d.myshopify.com",
+  baseModel: {
+    "the-wave": { S: "67610446987571", M: "67610447020339", L: "67610447053107" },
+    "the-flow": { S: "67610447085875", M: "67610447118643", L: "67610447151411" },
+    "the-line": { S: "67610447184179", M: "67610447216947", L: "67610447249715" },
+  } as Record<string, Partial<Record<string, string>>>,
 };
 
 /**

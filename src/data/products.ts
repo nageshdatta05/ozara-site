@@ -82,7 +82,7 @@ export const products: Product[] = [
     story: ["The softest of the three — a line that never settles, catching light on every crest."],
     media: collectionMedia.wave,
     image: collectionMedia.wave.hero,
-    price: null,
+    price: { amount: 15000, currency: "INR" },
     availability: "preorder",
     materials: null,
     features: null,
@@ -105,7 +105,7 @@ export const products: Product[] = [
     story: ["Structure and movement at once — every angle shows a different face of the metal."],
     media: collectionMedia.flow,
     image: collectionMedia.flow.hero,
-    price: null,
+    price: { amount: 15000, currency: "INR" },
     availability: "preorder",
     materials: null,
     features: null,
@@ -128,7 +128,7 @@ export const products: Product[] = [
     story: ["Says the least, remembered the longest. The star is the only light on the piece."],
     media: collectionMedia.line,
     image: collectionMedia.line.hero,
-    price: null,
+    price: { amount: 15000, currency: "INR" },
     availability: "preorder",
     materials: null,
     features: null,
@@ -189,7 +189,9 @@ export const gemName = (k: GemKey | null) => (k ? GEMS.find((g) => g.key === k)!
 
 /**
  * PRICING — set when confirmed. A piece's price is its `price` plus the
- * surcharge for the stones chosen (a pair, set either side of the eye).
+ * surcharge for the stones chosen. Pieces with stones are priced by how many
+ * stones the customer wants, so these stay null: the price is agreed with them
+ * and paid by a Shopify payment link.
  * While any part is null, the site shows "Price on confirmation" and the
  * customer is told the price is confirmed before anything is charged.
  */

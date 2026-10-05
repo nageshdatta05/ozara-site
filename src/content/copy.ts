@@ -161,9 +161,9 @@ export const copy = {
     customise: {
       eyebrow: "Customise with gemstones",
       title: "Add a touch of you.",
-      body: "Two stones, set either side of the eye.",
+      body: "Stones along the band and at the heart of the star — as many as you like.",
       none: "Base Model",
-      note: "Stones confirmed with you before making.",
+      note: "Priced by the number of stones — agreed with you before you pay.",
     },
     eye: {
       eyebrow: "The eye",
@@ -183,7 +183,7 @@ export const copy = {
     essentials: {
       materials: (finish: string) => `${finish} finish. The metal and plating for each finish are confirmed with you in writing before your piece is made.`,
       sizing: "Choose S, M or L. We confirm the fit with you before your piece is made.",
-      shipping: "Made in the first run. Delivery method, cost and timing are confirmed before you pay.",
+      shipping: "Made in the first run and delivered once finished. Delivery is shown at checkout.",
       care: "Store in its pouch. Wipe with a soft, dry cloth. Avoid perfume, chemicals and water. The tag needs no charging.",
       technology: "An NFC tag within. Hold the eye to a phone and its page opens. No battery, no GPS, no tracking.",
       returns: "Made to order. Terms are confirmed in writing before you pay — see our Terms.",
@@ -195,7 +195,7 @@ export const copy = {
       { title: "What does the NFC do?", body: "A tap opens the bracelet's page and confirms it is authentic and registered." },
       { title: "Do I need an app?", body: "No. The tap opens a web page on most modern phones." },
       { title: "Is the technology visible?", body: "No. The tag sits within the bracelet; what you see is the jewellery and the eye." },
-      { title: "Which sizes are offered?", body: "S, M and L. Materials and prices are confirmed before you pay." },
+      { title: "Which sizes are offered?", body: "S, M and L. Base Models are ₹15,000; pieces with stones are priced by the number of stones." },
     ],
     relatedEyebrow: "The other expressions",
   },
