@@ -1,0 +1,156 @@
+/* ==========================================================================
+   OZARA DESIGN TOKENS
+   The whole visual identity lives here. Change a value once and it cascades
+   through every component (Tailwind utilities are mapped to these in
+   globals.css, and motion timings are mirrored in src/lib/motion.ts).
+
+   The world is warm and physical — ivory paper, linen, travertine — the
+   surfaces the bracelets are photographed on. Satin blue is the ACCENT:
+   selected states, data moments, a hairline here and there. Never a
+   background.
+   ========================================================================== */
+
+:root {
+  /* ---- Surfaces (lightest → deepest) ------------------------------------ */
+  --c-paper: #f6f2ec;       /* page */
+  --c-linen: #eee7dd;       /* quiet alternate room */
+  --c-travertine: #e2d9cd;  /* the stage the bracelets sit on */
+  --c-sand-deep: #cdbfae;
+  --c-umber: #8a7967;
+  --c-espresso: #00072b;    /* the dark room — deep blue, as in the logo */
+  --c-ink: #00072b;         /* text is set in the logo's deep blue */
+
+  /* ---- Brand accents — buttons, highlights, hover, selected. Never fills. -- */
+  --c-deep: #00072b;      /* deep blue */
+  --c-burgundy: #3d0103;  /* burgundy */
+  --c-deep-tint: rgb(0 7 43 / 0.08);
+  --c-burgundy-tint: rgb(61 1 3 / 0.07);
+
+  /* ---- Satin blue — data and technology moments ------------------------- */
+  --c-blue: #2c4a7e;
+  --c-blue-soft: #5c78a8;
+  --c-blue-mist: #a9b9d6;
+
+  /* ---- Metals (one per bracelet) ---------------------------------------- */
+  --c-rose: #b98e6e;     /* The Wave */
+  --c-silver: #9ea4ab;   /* The Flow */
+  --c-graphite: #3b3835; /* The Line */
+
+  /* ---- Semantic (light by default) -------------------------------------- */
+  --c-bg: var(--c-paper);
+  --c-text: var(--c-ink);
+  --c-text-muted: rgb(0 7 43 / 0.7);
+  --c-text-faint: rgb(0 7 43 / 0.62);
+  --c-line: rgb(0 7 43 / 0.12);
+  --c-line-strong: rgb(0 7 43 / 0.26);
+  --c-strong: var(--c-ink);        /* headings, primary text, solid buttons */
+  --c-on-strong: var(--c-paper);   /* text on a solid button */
+  --c-accent: var(--c-deep);       /* selected states, numbers, focus */
+  --c-accent-2: var(--c-burgundy); /* highlights, hover, pre-order */
+  --c-button: var(--c-deep);       /* the primary action */
+  --c-label: var(--c-burgundy);    /* eyebrows and small labels */
+
+  /* ---- Legacy names (NFC pages, admin) — mapped onto the new world ------- */
+  --c-platinum: var(--c-strong);
+  --c-ivory: var(--c-paper);
+  --c-stone: var(--c-travertine);
+  --c-sand: var(--c-linen);
+  --c-ink-muted: rgb(0 7 43 / 0.66);
+  --c-ink-line: rgb(0 7 43 / 0.14);
+  --c-satin: var(--c-blue);
+  --c-satin-mist: var(--c-deep);
+  --c-glint: var(--c-deep);
+  --c-midnight: #00051f;
+  --c-abyss: #000a33;
+  --c-navy: #00072b;
+
+  /* ---- Typography -------------------------------------------------------- */
+  /* --font-*-src are injected by next/font in layout.tsx */
+  /* Brown Sugar is the brand face. It is used as soon as it is available —
+     installed on the device, or added as /public/fonts/brown-sugar.woff2 —
+     and Libre Caslon stands in until then. Body text stays in Manrope. */
+  --font-brand: "Brown Sugar";
+  --font-display: var(--font-brand), var(--font-display-src), "Big Caslon", "Libre Caslon", Georgia, serif;
+  --font-italic: var(--font-italic-src), "Big Caslon", Georgia, serif;
+  --font-sans: var(--font-sans-src), "Helvetica Neue", Arial, sans-serif;
+  --font-mark: var(--font-mark-src), "Optima", "Candara", sans-serif;
+
+  --fs-mega: clamp(2.8rem, min(7.4vw, 12svh), 8.5rem);
+  --fs-display: clamp(2.3rem, 4.6vw, 4.9rem);
+  --fs-title: clamp(1.85rem, 3.1vw, 3.2rem);
+  --fs-subtitle: clamp(1.3rem, 1.7vw, 1.65rem);
+  --fs-body: clamp(1.05rem, 1.08vw, 1.14rem);
+  --fs-small: 0.875rem;
+  --fs-micro: 0.78rem;
+
+  --tracking-display: -0.012em;
+  --tracking-wide: 0.2em;
+  --tracking-name: 0.34em;
+  --leading-display: 1.02;
+  --leading-body: 1.7;
+
+  /* ---- Spacing & layout -------------------------------------------------- */
+  --gutter: clamp(1.25rem, 4.5vw, 4.5rem);
+  --space-section: clamp(5rem, 14vh, 10rem);
+  --space-block: clamp(2.5rem, 6vh, 4.5rem);
+  --container: 1480px;
+  --container-narrow: 980px;
+  --nav-h: 72px;
+
+  /* ---- Radius — this is not a card UI ------------------------------------ */
+  --radius-hair: 1px;
+  --radius-sm: 3px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+
+  /* ---- Depth: warm, soft, physical --------------------------------------- */
+  --shadow-object: 0 40px 60px -40px rgb(60 44 30 / 0.35);
+  --shadow-float: 0 50px 90px -50px rgb(60 44 30 / 0.45);
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-silk: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.35s;
+  --dur-base: 0.8s;
+  --dur-slow: 1.4s;
+  --dur-cinematic: 2.2s;
+}
+
+/* ==========================================================================
+   ROOM THEMES — put one on a <section>; text, rules and accents follow.
+   ========================================================================== */
+.theme-light {
+  --c-label: var(--c-burgundy);
+  --c-accent: var(--c-deep);
+  --c-accent-2: var(--c-burgundy);
+  --c-button: var(--c-deep);
+  --c-text: var(--c-ink);
+  --c-text-muted: rgb(0 7 43 / 0.7);
+  --c-text-faint: rgb(0 7 43 / 0.62);
+  --c-line: rgb(0 7 43 / 0.12);
+  --c-line-strong: rgb(0 7 43 / 0.26);
+  --c-strong: var(--c-ink);
+  --c-on-strong: var(--c-paper);
+  --c-platinum: var(--c-ink);
+  --c-satin-mist: var(--c-deep);
+  --c-glint: var(--c-deep);
+  color: var(--c-ink);
+}
+.theme-dark {
+  --c-label: #e2b9bb;
+  --c-star: #d9a9ac;
+  --c-text: #f1ece4;
+  --c-text-muted: rgb(241 236 228 / 0.72);
+  --c-text-faint: rgb(241 236 228 / 0.62);
+  --c-line: rgb(241 236 228 / 0.13);
+  --c-line-strong: rgb(241 236 228 / 0.28);
+  --c-strong: #f1ece4;
+  --c-on-strong: var(--c-espresso);
+  --c-platinum: #f1ece4;
+  --c-accent: var(--c-blue-mist);
+  --c-accent-2: #d9a9ac;
+  --c-button: #f1ece4;
+  --c-satin-mist: var(--c-blue-mist);
+  --c-glint: var(--c-blue-mist);
+  color: var(--c-text);
+}
