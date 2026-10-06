@@ -9,6 +9,7 @@ const TABS = [
   { href: "/admin/nfc/bracelets/new", label: "Register" },
   { href: "/admin/nfc/events", label: "Events" },
   { href: "/admin/nfc/orders", label: "Orders" },
+  { href: "/admin/nfc/customers", label: "Customers" },
   { href: "/admin/nfc/messages", label: "Messages" },
 ];
 

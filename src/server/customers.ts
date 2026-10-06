@@ -159,3 +159,17 @@ export async function deleteAccount(id: number, password: unknown) {
   }
   await endSession();
 }
+
+/** Every account, newest first, with how many bracelets and reservations it has (admin only). */
+export type CustomerSummary = { id: number; name: string; email: string; phone: string | null; created_at: string; bracelets: number; orders: number };
+export function allCustomers(): CustomerSummary[] {
+  const rows = db()
+    .prepare(
+      `SELECT c.id, c.name, c.email, c.phone, c.created_at,
+         (SELECT COUNT(*) FROM bracelets b JOIN owners o ON o.id = b.owner_id WHERE o.customer_id = c.id) AS bracelets,
+         (SELECT COUNT(*) FROM orders r WHERE r.customer_id = c.id) AS orders
+       FROM customers c ORDER BY c.created_at DESC`
+    )
+    .all() as CustomerSummary[];
+  return rows.map((r) => ({ ...r })); // plain objects for React
+}

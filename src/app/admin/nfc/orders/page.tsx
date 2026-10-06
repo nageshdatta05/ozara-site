@@ -17,7 +17,7 @@ export default async function OrdersPage() {
           <h1 className="t-title mt-2">Orders &amp; reservations</h1>
         </div>
         <p className="text-[0.92rem] text-[var(--c-ink-muted)] max-w-[46ch]">
-          No payment provider is connected: every order here is a reservation and no money has been taken. Contact each customer to confirm.
+          Reservations for pieces with stones: no money has been taken. Agree the price with each customer, then send a Shopify payment link (Shopify → Orders → Create order). Base Models are paid in Shopify and appear there.
         </p>
       </div>
       {orders.length === 0 ? (
