@@ -31,6 +31,8 @@ export async function tooManyAttempts(scope: string) {
 }
 export async function noteAttempt(scope: string, ok: boolean) {
   const k = scope + (await clientKey());
+  // drop expired entries so the map can't grow forever
+  if (attempts.size > 1000) for (const [key, v] of attempts) if (v.until < Date.now()) attempts.delete(key);
   if (ok) return attempts.delete(k);
   const a = attempts.get(k);
   const fresh = !a || a.until < Date.now();
