@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Belleza, Libre_Caslon_Display, Libre_Caslon_Text, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import { site } from "@/config/site";
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -11,35 +11,37 @@ const BRAND_FONT = existsSync(path.join(process.cwd(), "public", "fonts", "brown
   ? `@font-face{font-family:"Brown Sugar";src:url("/fonts/brown-sugar.woff2") format("woff2");font-display:swap}`
   : null;
 
+// Fonts are bundled with the site (@fontsource) rather than downloaded from
+// Google at build time, so a build never depends on the network.
 // Display: an engraved, high-contrast Caslon — editorial, warm, unhurried.
-const display = Libre_Caslon_Display({
-  subsets: ["latin"],
-  weight: "400",
+const display = localFont({
+  src: [{ path: "../../node_modules/@fontsource/libre-caslon-display/files/libre-caslon-display-latin-400-normal.woff2", weight: "400", style: "normal" }],
   variable: "--font-display-src",
   display: "swap",
 });
 
 // Italic accents: the text cut of the same family.
-const italic = Libre_Caslon_Text({
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
+const italic = localFont({
+  src: [{ path: "../../node_modules/@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-italic.woff2", weight: "400", style: "italic" }],
   variable: "--font-italic-src",
   display: "swap",
 });
 
 // Text/UI: a calm, precise grotesque.
-const sans = Manrope({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+const sans = localFont({
+  src: [
+    { path: "../../node_modules/@fontsource/manrope/files/manrope-latin-300-normal.woff2", weight: "300", style: "normal" },
+    { path: "../../node_modules/@fontsource/manrope/files/manrope-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../../node_modules/@fontsource/manrope/files/manrope-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../../node_modules/@fontsource/manrope/files/manrope-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-sans-src",
   display: "swap",
 });
 
 // Wordmark and piece names: a flared humanist capital, matching the OZARA logotype.
-const mark = Belleza({
-  subsets: ["latin"],
-  weight: "400",
+const mark = localFont({
+  src: [{ path: "../../node_modules/@fontsource/belleza/files/belleza-latin-400-normal.woff2", weight: "400", style: "normal" }],
   variable: "--font-mark-src",
   display: "swap",
 });
