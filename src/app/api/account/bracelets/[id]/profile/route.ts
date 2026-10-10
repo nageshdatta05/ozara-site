@@ -11,7 +11,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   if (await limited("profile", 60, 15 * 60_000)) return json({ error: "Too many changes. Please try again in a few minutes." }, 429);
   const { id } = await params;
   try {
-    const p = await body<{ published?: unknown; values?: Record<string, unknown>; shown?: unknown }>(req);
+    const p = await body<{ published?: unknown; cardStyle?: unknown; values?: Record<string, unknown>; shown?: unknown }>(req);
     saveProfile(c.id, id, p);
     return json({ ok: true });
   } catch (e) {

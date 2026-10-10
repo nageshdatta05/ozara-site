@@ -11,12 +11,16 @@ import { findBracelet, InputError } from "./bracelets";
    rest of the site can trust them.
    ========================================================================== */
 
-export const PROFILE_FIELDS = ["name", "headline", "photo", "phone", "email", "website", "instagram", "linkedin"] as const;
+export const PROFILE_FIELDS = ["name", "headline", "location", "bio", "photo", "phone", "email", "website", "instagram", "linkedin"] as const;
 export type ProfileField = (typeof PROFILE_FIELDS)[number];
 type TextField = Exclude<ProfileField, "photo">;
 
+export const CARD_STYLES = ["midnight", "burgundy", "ivory"] as const;
+export type CardStyle = (typeof CARD_STYLES)[number];
+
 export type OwnerProfile = {
   published: boolean;
+  cardStyle: CardStyle;
   values: Record<TextField, string>;
   shown: ProfileField[];
   hasPhoto: boolean;
@@ -24,8 +28,11 @@ export type OwnerProfile = {
 
 /** What a stranger may see: only switched-on fields that have a value. */
 export type PublicProfile = {
+  cardStyle: CardStyle;
   name: string | null;
   headline: string | null;
+  location: string | null;
+  bio: string | null;
   photo: boolean;
   phone: string | null;
   email: string | null;
@@ -34,9 +41,9 @@ export type PublicProfile = {
   linkedin: string | null;
 };
 
-type Row = { published: number; shown: string; updated_at: string } & Record<TextField, string | null>;
+type Row = { published: number; shown: string; card_style: string; updated_at: string } & Record<TextField, string | null>;
 
-const EMPTY: Record<TextField, string> = { name: "", headline: "", phone: "", email: "", website: "", instagram: "", linkedin: "" };
+const EMPTY: Record<TextField, string> = { name: "", headline: "", location: "", bio: "", phone: "", email: "", website: "", instagram: "", linkedin: "" };
 export const MAX_PHOTO_BYTES = 300 * 1024;
 
 const clean = (v: unknown, max: number) =>
@@ -95,6 +102,7 @@ function cleanLinkedin(v: unknown) {
   return u.toString();
 }
 
+const asStyle = (v: unknown): CardStyle => ((CARD_STYLES as readonly string[]).includes(v as string) ? (v as CardStyle) : "midnight");
 const isShown = (shown: string, f: ProfileField) => shown.split(",").includes(f);
 
 export function getOwnerProfile(pk: number): OwnerProfile {
@@ -103,11 +111,11 @@ export function getOwnerProfile(pk: number): OwnerProfile {
   const values = { ...EMPTY };
   if (row) for (const k of Object.keys(EMPTY) as TextField[]) values[k] = row[k] ?? "";
   const shown = row ? (row.shown.split(",").filter((f) => (PROFILE_FIELDS as readonly string[]).includes(f)) as ProfileField[]) : [];
-  return { published: !!row?.published, values, shown, hasPhoto };
+  return { published: !!row?.published, cardStyle: asStyle(row?.card_style), values, shown, hasPhoto };
 }
 
 /** The owner saves their page. Only the owner's own bracelet can be edited. */
-export function saveProfile(customerId: number, braceletId: string, input: { published?: unknown; values?: Record<string, unknown>; shown?: unknown }) {
+export function saveProfile(customerId: number, braceletId: string, input: { published?: unknown; cardStyle?: unknown; values?: Record<string, unknown>; shown?: unknown }) {
   const b = findBracelet(braceletId);
   if (!b || b.owner_customer_id !== customerId) throw new InputError("This bracelet isn't registered to your account.");
   if (b.status === "revoked") throw new InputError("This bracelet has been deactivated by OZARA. Please contact us.");
@@ -115,6 +123,8 @@ export function saveProfile(customerId: number, braceletId: string, input: { pub
   const values: Record<TextField, string> = {
     name: clean(v.name, 60),
     headline: clean(v.headline, 80),
+    location: clean(v.location, 60),
+    bio: clean(v.bio, 160),
     phone: cleanPhone(v.phone),
     email: cleanEmail(v.email),
     website: cleanWebsite(v.website),
@@ -124,12 +134,12 @@ export function saveProfile(customerId: number, braceletId: string, input: { pub
   const shown = (Array.isArray(input.shown) ? input.shown : []).filter((f): f is ProfileField => (PROFILE_FIELDS as readonly string[]).includes(f as string));
   db()
     .prepare(
-      `INSERT INTO profiles (bracelet_pk, published, name, headline, phone, email, website, instagram, linkedin, shown, updated_at)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?)
-       ON CONFLICT(bracelet_pk) DO UPDATE SET published=excluded.published, name=excluded.name, headline=excluded.headline, phone=excluded.phone,
-         email=excluded.email, website=excluded.website, instagram=excluded.instagram, linkedin=excluded.linkedin, shown=excluded.shown, updated_at=excluded.updated_at`
+      `INSERT INTO profiles (bracelet_pk, published, name, headline, location, bio, phone, email, website, instagram, linkedin, shown, card_style, updated_at)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+       ON CONFLICT(bracelet_pk) DO UPDATE SET published=excluded.published, name=excluded.name, headline=excluded.headline, location=excluded.location, bio=excluded.bio, phone=excluded.phone,
+         email=excluded.email, website=excluded.website, instagram=excluded.instagram, linkedin=excluded.linkedin, shown=excluded.shown, card_style=excluded.card_style, updated_at=excluded.updated_at`
     )
-    .run(b.id, input.published ? 1 : 0, values.name, values.headline, values.phone, values.email, values.website, values.instagram, values.linkedin, [...new Set(shown)].join(","), nowIso());
+    .run(b.id, input.published ? 1 : 0, values.name, values.headline, values.location, values.bio, values.phone, values.email, values.website, values.instagram, values.linkedin, [...new Set(shown)].join(","), asStyle(input.cardStyle), nowIso());
 }
 
 /** Store a photo the browser has already cropped and re-encoded as a small JPEG. */
@@ -155,9 +165,11 @@ export function publicProfile(pk: number): PublicProfile | null {
   if (!row) return null;
   const pick = (f: TextField) => (isShown(row.shown, f) && row[f] ? row[f] : null);
   const photo = isShown(row.shown, "photo") && !!db().prepare("SELECT 1 FROM profile_photos WHERE bracelet_pk = ?").get(pk);
-  const p: PublicProfile = {
+  const p: Omit<PublicProfile, "cardStyle"> = {
     name: pick("name"),
     headline: pick("headline"),
+    location: pick("location"),
+    bio: pick("bio"),
     photo,
     phone: pick("phone"),
     email: pick("email"),
@@ -165,7 +177,7 @@ export function publicProfile(pk: number): PublicProfile | null {
     instagram: pick("instagram"),
     linkedin: pick("linkedin"),
   };
-  return Object.values(p).some(Boolean) ? p : null;
+  return Object.values(p).some(Boolean) ? { ...p, cardStyle: asStyle(row.card_style) } : null;
 }
 
 export function publicPhoto(pk: number): Uint8Array | null {
@@ -181,6 +193,8 @@ export function vcard(p: PublicProfile): string | null {
   const esc = (s: string) => s.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/;/g, "\\;").replace(/,/g, "\\,");
   const lines = ["BEGIN:VCARD", "VERSION:3.0", `FN:${esc(p.name ?? "OZARA")}`, `N:${esc(p.name ?? "OZARA")};;;;`];
   if (p.headline) lines.push(`TITLE:${esc(p.headline)}`);
+  if (p.location) lines.push(`ADR;TYPE=HOME:;;;${esc(p.location)};;;`);
+  if (p.bio) lines.push(`NOTE:${esc(p.bio)}`);
   if (p.phone) lines.push(`TEL;TYPE=CELL:${esc(p.phone)}`);
   if (p.email) lines.push(`EMAIL:${esc(p.email)}`);
   if (p.website) lines.push(`URL:${p.website}`);

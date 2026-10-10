@@ -112,8 +112,12 @@ CREATE TABLE IF NOT EXISTS profiles (
   website         TEXT,
   instagram       TEXT,
   linkedin        TEXT,
+  location        TEXT,
+  bio             TEXT,
   -- comma-separated field keys the owner has switched on, e.g. "name,photo,instagram"
   shown           TEXT NOT NULL DEFAULT '',
+  -- the finish of the owner's card: 'midnight' | 'burgundy' | 'ivory'
+  card_style      TEXT NOT NULL DEFAULT 'midnight',
   updated_at      TEXT NOT NULL
 );
 

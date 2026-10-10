@@ -44,6 +44,9 @@ export function migrate(conn: DatabaseSync) {
   add("owners", "customer_id", "INTEGER");
   add("events", "is_demo", "INTEGER NOT NULL DEFAULT 0");
   add("auth_logs", "verified_by", "TEXT");
+  add("profiles", "card_style", "TEXT NOT NULL DEFAULT 'midnight'");
+  add("profiles", "location", "TEXT");
+  add("profiles", "bio", "TEXT");
 
   // 3. records created by the old demo seed are demo records — say so
   conn.exec(`UPDATE bracelets SET is_demo = 1 WHERE is_demo = 0 AND notes LIKE 'Demo —%'`);

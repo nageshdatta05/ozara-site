@@ -3,13 +3,21 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import type { OwnerProfile, ProfileField } from "@/server/profiles";
+import type { CardStyle, OwnerProfile, ProfileField } from "@/server/profiles";
+
+const FINISHES: { key: CardStyle; label: string; swatch: string }[] = [
+  { key: "midnight", label: "Midnight", swatch: "linear-gradient(135deg,#0b1450,#00072b)" },
+  { key: "burgundy", label: "Burgundy", swatch: "linear-gradient(135deg,#6a0c14,#3d0103)" },
+  { key: "ivory", label: "Ivory", swatch: "linear-gradient(135deg,#f6f2ec,#ddd4c4)" },
+];
 
 type Text = Exclude<ProfileField, "photo">;
 
 const FIELDS: { key: Text; label: string; placeholder: string; type?: string; inputMode?: "tel" | "email" | "url" | "text" }[] = [
   { key: "name", label: "Name", placeholder: "How you'd like to be known" },
   { key: "headline", label: "Line under your name", placeholder: "e.g. Founder, Studio Name" },
+  { key: "location", label: "Based in", placeholder: "e.g. Mumbai" },
+  { key: "bio", label: "About you", placeholder: "One short line about you" },
   { key: "phone", label: "Phone", placeholder: "+91 98765 43210", type: "tel", inputMode: "tel" },
   { key: "email", label: "Email", placeholder: "you@example.com", type: "email", inputMode: "email" },
   { key: "website", label: "Website", placeholder: "yourname.com", inputMode: "url" },
@@ -59,6 +67,7 @@ export function ProfileEditor({ id, profile, disabled }: { id: string; profile: 
   const router = useRouter();
   const base = `/api/account/bracelets/${encodeURIComponent(id)}`;
   const [published, setPublished] = useState(profile.published);
+  const [cardStyle, setCardStyle] = useState<CardStyle>(profile.cardStyle);
   const [values, setValues] = useState(profile.values);
   const [shown, setShown] = useState<Set<ProfileField>>(new Set(profile.shown));
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
@@ -88,7 +97,7 @@ export function ProfileEditor({ id, profile, disabled }: { id: string; profile: 
 
   const save = () =>
     run(async () => {
-      await call(`${base}/profile`, "PUT", { published, values, shown: [...shown] });
+      await call(`${base}/profile`, "PUT", { published, cardStyle, values, shown: [...shown] });
       setMsg({ ok: true, text: published ? "Saved. Your tap page is live." : "Saved. Your tap page is switched off." });
       router.refresh();
     });
@@ -133,6 +142,19 @@ export function ProfileEditor({ id, profile, disabled }: { id: string; profile: 
               Show my tap page when someone taps my bracelet
             </label>
 
+            <fieldset className="border-t border-line pt-5">
+              <legend className="t-eyebrow mb-3">Card finish</legend>
+              <div className="flex flex-wrap gap-x-6 gap-y-3">
+                {FINISHES.map((f) => (
+                  <label key={f.key} className="flex items-center gap-2.5 text-[0.95rem] cursor-pointer">
+                    <input type="radio" name={`finish-${id}`} className="sr-only peer" checked={cardStyle === f.key} disabled={busy} onChange={() => setCardStyle(f.key)} />
+                    <span aria-hidden className="block h-8 w-12 rounded-[5px] ring-1 ring-[var(--c-line-strong)] peer-checked:ring-2 peer-checked:ring-[var(--c-accent)] peer-focus-visible:outline peer-focus-visible:outline-2" style={{ background: f.swatch }} />
+                    {f.label}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
             <div className="flex items-center gap-5 border-t border-line pt-5">
               <div className="size-20 rounded-full overflow-hidden bg-[var(--c-deep-tint)] ring-1 ring-[var(--c-line)] shrink-0">
                 {photo && (
@@ -170,7 +192,7 @@ export function ProfileEditor({ id, profile, disabled }: { id: string; profile: 
                       inputMode={f.inputMode}
                       value={values[f.key]}
                       placeholder={f.placeholder}
-                      maxLength={f.key === "website" || f.key === "linkedin" ? 200 : f.key === "headline" ? 80 : f.key === "name" ? 60 : 120}
+                      maxLength={f.key === "website" || f.key === "linkedin" ? 200 : f.key === "headline" ? 80 : f.key === "name" ? 60 : f.key === "bio" ? 160 : f.key === "location" ? 60 : 120}
                       disabled={busy}
                       autoComplete="off"
                       onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}

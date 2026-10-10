@@ -86,10 +86,6 @@ export default async function BraceletPage({ params, searchParams }: Props) {
             {profile ? (
               <>
                 <ProfileCard p={profile} braceletId={r.braceletId} />
-                <p className="t-eyebrow mt-10 flex items-center gap-2.5 !text-[var(--c-accent)]">
-                  <ResultMark kind="ok" tone="light" className="w-5" />
-                  Authentic {site.brand} bracelet
-                </p>
               </>
             ) : (
               <>
@@ -102,21 +98,23 @@ export default async function BraceletPage({ params, searchParams }: Props) {
               </>
             )}
 
+            {!profile && (
             <dl className={`${profile ? "mt-6" : "mt-10"} w-full max-w-sm text-left`}>
-              <Row k="Bracelet" v={r.braceletId} mono />
-              {r.productName && <Row k="Piece" v={r.productName} />}
-              <Row k="Status" v="Active" good />
-              <Row k="Issued by" v={site.brand} />
-              <Row k="Issued" v={formatMonth(r.issuedAt)} />
-              <Row
-                k="Registration"
-                v={
-                  r.registered
-                    ? (r.ownerLabel ? `Registered to ${r.ownerLabel}` : "Registered to a private owner") + (r.registeredSince ? ` · since ${formatMonth(r.registeredSince)}` : "")
-                    : "Not yet registered to an owner"
-                }
-              />
-            </dl>
+                <Row k="Bracelet" v={r.braceletId} mono />
+                {r.productName && <Row k="Piece" v={r.productName} />}
+                <Row k="Status" v="Active" good />
+                <Row k="Issued by" v={site.brand} />
+                <Row k="Issued" v={formatMonth(r.issuedAt)} />
+                <Row
+                  k="Registration"
+                  v={
+                    r.registered
+                      ? (r.ownerLabel ? `Registered to ${r.ownerLabel}` : "Registered to a private owner") + (r.registeredSince ? ` · since ${formatMonth(r.registeredSince)}` : "")
+                      : "Not yet registered to an owner"
+                  }
+                />
+              </dl>
+            )}
 
             {isOwner && (
               <div className="mt-10 w-full max-w-sm border border-line p-5 text-left">

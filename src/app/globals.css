@@ -547,3 +547,44 @@ textarea.field {
   border-color: rgb(230 195 197 / 0.4);
   background: rgb(230 195 197 / 0.06);
 }
+
+/* ---- The owner's identity card (tap page) -------------------------------- */
+.id-card {
+  position: relative;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s var(--ease-lux, cubic-bezier(0.22, 1, 0.36, 1));
+  animation: id-card-in 1.1s var(--ease-lux, cubic-bezier(0.22, 1, 0.36, 1)) both;
+  will-change: transform;
+}
+.id-card::before {
+  /* the sheen: a soft light that follows the pointer, and crosses once on arrival */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(60% 42% at var(--mx, 30%) var(--my, 8%), rgb(255 255 255 / 0.2), transparent 70%);
+  mix-blend-mode: soft-light;
+}
+.id-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.22) 50%, transparent 62%);
+  transform: translateX(-120%);
+  animation: id-card-sheen 1.8s 0.7s var(--ease-lux, ease) forwards;
+}
+@keyframes id-card-in {
+  from { opacity: 0; transform: perspective(1100px) translateY(26px) rotateX(10deg) scale(0.97); }
+}
+@keyframes id-card-sheen {
+  to { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-card { animation: none; transition: none; }
+  .id-card::after { animation: none; display: none; }
+}
