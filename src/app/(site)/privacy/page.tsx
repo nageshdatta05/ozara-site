@@ -23,6 +23,7 @@ const sections: LegalSection[] = [
         "Account: your name, email address, optional phone number and a securely hashed password (we never store your password itself).",
         "Reservations and orders: your name, email, optional phone, delivery address, the pieces, stones and size you chose, and any note you add.",
         "Bracelet ownership: which bracelets are registered to your account, when, and whether you show your initials on their public pages.",
+        "Your tap page (optional): if you add one, the name, line, photo, phone, email, website, Instagram and LinkedIn details you enter, and which of them you have switched on.",
         "Waiting list: your email address and which piece or page you signed up from.",
         "Contact enquiries: your name, email, topic and message.",
         "Bracelet verification: when a bracelet's page is opened we record the bracelet identifier, the result, the time and a coarse device type (mobile or desktop). We do not record IP addresses or location in this log.",
@@ -35,7 +36,8 @@ const sections: LegalSection[] = [
     title: "What is shown publicly",
     body: [
       "A bracelet's public page shows the piece, whether it is authentic and active, whether it is registered to an owner, and — only if the owner chooses — the owner's initials. Owners can switch this to \"a private owner\" at any time in their account.",
-      "We never show owners' names, email addresses or phone numbers publicly, and we never show the NFC chip's internal identifier.",
+      "Owners can also publish a tap page. Only the details an owner has switched on are shown, to anyone who taps or opens that bracelet's link. Details an owner has not switched on are never shown, and owners can hide, change or remove them at any time. A tap page and its photo are erased when the bracelet is transferred or the account is deleted.",
+      "Apart from what an owner chooses to publish, we never show names, email addresses or phone numbers publicly, and we never show the NFC chip's internal identifier.",
     ],
   },
   {
@@ -45,7 +47,7 @@ const sections: LegalSection[] = [
       [
         "To create and run your account and keep it secure.",
         "To handle your reservation or order: confirming price, size, delivery and payment with you, making and delivering your piece.",
-        "To register bracelets to their owners and show authenticity on their public pages.",
+        "To register bracelets to their owners, show authenticity on their public pages, and show owners' tap pages as they have chosen.",
         "To admit eligible bracelet holders to OZARA events and keep a record of door checks.",
         "To detect misuse — for example unusual patterns of scans — so a person can review it.",
         "To reply to your messages and, if you joined the waiting list, to tell you about OZARA.",

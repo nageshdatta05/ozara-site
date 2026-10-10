@@ -28,7 +28,7 @@ export const homeSections: { id: string; component: ComponentType; enabled: bool
   { id: "preorder", component: PreorderBand, enabled: true },
   { id: "eye", component: TheEye, enabled: true },
   { id: "identity", component: Identity, enabled: true },
-  { id: "access", component: Access, enabled: true },
+  { id: "access", component: Access, enabled: false }, // events: on hold while the offer is reshaped
   { id: "signature", component: Signature, enabled: true },
   { id: "expressions", component: Expressions, enabled: true },
   { id: "worn", component: Worn, enabled: true },

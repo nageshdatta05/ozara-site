@@ -15,23 +15,27 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What is OZARA?",
-        body: `A luxury bracelet — and the community it lets you into. Each ${site.brand} comes with your own ${site.brand} ID and opens access and perks at ${site.brand} events. Collection 01 is three designs: the Wave, the Flow and the Line.`,
+        body: `A luxury bracelet with NFC technology inside. Tap it to a phone and your personal page, your ${site.brand} ID, opens, showing the details and links you choose to share. Collection 01 is three designs: the Wave, the Flow and the Line.`,
       },
       {
         title: "What makes OZARA different?",
-        body: "It is jewellery first — and your way in. Each piece is registered to its owner; a tap of the Eye shows it is genuine, and at OZARA events it opens the door.",
+        body: "It is jewellery first, and your identity in one tap. Each piece is registered to its owner; a tap opens the page they chose to share and shows it is genuine.",
       },
       {
-        title: "What are OZARA Exclusive and OZARA Approved events?",
-        body: "OZARA Exclusive events are made only for OZARA holders — your bracelet is the invitation. OZARA Approved events are selected events beyond our own, where holders are recognised and receive more. Which events a bracelet opens is set for each event.",
+        title: "Is it a one-off?",
+        body: "No. It is jewellery you keep and wear every day. You can change what your page shows whenever you like.",
       },
       {
-        title: "Can I use my bracelet more than once?",
-        body: "Yes. Unlike a festival wristband, it is yours to keep — the same bracelet works at every eligible OZARA event after.",
+        title: "Is it a good gift?",
+        body: "Yes. Whoever receives it registers it to their own account with the claim code in the box, and makes the page their own.",
+      },
+      {
+        title: "Can my club or organisation order for its members?",
+        body: "Write to us through the Contact page with a few details about your organisation and how many bands you need. We will tell you honestly what is possible.",
       },
       {
         title: "What does the Eye represent?",
-        body: "Our emblem — a ring and a four-pointed star — set into the metal. It is how OZARA holders recognise each other, and it is where your OZARA identity lives: hold the Eye to a phone and your OZARA ID opens.",
+        body: "Our emblem — a ring and a four-pointed star — set into the metal. It is the tap point: hold the Eye to a phone and your OZARA ID, your personal page, opens.",
       },
       {
         title: "What does the Wave represent?",
@@ -45,7 +49,19 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "How does NFC work?",
-        body: "The technology behind contactless cards. Hold a phone within a few centimetres and it opens the bracelet's page.",
+        body: "The technology behind contactless cards. Hold a phone within a few centimetres and it opens your personal page in the phone's browser.",
+      },
+      {
+        title: "Does a tap share everything on my phone?",
+        body: "No. The tag only opens a web page on our website. You decide what appears on it, and nothing stored on your phone is sent.",
+      },
+      {
+        title: "What can I put on my page?",
+        body: "Your name, a line under it, a photo, phone, email, website, Instagram and LinkedIn. Every one is optional, and you can show, hide or change any of them at any time from Your account.",
+      },
+      {
+        title: "How is my information protected?",
+        body: "Only what you switch on is shown. Anyone who taps your bracelet, or opens its link, can see those details, so share only what you are happy for them to see. Anything switched off is never shown. You can change or turn off your page at any time, and it is erased if you transfer the bracelet or delete your account.",
       },
       {
         title: "What does the NFC tag do?",
@@ -75,7 +91,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
       },
       {
         title: "How is ownership handled?",
-        body: "Its public page shows your initials, or \"a private owner\". Your name and contact details are never shown.",
+        body: "Until you add a page, its public page shows only your initials, or \"a private owner\". Your name and contact details appear only if you choose to put them on your page.",
       },
       {
         title: "What happens when a bracelet is transferred?",
@@ -134,19 +150,19 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
         body: "You can cancel a reservation any time before you pay. Every piece is made to order; the terms for paid orders are in our Terms, alongside your statutory rights.",
       },
       {
+        title: "What if my bracelet is damaged?",
+        body: "Write to us through the Contact page and we will look at it with you. Repair and warranty terms are confirmed in writing.",
+      },
+      {
         title: "How should I care for my bracelet?",
         body: "Store in its pouch, wipe with a soft dry cloth, and keep it from perfume, chemicals and water.",
       },
     ],
   },
   {
-    key: "events",
-    title: "Events & support",
+    key: "support",
+    title: "Support",
     items: [
-      {
-        title: "How does event verification work?",
-        body: "Door staff tap your bracelet and see at once whether it is authentic and on the list. Lost or deactivated bracelets are not admitted.",
-      },
       {
         title: "What happens if I need support?",
         body: "Write to us through the contact page. Reservations and bracelets are in Your account.",

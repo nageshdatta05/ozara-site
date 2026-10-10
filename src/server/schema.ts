@@ -98,6 +98,41 @@ CREATE TABLE IF NOT EXISTS auth_logs (
 
 CREATE INDEX IF NOT EXISTS idx_logs_bracelet ON auth_logs (bracelet_pk, created_at);
 CREATE INDEX IF NOT EXISTS idx_logs_created  ON auth_logs (created_at);
+
+-- The owner's tap page: what a stranger sees after tapping the bracelet.
+-- Every field is optional and shown only if it is switched on (profiles.shown).
+CREATE TABLE IF NOT EXISTS profiles (
+  bracelet_pk     INTEGER PRIMARY KEY REFERENCES bracelets(id) ON DELETE CASCADE,
+  -- 0 = the tap page shows only the authenticity result, as before
+  published       INTEGER NOT NULL DEFAULT 0,
+  name            TEXT,
+  headline        TEXT,
+  phone           TEXT,
+  email           TEXT,
+  website         TEXT,
+  instagram       TEXT,
+  linkedin        TEXT,
+  -- comma-separated field keys the owner has switched on, e.g. "name,photo,instagram"
+  shown           TEXT NOT NULL DEFAULT '',
+  updated_at      TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS profile_photos (
+  bracelet_pk     INTEGER PRIMARY KEY REFERENCES bracelets(id) ON DELETE CASCADE,
+  jpeg            BLOB NOT NULL,
+  updated_at      TEXT NOT NULL
+);
+
+-- A profile belongs to the owner, not the bracelet: when ownership ends
+-- (transfer, account deletion, admin change) it is erased, so the next owner
+-- never inherits the previous owner's details.
+CREATE TRIGGER IF NOT EXISTS trg_profile_erase_on_release
+AFTER UPDATE OF owner_id ON bracelets
+WHEN OLD.owner_id IS NOT NULL AND (NEW.owner_id IS NULL OR NEW.owner_id != OLD.owner_id)
+BEGIN
+  DELETE FROM profiles WHERE bracelet_pk = OLD.id;
+  DELETE FROM profile_photos WHERE bracelet_pk = OLD.id;
+END;
 `;
 
 /**

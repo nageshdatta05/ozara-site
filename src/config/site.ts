@@ -12,7 +12,7 @@ export const site = {
   brand: "OZARA",
   tagline: "Wear your status. Unlock your world.",
   description:
-    "OZARA — a luxury bracelet that marks you as part of OZARA, with your own OZARA ID and access to OZARA Exclusive and OZARA Approved events. One bracelet, every event after.",
+    "OZARA — a luxury NFC bracelet. Tap it to a phone and your personal page opens, showing the details and links you choose to share. Also made as a members' band for clubs and organisations.",
   /** Canonical public address, e.g. https://ozara.co (no trailing slash). */
   url: (env(process.env.NEXT_PUBLIC_SITE_URL) ?? env(process.env.OZARA_PUBLIC_URL) ?? "http://localhost:3000").replace(/\/$/, ""),
   /** Public contact address. When unset, the site sends people to the contact form instead. */
@@ -178,7 +178,6 @@ export const footer = {
         { label: "Technology", href: "/technology" },
         { label: "Authenticity", href: "/authenticity" },
         { label: "Questions", href: "/faq" },
-        { label: "Verify at an event", href: "/verify" },
       ],
     },
     {

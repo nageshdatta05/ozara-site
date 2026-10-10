@@ -26,7 +26,7 @@ export function Statement() {
   const words = c.text.split(" ");
 
   return (
-    <section aria-label={c.eyebrow} className="relative bg-paper pt-[clamp(6rem,18vh,12rem)] pb-[clamp(5rem,14vh,9rem)]">
+    <section id="how-it-works" aria-label={c.eyebrow} className="relative bg-paper pt-[clamp(6rem,18vh,12rem)] pb-[clamp(5rem,14vh,9rem)]">
       <div className="shell-narrow text-center">
         <EyeMark className="w-9 mx-auto text-[var(--c-strong)]" />
         <p className="t-eyebrow mt-6">{c.eyebrow}</p>

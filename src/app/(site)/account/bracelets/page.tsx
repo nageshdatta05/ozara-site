@@ -6,6 +6,8 @@ import { braceletsForCustomer } from "@/server/bracelets";
 import { products } from "@/data/products";
 import { formatMonth } from "@/lib/format";
 import { ClaimForm, OwnerControls } from "@/components/account/BraceletForms";
+import { ProfileEditor } from "@/components/account/ProfileEditor";
+import { getOwnerProfile } from "@/server/profiles";
 import { AccountNav } from "@/components/account/AccountNav";
 import { EyeMark } from "@/components/brand/Emblem";
 
@@ -58,6 +60,9 @@ export default async function BraceletsPage({ searchParams }: { searchParams: Pr
                       Its public page
                       <span className="rule" aria-hidden />
                     </Link>
+                    <div className="mt-5">
+                      <ProfileEditor id={b.bracelet_id} profile={getOwnerProfile(b.id)} disabled={b.status === "revoked"} />
+                    </div>
                     <div className="mt-5">
                       <OwnerControls id={b.bracelet_id} status={b.status} visibility={b.owner_visibility} lostByOwner={b.revoked_reason === "Reported lost by owner"} />
                     </div>

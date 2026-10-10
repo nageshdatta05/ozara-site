@@ -8,6 +8,9 @@ import { contactHref, site } from "@/config/site";
 import { Emblem, Wordmark } from "@/components/brand/Emblem";
 import { ResultMark } from "@/components/nfc/ResultMark";
 import { BraceletEventCheck } from "@/components/nfc/BraceletEventCheck";
+import { ProfileCard } from "@/components/nfc/ProfileCard";
+import { findBracelet } from "@/server/bracelets";
+import { publicProfile } from "@/server/profiles";
 
 // Always ask the backend — never cache an authentication result.
 export const dynamic = "force-dynamic";
@@ -43,6 +46,9 @@ export default async function BraceletPage({ params, searchParams }: Props) {
 
   const r = authenticate(braceletId, { channel: "public", device, proof, dryRun: prefetch });
   const demo = r.kind !== "not_recognized" && r.demo;
+  // the owner's own page, if they have published one (only on a genuine, active bracelet)
+  const owner = r.kind === "authentic" && r.registered ? findBracelet(r.braceletId) : undefined;
+  const profile = owner ? publicProfile(owner.id) : null;
 
   return (
     <main className="relative min-h-[100svh] flex flex-col overflow-hidden">
@@ -73,14 +79,26 @@ export default async function BraceletPage({ params, searchParams }: Props) {
       <section className="relative flex-1 flex flex-col items-center justify-center text-center px-6 py-10">
         {r.kind === "authentic" && (
           <>
-            <ResultMark kind="ok" tone="light" className="w-28 sm:w-32" />
-            <p className="t-eyebrow mt-8 !text-[var(--c-accent)]">Authentic {site.brand} bracelet</p>
-            <h1 className="t-display !text-[clamp(2.4rem,11vw,3.6rem)] leading-none mt-4">Authentic</h1>
-            <p className="t-body mt-5 max-w-[32ch]">
-              This bracelet is in the {site.brand} register and is active{r.productName ? ` — ${r.productName}` : ""}.
-            </p>
+            {profile ? (
+              <>
+                <ProfileCard p={profile} braceletId={r.braceletId} />
+                <p className="t-eyebrow mt-10 flex items-center gap-2.5 !text-[var(--c-accent)]">
+                  <ResultMark kind="ok" tone="light" className="w-5" />
+                  Authentic {site.brand} bracelet
+                </p>
+              </>
+            ) : (
+              <>
+                <ResultMark kind="ok" tone="light" className="w-28 sm:w-32" />
+                <p className="t-eyebrow mt-8 !text-[var(--c-accent)]">Authentic {site.brand} bracelet</p>
+                <h1 className="t-display !text-[clamp(2.4rem,11vw,3.6rem)] leading-none mt-4">Authentic</h1>
+                <p className="t-body mt-5 max-w-[32ch]">
+                  This bracelet is in the {site.brand} register and is active{r.productName ? ` — ${r.productName}` : ""}.
+                </p>
+              </>
+            )}
 
-            <dl className="mt-10 w-full max-w-sm text-left">
+            <dl className={`${profile ? "mt-6" : "mt-10"} w-full max-w-sm text-left`}>
               <Row k="Bracelet" v={r.braceletId} mono />
               {r.productName && <Row k="Piece" v={r.productName} />}
               <Row k="Status" v="Active" good />
@@ -155,7 +173,9 @@ export default async function BraceletPage({ params, searchParams }: Props) {
       <footer className="relative pb-8 px-6 text-center">
         <p className="text-[0.82rem] text-faint">Checked {formatWhen(r.checkedAt)}</p>
         <p className="text-[0.82rem] text-faint mt-2 max-w-[42ch] mx-auto">
-          Shown publicly: the piece, its status and whether it is registered — and the owner&rsquo;s initials only if they choose. Never names, emails or the chip&rsquo;s identifier.
+          {profile
+            ? "The details above are what this bracelet\u2019s owner chose to share. OZARA never adds anything else, and never shows the chip\u2019s identifier."
+            : "Shown publicly: the piece, its status and whether it is registered — and the owner\u2019s initials only if they choose. Never names, emails or the chip\u2019s identifier."}
         </p>
         <Link href="/authenticity" className="btn-text !text-[12px] mt-4 inline-block">
           How verification works

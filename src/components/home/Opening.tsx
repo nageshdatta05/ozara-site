@@ -11,6 +11,7 @@ import { usePieceTransition } from "@/components/transition/PieceTransition";
 import { useFinePointer, useReducedMotion } from "@/lib/hooks";
 import { PLATE_SIZES } from "@/lib/stage";
 import { ease } from "@/lib/motion";
+import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
 /* ==========================================================================
    THE OPENING — three objects on a travertine stage.
@@ -32,6 +33,7 @@ export function Opening() {
   const reduce = useReducedMotion();
   const fine = useFinePointer();
   const { present } = usePieceTransition();
+  const { scrollTo } = useSmoothScroll();
   const [focus, setFocus] = useState<number | null>(null);
   const [leaving, setLeaving] = useState<number | null>(null);
 
@@ -147,6 +149,20 @@ export function Opening() {
               </span>
             ))}
           </h1>
+          <p className="t-body !text-[0.98rem] md:!text-[1rem] leading-snug mt-3 md:mt-5 max-w-[32ch] md:max-w-[46ch] fade-in" style={{ animationDelay: "1.9s" }}>
+            {c.sub}
+          </p>
+          <a
+            href="#how-it-works"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollTo("#how-it-works");
+            }}
+            className="btn-text mt-4 pointer-events-auto fade-in"
+            style={{ animationDelay: "2s" }}
+          >
+            {c.how}
+          </a>
         </motion.div>
 
         {/* hint: choose / scroll */}
@@ -369,7 +385,7 @@ function MobileRail({ onChoose, reduce }: { onChoose: PieceProps["onChoose"]; re
   }, []);
 
   return (
-    <div className="md:hidden absolute inset-x-0 top-[13svh] bottom-[26svh] flex flex-col">
+    <div className="md:hidden absolute inset-x-0 top-[10svh] bottom-[40svh] flex flex-col">
       <ul ref={rail} onScroll={onScroll} className="flex-1 flex items-center overflow-x-auto snap-x snap-mandatory no-scrollbar px-[9vw]">
         {products.map((p, i) => (
           <li key={p.id} className="snap-center shrink-0 w-[82vw]">

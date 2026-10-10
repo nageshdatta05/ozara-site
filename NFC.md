@@ -113,3 +113,14 @@ working as `url_id`.
 - Set `OZARA_ADMIN_PASSWORD`, `OZARA_SESSION_SECRET`, `OZARA_PUBLIC_URL`, and
   `OZARA_SEED_DEMO=false` before the first production start.
 - Back up `data/ozara.db`.
+
+## Owner tap pages (profiles)
+
+An owner can publish a personal page that opens when their bracelet is tapped (`/b/<id>`).
+
+- **Edit:** Your account → Bracelets → "Your tap page" (`src/components/account/ProfileEditor.tsx`, API `/api/account/bracelets/<id>/profile` and `/photo`).
+- **Fields:** name, a line under it, photo, phone, email, website, Instagram, LinkedIn. Each is optional and has its own **Show** switch; there is also a master "show my tap page" switch. A field is public only if it has a value, its switch is on, and the page is published.
+- **Public side:** `src/components/nfc/ProfileCard.tsx` on `/b/<id>`; `/b/<id>/photo` serves the photo; `/b/<id>/contact` gives a "Save contact" vCard of only the shown fields.
+- **Storage:** tables `profiles` and `profile_photos` (`src/server/schema.ts`), logic and input cleaning in `src/server/profiles.ts`. Photos are cropped and compressed to a small JPEG in the owner's browser (this also strips location data) and checked on the server.
+- **Privacy rules (enforced in code):** the profile is erased by a database trigger whenever ownership ends (transfer, account deletion, admin change). Suspended (lost) or revoked bracelets show no profile, photo or contact card. Stranger and other-account edits are rejected.
+- The tag itself still holds only the bracelet link. A tap opens a web page; nothing is read from or sent from the phone.

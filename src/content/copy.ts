@@ -10,8 +10,10 @@
 export const copy = {
   opening: {
     label: "The collection",
-    eyebrow: "Collection 01 · Pre-Order open",
+    eyebrow: "The luxury NFC bracelet",
     headline: ["Three expressions.", "One identity."],
+    sub: "Tap it to a phone and your personal page opens, with the details, links and photo you choose to share.",
+    how: "See how it works",
     choose: "Choose a piece",
     explore: "Explore",
     scroll: "Scroll",
@@ -20,34 +22,34 @@ export const copy = {
   /* DISCOVER — the house, in one sentence */
   statement: {
     eyebrow: "What is OZARA",
-    text: "A luxury bracelet that marks you as one of OZARA — and opens experiences most people never see.",
-    /** Wear → Tap → Unlock: the whole idea in three words. */
+    text: "A luxury bracelet with your own personal page inside it. Tap it to a phone, and what you've chosen to share opens at once.",
+    /** Make it yours → Tap to connect → Share your world. */
     steps: [
-      { title: "Wear", body: "Jewellery first. The Eye at its heart." },
-      { title: "Tap", body: "Hold the Eye to a phone. Your OZARA ID opens." },
-      { title: "Unlock", body: "Access and perks at OZARA events." },
+      { title: "Make it yours", body: "Add your name, photo and links. Show only what you choose." },
+      { title: "Tap to connect", body: "Hold the Eye to a phone. No app needed." },
+      { title: "Share your world", body: "Your page opens, showing just what you chose." },
     ],
   },
 
   /* The three ideas behind the house */
   signature: {
-    eyebrow: "Belonging",
-    headline: "Worn by the few. Recognised by those who know.",
+    eyebrow: "Why OZARA",
+    headline: "Made to be worn. Made to be shared.",
     ideas: [
       {
         kicker: "Recognised",
         title: "Known at a glance.",
-        body: "The Eye is how OZARA holders know each other — across a room, at the door.",
+        body: "The Eye marks every OZARA bracelet.",
       },
       {
         kicker: "Yours to keep",
-        title: "Not for one night.",
-        body: "A festival band is cut off and thrown away. Yours stays — the same bracelet, every OZARA event after.",
+        title: "Not a wristband.",
+        body: "Jewellery you keep. Change your page whenever you like.",
       },
       {
         kicker: "The few",
-        title: "Registered, not mass-produced.",
-        body: "Made in a first run, each one registered to its owner. Wearing one means you're part of OZARA.",
+        title: "Made in a first run.",
+        body: "Each one registered to its owner.",
       },
     ],
     link: "The story of the house",
@@ -64,24 +66,54 @@ export const copy = {
     eyebrow: "The OZARA eye",
     stages: [
       { kicker: "The emblem", title: "A ring and a four-pointed star.", body: "The mark of the house — set at the heart of every bracelet." },
-      { kicker: "The Eye", title: "More than a signature.", body: "The OZARA Eye is where your OZARA identity lives." },
-      { kicker: "The tap", title: "Hold it to a phone.", body: "Your OZARA ID opens. No app, no battery, nothing to charge." },
+      { kicker: "The Eye", title: "More than a signature.", body: "The OZARA Eye is where you tap. Your personal page opens from here." },
+      { kicker: "The tap", title: "Hold it to a phone.", body: "Your page opens in their browser. No app, no battery, nothing to charge." },
     ],
   },
 
   /* UNDERSTAND → IDENTIFY → CONNECT */
   identity: {
     eyebrow: "Your OZARA ID",
-    headline: ["Every bracelet", "*has an owner.*"],
-    body: "Each OZARA comes with its own OZARA ID, registered to you. A tap shows it's genuine — and that it's yours.",
-    journey: ["Your bracelet", "Your ID", "Genuine", "Yours", "Access"],
+    headline: ["Your identity,", "*in one tap.*"],
+    body: "Your OZARA ID is your personal page, opened by a tap. You choose what it shows.",
+    journey: ["Your bracelet", "You choose", "They tap", "Your page", "Genuine"],
     disclaimer: "",
     /* The card's faces. "__featured__" is replaced with a piece name. */
     faces: [
       {
+        key: "choose",
+        tab: "You choose",
+        stop: 1,
+        line: "Add your name, photo, links and contact details. Hide any of them, any time.",
+        kicker: "Your OZARA ID",
+        title: { label: "Page of", value: "Your name" },
+        code: "YOU DECIDE",
+        mark: "tap",
+        fields: [
+          { label: "Photo", value: "Show or hide" },
+          { label: "Links", value: "Show or hide" },
+          { label: "Contact", value: "Show or hide" },
+        ],
+      },
+      {
+        key: "page",
+        tab: "Your page",
+        stop: 3,
+        line: "Someone taps. Your page opens in their browser, with only what you chose.",
+        kicker: "Opens on tap",
+        title: { label: "Opens", value: "Your page" },
+        code: "TAP TO OPEN",
+        mark: "pass",
+        fields: [
+          { label: "Shows", value: "What you chose" },
+          { label: "Saves", value: "To their contacts" },
+          { label: "Needs", value: "No app" },
+        ],
+      },
+      {
         key: "piece",
         tab: "Genuine",
-        stop: 2,
+        stop: 4,
         line: "Proof it's a real OZARA, on every tap.",
         kicker: "OZARA ID",
         title: { label: "Piece", value: "__featured__" },
@@ -91,36 +123,6 @@ export const copy = {
           { label: "Status", value: "Authentic" },
           { label: "Issued by", value: "OZARA" },
           { label: "Checked", value: "On every tap" },
-        ],
-      },
-      {
-        key: "identity",
-        tab: "Yours",
-        stop: 3,
-        line: "Registered to you. Shown only as you choose.",
-        kicker: "Owner",
-        title: { label: "Registered to", value: "Your initials" },
-        code: "OZ — ●●●● ●●●●",
-        mark: "tap",
-        fields: [
-          { label: "Owner since", value: "The day it's yours" },
-          { label: "Piece", value: "__featured__" },
-          { label: "Shown as", value: "Your choice" },
-        ],
-      },
-      {
-        key: "access",
-        tab: "Your access",
-        stop: 4,
-        line: "The OZARA events your bracelet opens.",
-        kicker: "Pass",
-        title: { label: "Holder of", value: "Collection 01" },
-        code: "ADMIT ONE",
-        mark: "pass",
-        fields: [
-          { label: "Events", value: "Exclusive · Approved" },
-          { label: "At the door", value: "Tap to enter" },
-          { label: "Valid", value: "Every event after" },
         ],
       },
     ],
@@ -150,7 +152,7 @@ export const copy = {
 
   closing: {
     eyebrow: "Collection 01 · Pre-Order",
-    headline: ["You don't just attend.", "*You belong.*"],
+    headline: ["Your identity.", "*One tap away.*"],
     body: "The first run is being prepared.",
     waitlist: "Or join the list.",
   },
@@ -170,8 +172,8 @@ export const copy = {
       headline: ["Hold the eye", "*to a phone.*"],
       steps: [
         { title: "Hold", body: "No app needed." },
-        { title: "Recognised", body: "Checked against our register." },
-        { title: "Yours", body: "Authenticity, ownership, access." },
+        { title: "Opens", body: "Your personal page, as you set it." },
+        { title: "Genuine", body: "Checked against our register." },
       ],
       image: "",
     },
@@ -185,14 +187,15 @@ export const copy = {
       sizing: "Choose S, M or L. We confirm the fit with you before your piece is made.",
       shipping: "Made in the first run and delivered once finished. Delivery is shown at checkout.",
       care: "Store in its pouch. Wipe with a soft, dry cloth. Avoid perfume, chemicals and water. The tag needs no charging.",
-      technology: "An NFC tag within. Hold the eye to a phone and its page opens. No battery, no GPS, no tracking.",
+      technology: "An NFC tag within. Hold the eye to a phone and your personal page opens on our website, showing only what you chose. No battery, no GPS, no tracking.",
       returns: "Made to order. Terms are confirmed in writing before you pay — see our Terms.",
     },
     detailsEyebrow: "The piece",
     faqEyebrow: "Questions",
     faq: [
       { title: "When will the pieces be available?", body: "Launch timing will be shared with the waiting list first. Join it from this page to be notified." },
-      { title: "What does the NFC do?", body: "A tap opens the bracelet's page and confirms it is authentic and registered." },
+      { title: "What does the NFC do?", body: "A tap opens your personal page on our website, with the details you chose to share. It also confirms the bracelet is genuine." },
+      { title: "Does a tap share everything on my phone?", body: "No. It opens a web page. You decide what is on it, and nothing from your phone is sent." },
       { title: "Do I need an app?", body: "No. The tap opens a web page on most modern phones." },
       { title: "Is the technology visible?", body: "No. The tag sits within the bracelet; what you see is the jewellery and the eye." },
       { title: "Which sizes are offered?", body: "S, M and L. Base Models are ₹15,000; pieces with stones are priced by the number of stones." },
@@ -209,13 +212,13 @@ export const copy = {
   technology: {
     eyebrow: "Technology",
     headline: ["Jewellery first.", "*Technology within.*"],
-    body: "It wears like jewellery. Inside, an NFC tag gives each piece a record of its own.",
+    body: "It wears like jewellery. Inside, an NFC tag opens your personal page when a phone is held to it.",
     chain: [
       { title: "The bracelet", body: "Jewellery, with the eye at its centre." },
       { title: "A unique identity", body: "Its own ID, registered before it leaves us." },
       { title: "Authentication", body: "A tap confirms it is ours, and active." },
-      { title: "Ownership", body: "Registered to you. Shown only as initials." },
-      { title: "Access", body: "Entry and perks at OZARA Exclusive and OZARA Approved events — with a tap, event after event." },
+      { title: "Your page", body: "Registered to you. Your name, photo and links appear only if you choose." },
+      { title: "Yours to keep", body: "One bracelet. Update your page whenever you like." },
     ],
     honesty: {
       title: "What it does today — plainly.",
@@ -226,7 +229,7 @@ export const copy = {
   about: {
     eyebrow: "About",
     headline: ["Jewellery meets", "*technology.*"],
-    intro: "A luxury bracelet, and the community it lets you into. Three designs, one sign: the Eye.",
+    intro: "A luxury bracelet that opens your personal page with a tap, Three designs, one sign: the Eye.",
     sections: [
       { title: "The eye", body: "A ring and a four-pointed star. Set into the metal, it becomes an eye — and where the piece meets your phone." },
       { title: "The wave", body: "The Wave rises and falls, the Flow turns, the Line holds one curve. Jewellery that follows the wrist." },
@@ -238,7 +241,7 @@ export const copy = {
   contact: {
     eyebrow: "Contact",
     headline: ["Write to", "*the house.*"],
-    body: "The collection, events or press.",
-    organisers: "Organising an OZARA event? Door staff verify bracelets at /verify with the code we provide.",
+    body: "The collection, bracelets for your club or organisation, or press.",
+    organisers: "Run a club or membership? Write to us about bracelets for your members.",
   },
 };
