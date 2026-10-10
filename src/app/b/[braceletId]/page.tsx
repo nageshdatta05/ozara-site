@@ -11,6 +11,7 @@ import { BraceletEventCheck } from "@/components/nfc/BraceletEventCheck";
 import { ProfileCard } from "@/components/nfc/ProfileCard";
 import { findBracelet } from "@/server/bracelets";
 import { publicProfile } from "@/server/profiles";
+import { currentCustomer } from "@/server/customers";
 
 // Always ask the backend — never cache an authentication result.
 export const dynamic = "force-dynamic";
@@ -49,6 +50,9 @@ export default async function BraceletPage({ params, searchParams }: Props) {
   // the owner's own page, if they have published one (only on a genuine, active bracelet)
   const owner = r.kind === "authentic" && r.registered ? findBracelet(r.braceletId) : undefined;
   const profile = owner ? publicProfile(owner.id) : null;
+  // the owner opening their own bracelet's page is nudged to set theirs up
+  const me = owner && !profile ? await currentCustomer() : null;
+  const isOwner = !!(me && owner && owner.owner_customer_id === me.id);
 
   return (
     <main className="relative min-h-[100svh] flex flex-col overflow-hidden">
@@ -113,6 +117,16 @@ export default async function BraceletPage({ params, searchParams }: Props) {
                 }
               />
             </dl>
+
+            {isOwner && (
+              <div className="mt-10 w-full max-w-sm border border-line p-5 text-left">
+                <p className="t-eyebrow !text-[var(--c-strong)]">Your tap page is empty</p>
+                <p className="text-[0.95rem] text-muted mt-2">Right now people who tap your bracelet only see that it is genuine. Add your name, photo and links, and choose what to show.</p>
+                <Link href="/account/bracelets" className="btn-solid mt-4 inline-block">
+                  Set up your tap page
+                </Link>
+              </div>
+            )}
 
             <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
               {r.productSlug && (

@@ -113,10 +113,10 @@ export function ProfileEditor({ id, profile, disabled }: { id: string; profile: 
     });
 
   return (
-    <details className="group border border-line">
+    <details className="group border border-line" open={!profile.published}>
       <summary className="flex items-center justify-between gap-4 cursor-pointer list-none px-5 py-4">
         <span className="t-eyebrow !text-[var(--c-strong)]">Your tap page</span>
-        <span className="text-[0.9rem] text-muted">{profile.published ? "Live" : "Off"}</span>
+        <span className="text-[0.9rem]" style={{ color: profile.published ? "var(--c-deep)" : "var(--c-burgundy)" }}>{profile.published ? "Live" : "Not set up yet"}</span>
       </summary>
 
       <div className="px-5 pb-6 pt-1 space-y-6">
