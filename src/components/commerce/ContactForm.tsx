@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Field } from "@/components/account/AuthForm";
 
-const TOPICS = ["The collection", "My reservation", "My bracelet", "Events", "Press", "Something else"];
+const TOPICS = ["The collection", "My reservation", "My bracelet", "Clubs & organisations", "Press", "Something else"];
 
 /** Contact form → /api/contact (saved, and emailed to the inbox when configured). */
 export function ContactForm({ initialTopic }: { initialTopic?: string }) {

@@ -10,7 +10,7 @@ import { WaitlistForm } from "@/components/commerce/WaitlistForm";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact OZARA — the collection, reservations, your bracelet, events and press.",
+  description: "Contact OZARA — the collection, reservations, your bracelet, clubs and organisations, and press.",
   alternates: { canonical: "/contact" },
 };
 
@@ -50,13 +50,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             )}
             <div className="border-t border-line pt-6 flex gap-4 max-w-[40ch]">
               <EyeMark className="w-6 shrink-0 mt-1 text-[var(--c-strong)]" />
-              <p className="text-[0.95rem] text-muted">
-                Organising an {site.brand} event? Door staff verify bracelets at{" "}
-                <Link href="/verify" className="underline underline-offset-4 text-strong">
-                  Event verification
-                </Link>{" "}
-                with the organiser code we provide.
-              </p>
+              <p className="text-[0.95rem] text-muted">{c.organisers}</p>
             </div>
           </Reveal>
         </div>

@@ -19,7 +19,7 @@ export function joinWaitlist(input: { email?: unknown; product?: unknown; source
   return "joined";
 }
 
-export const TOPICS = ["The collection", "My reservation", "My bracelet", "Events", "Press", "Something else"] as const;
+export const TOPICS = ["The collection", "My reservation", "My bracelet", "Clubs & organisations", "Press", "Something else"] as const;
 
 export function createEnquiry(input: { name: unknown; email: unknown; topic: unknown; message: unknown }) {
   const name = s(input.name, 120);
