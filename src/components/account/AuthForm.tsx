@@ -37,7 +37,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       });
       const d = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(d.error || "Something went wrong — please try again.");
-      router.replace(safeNext);
+      router.replace(d.verify ? `/account/verify?next=${encodeURIComponent(safeNext)}` : safeNext);
       router.refresh();
     } catch (e) {
       const m = (e as Error).message;

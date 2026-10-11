@@ -8,6 +8,7 @@ import { formatMonth } from "@/lib/format";
 import { ClaimForm, OwnerControls } from "@/components/account/BraceletForms";
 import { ProfileEditor } from "@/components/account/ProfileEditor";
 import { getOwnerProfile } from "@/server/profiles";
+import { mayAct } from "@/server/verifyEmail";
 import { AccountNav } from "@/components/account/AccountNav";
 import { EyeMark } from "@/components/brand/Emblem";
 
@@ -18,6 +19,7 @@ export default async function BraceletsPage({ searchParams }: { searchParams: Pr
   const me = await currentCustomer();
   const { claim = "" } = await searchParams;
   if (!me) redirect(`/account/login?next=${encodeURIComponent(`/account/bracelets${claim ? `?claim=${claim}` : ""}`)}`);
+  if (!mayAct(me)) redirect(`/account/verify?next=${encodeURIComponent(`/account/bracelets${claim ? `?claim=${claim}` : ""}`)}`);
   const list = braceletsForCustomer(me.id);
 
   return (

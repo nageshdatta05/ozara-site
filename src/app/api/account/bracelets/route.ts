@@ -1,3 +1,4 @@
+import { mayAct } from "@/server/verifyEmail";
 import { body, fail, json, sameOrigin } from "@/server/http";
 import { currentCustomer } from "@/server/customers";
 import { claimBracelet } from "@/server/bracelets";
@@ -8,6 +9,7 @@ export async function POST(req: Request) {
   if (!sameOrigin(req)) return json({ error: "Forbidden." }, 403);
   const c = await currentCustomer();
   if (!c) return json({ error: "Please sign in to register a bracelet." }, 401);
+  if (!mayAct(c)) return json({ error: "Please verify your email first.", verify: true }, 403);
   if (await limited("claim", 20, 15 * 60_000)) return json({ error: "Too many attempts. Please try again in a few minutes." }, 429);
   try {
     const b = await body<{ braceletId?: string; code?: string }>(req);

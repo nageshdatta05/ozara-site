@@ -47,6 +47,9 @@ export function migrate(conn: DatabaseSync) {
   add("profiles", "card_style", "TEXT NOT NULL DEFAULT 'midnight'");
   add("profiles", "location", "TEXT");
   add("profiles", "bio", "TEXT");
+  // email verification arrived later: accounts that already exist start unverified,
+  // so each one proves its address the next time it signs in
+  add("customers", "email_verified_at", "TEXT");
 
   // 3. records created by the old demo seed are demo records — say so
   conn.exec(`UPDATE bracelets SET is_demo = 1 WHERE is_demo = 0 AND notes LIKE 'Demo —%'`);

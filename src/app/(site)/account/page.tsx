@@ -40,6 +40,17 @@ export default async function AccountPage() {
         </div>
       </section>
 
+      {!me.email_verified && (
+        <section className="shell pt-8">
+          <div className="border border-[rgb(61_1_3/0.25)] bg-[var(--c-burgundy-tint)] p-5 flex flex-wrap items-center justify-between gap-4">
+            <p className="text-[0.97rem] text-[var(--c-strong)]">Please verify your email to register a bracelet and set up your tap page.</p>
+            <Link href="/account/verify" className="btn-line">
+              Verify now
+            </Link>
+          </div>
+        </section>
+      )}
+
       <section className="shell py-[clamp(3rem,8vh,5rem)] grid lg:grid-cols-12 gap-14">
         <div className="lg:col-span-7">
           <h2 className="t-eyebrow !text-[var(--c-strong)]">Reservations &amp; orders</h2>
@@ -91,7 +102,7 @@ export default async function AccountPage() {
           <div>
             <h2 className="t-eyebrow !text-[var(--c-strong)] mb-3">Privacy</h2>
             <p className="text-[0.92rem] text-muted mb-4">
-              Your name, email and phone are never shown publicly. Choose what a bracelet&rsquo;s public page shows under{" "}
+              Your account details are private. Only what you choose to put on a bracelet&rsquo;s tap page is shown, and you control that under{" "}
               <Link href="/account/bracelets" className="underline underline-offset-4">
                 Bracelets
               </Link>

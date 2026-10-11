@@ -1,3 +1,4 @@
+import { mayAct } from "@/server/verifyEmail";
 import { fail, json, sameOrigin } from "@/server/http";
 import { currentCustomer } from "@/server/customers";
 import { limited } from "@/server/limits";
@@ -9,6 +10,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   if (!sameOrigin(req)) return json({ error: "Forbidden." }, 403);
   const c = await currentCustomer();
   if (!c) return json({ error: "Please sign in." }, 401);
+  if (!mayAct(c)) return json({ error: "Please verify your email first.", verify: true }, 403);
   if (await limited("photo", 20, 15 * 60_000)) return json({ error: "Too many changes. Please try again in a few minutes." }, 429);
   const { id } = await params;
   try {

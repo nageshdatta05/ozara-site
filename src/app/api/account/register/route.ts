@@ -1,5 +1,6 @@
 import { body, fail, json, sameOrigin } from "@/server/http";
 import { createCustomer, startSession } from "@/server/customers";
+import { sendVerificationCode } from "@/server/verifyEmail";
 import { noteAttempt, tooManyAttempts } from "@/server/session";
 
 export async function POST(req: Request) {
@@ -9,7 +10,9 @@ export async function POST(req: Request) {
     const b = await body<{ email: string; name: string; password: string; phone?: string }>(req);
     const c = createCustomer(b);
     await startSession({ id: c.id, session_version: 1 });
-    return json({ customer: c });
+    // the first code goes out now; a failure here is not fatal, the verify page can send another
+    await sendVerificationCode(c.id).catch((e) => console.error("verification email failed", e));
+    return json({ customer: c, verify: !c.email_verified });
   } catch (e) {
     await noteAttempt("register", false);
     return fail(e);

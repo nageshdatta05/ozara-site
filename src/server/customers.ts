@@ -19,7 +19,7 @@ const DAYS = 30;
 const secure = process.env.NODE_ENV === "production";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-export type Customer = { id: number; email: string; name: string; phone: string | null; created_at: string };
+export type Customer = { id: number; email: string; name: string; phone: string | null; created_at: string; email_verified: boolean };
 type Row = Customer & { password_hash: string; session_version: number };
 type Token = { cid: number; v: number; exp: number };
 
@@ -48,9 +48,11 @@ export function createCustomer(input: { email: unknown; name: unknown; password:
 }
 
 export function getCustomer(id: number): Customer | undefined {
-  const r = db().prepare("SELECT id, email, name, phone, created_at FROM customers WHERE id = ?").get(id) as Customer | undefined;
+  const r = db().prepare("SELECT id, email, name, phone, created_at, email_verified_at FROM customers WHERE id = ?").get(id) as
+    | (Omit<Customer, "email_verified"> & { email_verified_at: string | null })
+    | undefined;
   // node:sqlite rows have a null prototype; React needs plain objects
-  return r ? { id: r.id, email: r.email, name: r.name, phone: r.phone, created_at: r.created_at } : undefined;
+  return r ? { id: r.id, email: r.email, name: r.name, phone: r.phone, created_at: r.created_at, email_verified: !!r.email_verified_at } : undefined;
 }
 
 /** Same answer and similar timing whether the email exists or not. */
@@ -72,7 +74,8 @@ export function updateCustomer(id: number, patch: { name?: unknown; phone?: unkn
   if (!EMAIL.test(email)) throw new InputError("Please enter a valid email address.");
   if (email !== cur.email && db().prepare("SELECT 1 FROM customers WHERE email = ? AND id != ?").get(email, id))
     throw new InputError("Another account already uses this email.");
-  db().prepare("UPDATE customers SET name=?, phone=?, email=?, updated_at=? WHERE id=?").run(name, phone, email, nowIso(), id);
+  // a new address has to be proven again
+  db().prepare("UPDATE customers SET name=?, phone=?, email=?, email_verified_at=CASE WHEN email != ? THEN NULL ELSE email_verified_at END, updated_at=? WHERE id=?").run(name, phone, email, email, nowIso(), id);
   return getCustomer(id)!;
 }
 

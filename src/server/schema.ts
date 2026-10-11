@@ -153,9 +153,23 @@ CREATE TABLE IF NOT EXISTS customers (
   password_hash   TEXT NOT NULL,
   -- bumped on password change / "sign out everywhere": old cookies stop working
   session_version INTEGER NOT NULL DEFAULT 1,
+  -- set when the owner of the address has typed the code we emailed; null = not yet verified
+  email_verified_at TEXT,
   created_at      TEXT NOT NULL,
   updated_at      TEXT NOT NULL
 );
+
+-- one-time codes emailed to verify an address (only a hash is stored)
+CREATE TABLE IF NOT EXISTS email_codes (
+  id              INTEGER PRIMARY KEY AUTOINCREMENT,
+  customer_id     INTEGER NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  code_hash       TEXT NOT NULL,
+  expires_at      TEXT NOT NULL,
+  attempts        INTEGER NOT NULL DEFAULT 0,
+  used_at         TEXT,
+  created_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_email_codes_customer ON email_codes (customer_id, created_at);
 
 CREATE TABLE IF NOT EXISTS orders (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,

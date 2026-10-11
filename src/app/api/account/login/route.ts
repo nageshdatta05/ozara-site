@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     await noteAttempt("customer", !!row);
     if (!row) return json({ error: "That email and password don't match an account." }, 401);
     await startSession(row);
-    return json({ ok: true });
+    return json({ ok: true, verify: !(row as { email_verified_at?: string | null }).email_verified_at });
   } catch (e) {
     return fail(e);
   }
