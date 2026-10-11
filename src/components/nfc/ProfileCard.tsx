@@ -60,8 +60,19 @@ function Icon({ name }: { name: keyof typeof ICON }) {
  * What an owner chose to share, shown after a tap — as a card. Everything on
  * it comes from the owner's own page; nothing is filled in for them.
  */
-export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: string }) {
+export function ProfileCard({ p, braceletId, demo = false, photoSrc }: { p: PublicProfile; braceletId: string; demo?: boolean; photoSrc?: string }) {
   const enc = encodeURIComponent(braceletId);
+  // on the homepage the same card is shown with made-up details: nothing is a live link
+  const A = ({ href, external, className, style, children }: { href: string; external?: boolean; className?: string; style?: React.CSSProperties; children: React.ReactNode }) =>
+    demo ? (
+      <span className={className} style={style}>
+        {children}
+      </span>
+    ) : (
+      <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={className} style={style}>
+        {children}
+      </a>
+    );
   const f = FINISH[p.cardStyle] ?? FINISH.midnight;
   const rows: { icon: keyof typeof ICON; text: string; href: string; external?: boolean }[] = [];
   if (p.phone) rows.push({ icon: "phone", text: p.phone, href: tel(p.phone) });
@@ -117,7 +128,7 @@ export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: s
                 {p.photo && (
                   // eslint-disable-next-line @next/next/no-img-element -- a small private photo served by our own route
                   <img
-                    src={`/b/${enc}/photo`}
+                    src={photoSrc ?? `/b/${enc}/photo`}
                     alt={p.name ? `Photo of ${p.name}` : ""}
                     width={96}
                     height={96}
@@ -155,12 +166,12 @@ export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: s
                     <ul className="flex flex-col">
                       {lines.map((r, i) => (
                         <li key={r.icon} style={{ borderTop: i === 0 ? `1px solid ${f.edge}` : undefined, borderBottom: `1px solid ${f.edge}` }}>
-                          <a href={r.href} className="flex items-center gap-3 py-2.5 text-[0.95rem] transition-opacity hover:opacity-70">
+                          <A href={r.href} className="flex items-center gap-3 py-2.5 text-[0.95rem] transition-opacity hover:opacity-70">
                             <span style={{ color: f.soft }}>
                               <Icon name={r.icon} />
                             </span>
                             <span className="truncate">{r.text}</span>
-                          </a>
+                          </A>
                         </li>
                       ))}
                     </ul>
@@ -169,10 +180,9 @@ export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: s
                     <ul className={`flex flex-wrap gap-2 ${lines.length ? "mt-3.5" : ""}`}>
                       {chips.map((r) => (
                         <li key={r.icon}>
-                          <a
+                          <A
                             href={r.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            external
                             className="flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.8rem] transition-opacity hover:opacity-70"
                             style={{ boxShadow: `inset 0 0 0 1px ${f.edge}` }}
                           >
@@ -180,7 +190,7 @@ export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: s
                               <Icon name={r.icon} />
                             </span>
                             <span className="truncate max-w-[9rem]">{r.text}</span>
-                          </a>
+                          </A>
                         </li>
                       ))}
                     </ul>
@@ -192,19 +202,23 @@ export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: s
         )}
       </div>
 
-      <p className="mt-6 flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.24em] text-faint">
-        <svg viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-          <path d="M3 8.5l3.2 3L13 4.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        Authentic OZARA · <span className="tabular-nums">{braceletId}</span>
-      </p>
+      {!demo && (
+        <>
+          <p className="mt-6 flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.24em] text-faint">
+            <svg viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+              <path d="M3 8.5l3.2 3L13 4.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Authentic OZARA · <span className="tabular-nums">{braceletId}</span>
+          </p>
 
-      <MotionPrompt />
+          <MotionPrompt />
 
-      {canSave && (
-        <a href={`/b/${enc}/contact`} className="btn-solid mt-8">
-          Save contact
-        </a>
+          {canSave && (
+            <a href={`/b/${enc}/contact`} className="btn-solid mt-8">
+              Save contact
+            </a>
+          )}
+        </>
       )}
     </div>
   );
