@@ -1,6 +1,6 @@
 import type { CardStyle, PublicProfile } from "@/server/profiles";
 import { EyeMark, Wordmark } from "@/components/brand/Emblem";
-import { TiltCard } from "./TiltCard";
+import { MotionPrompt, TiltCard } from "./TiltCard";
 
 const tel = (p: string) => `tel:${p.replace(/[^\d+]/g, "")}`;
 const host = (u: string) => {
@@ -12,23 +12,26 @@ const host = (u: string) => {
 };
 
 /** The three finishes an owner can choose. Colours only — the shape never changes. */
-const FINISH: Record<CardStyle, { bg: string; ink: string; soft: string; star: string; edge: string }> = {
+const FINISH: Record<CardStyle, { bg: string; bgBack: string; ink: string; soft: string; star: string; edge: string }> = {
   midnight: {
-    bg: "radial-gradient(120% 80% at 18% 0%, #1b2a78 0%, #0b1450 38%, #00072b 100%)",
+    bg: "radial-gradient(120% 90% at 12% 0%, #1b2a78 0%, #0b1450 38%, #00072b 100%)",
+    bgBack: "radial-gradient(110% 100% at 92% 100%, #1b2a78 0%, #0b1450 40%, #00072b 100%)",
     ink: "#f6f2ec",
     soft: "rgb(246 242 236 / 0.68)",
     star: "#b9c6ee",
     edge: "rgb(255 255 255 / 0.14)",
   },
   burgundy: {
-    bg: "radial-gradient(120% 80% at 18% 0%, #8a1a26 0%, #5a0a12 40%, #3d0103 100%)",
+    bg: "radial-gradient(120% 90% at 12% 0%, #8a1a26 0%, #5a0a12 40%, #3d0103 100%)",
+    bgBack: "radial-gradient(110% 100% at 92% 100%, #8a1a26 0%, #5a0a12 40%, #3d0103 100%)",
     ink: "#f8efe9",
     soft: "rgb(248 239 233 / 0.7)",
     star: "#efc9b4",
     edge: "rgb(255 255 255 / 0.14)",
   },
   ivory: {
-    bg: "radial-gradient(120% 80% at 18% 0%, #fffdf9 0%, #f3ede2 45%, #ddd3c1 100%)",
+    bg: "radial-gradient(120% 90% at 12% 0%, #fffdf9 0%, #f3ede2 45%, #ddd3c1 100%)",
+    bgBack: "radial-gradient(110% 100% at 92% 100%, #fffdf9 0%, #f3ede2 45%, #ddd3c1 100%)",
     ink: "#00072b",
     soft: "rgb(0 7 43 / 0.62)",
     star: "#3d0103",
@@ -68,92 +71,138 @@ export function ProfileCard({ p, braceletId }: { p: PublicProfile; braceletId: s
   if (p.linkedin) rows.push({ icon: "linkedin", text: "LinkedIn", href: p.linkedin, external: true });
   const canSave = !!(p.name || p.phone || p.email);
 
+  const lines = rows.filter((r) => r.icon === "phone" || r.icon === "email");
+  const chips = rows.filter((r) => r.icon !== "phone" && r.icon !== "email");
+  const hasBack = rows.length > 0;
+  const shadow = `inset 0 0 0 1px ${f.edge}, 0 26px 44px -24px rgb(0 7 43 / 0.6), 0 8px 16px -8px rgb(0 7 43 / 0.35)`;
+  const card = (bg: string, extra: React.CSSProperties = {}): React.CSSProperties => ({
+    background: bg,
+    color: f.ink,
+    boxShadow: shadow,
+    ["--c-star" as string]: f.star,
+    ...extra,
+  });
+  const cardCls = "w-full flex-1 min-h-[62.5cqw] rounded-[1.1rem] overflow-hidden flex flex-col";
+  const wrapCls = "flex flex-col [container-type:inline-size]";
+
   return (
-    <div className="w-full max-w-[21rem] flex flex-col items-center">
-      <TiltCard
-        className="w-full min-h-[34rem] rounded-[1.7rem] overflow-hidden"
-        style={{
-          background: f.bg,
-          color: f.ink,
-          boxShadow: `inset 0 0 0 1px ${f.edge}, 0 1px 0 ${f.edge} inset, 0 28px 50px -22px rgb(0 7 43 / 0.55), 0 8px 18px -8px rgb(0 7 43 / 0.35)`,
-          ["--c-star" as string]: f.star,
-        }}
-      >
-        {/* the Eye, large and faint, as a watermark */}
-        <EyeMark className="absolute -right-[22%] -bottom-[6%] w-[105%] opacity-[0.07] pointer-events-none" strokeWidth={0.6} />
+    <div className="w-full max-w-[24rem] flex flex-col items-center">
+      {/* two cards of one size: the grid keeps them level */}
+      <div className="w-full grid auto-rows-fr gap-5">
+        {/* FRONT — who you are */}
+        <div className={wrapCls} style={{ transform: "rotate(-1.1deg)" }}>
+          <TiltCard className={cardCls} style={card(f.bg)}>
+            <EyeMark className="absolute -right-[12%] -bottom-[30%] w-[72%] opacity-[0.07] pointer-events-none" strokeWidth={0.6} />
+            <div className="relative z-[2] flex-1 flex flex-col justify-between gap-4 p-5 sm:p-6 text-left">
+              <div className="flex items-center justify-between">
+                <Wordmark label={null} className="h-[0.9rem]" />
+                <EyeMark className="w-5 opacity-80" strokeWidth={1} />
+              </div>
 
-        <div className="relative z-[2] min-h-[34rem] flex flex-col gap-7 p-7 text-left">
-          <div className="flex items-center justify-between">
-            <Wordmark label={null} className="h-[1.05rem]" />
-            <EyeMark className="w-6 opacity-80" strokeWidth={1} />
-          </div>
+              <div className="flex items-end justify-between gap-4">
+                <div className="min-w-0">
+                  {p.name && <h1 className="font-display text-[1.75rem] sm:text-[2rem] leading-[1.06] break-words">{p.name}</h1>}
+                  {p.headline && (
+                    <p className="mt-1.5 text-[0.92rem] leading-snug max-w-[24ch]" style={{ color: f.soft }}>
+                      {p.headline}
+                    </p>
+                  )}
+                  {p.location && (
+                    <p className="mt-2.5 flex items-center gap-1.5 text-[0.66rem] uppercase tracking-[0.18em]" style={{ color: f.soft }}>
+                      <Icon name="pin" />
+                      {p.location}
+                    </p>
+                  )}
+                </div>
+                {p.photo && (
+                  // eslint-disable-next-line @next/next/no-img-element -- a small private photo served by our own route
+                  <img
+                    src={`/b/${enc}/photo`}
+                    alt={p.name ? `Photo of ${p.name}` : ""}
+                    width={96}
+                    height={96}
+                    className="size-[4.6rem] sm:size-[5.2rem] rounded-full object-cover shrink-0"
+                    style={{ boxShadow: `0 0 0 1px ${f.edge}, 0 0 0 4px ${f.edge}` }}
+                  />
+                )}
+              </div>
 
-          <div className="flex flex-col items-start my-auto">
-            {p.photo && (
-              // eslint-disable-next-line @next/next/no-img-element -- a small private photo served by our own route
-              <img
-                src={`/b/${enc}/photo`}
-                alt={p.name ? `Photo of ${p.name}` : ""}
-                width={120}
-                height={120}
-                className="size-[6rem] rounded-full object-cover mb-5"
-                style={{ boxShadow: `0 0 0 1px ${f.edge}, 0 0 0 5px ${f.edge}` }}
-              />
-            )}
-            {p.name && <h1 className="font-display text-[2.1rem] leading-[1.06] break-words max-w-full">{p.name}</h1>}
-            {p.headline && (
-              <p className="mt-2 text-[1rem] leading-snug max-w-[26ch]" style={{ color: f.soft }}>
-                {p.headline}
-              </p>
-            )}
-            {p.location && (
-              <p className="mt-3 flex items-center gap-1.5 text-[0.82rem] uppercase tracking-[0.16em]" style={{ color: f.soft }}>
-                <Icon name="pin" />
-                {p.location}
-              </p>
-            )}
-            {p.bio && (
-              <p className="mt-4 text-[0.95rem] leading-relaxed max-w-[30ch]" style={{ color: f.soft }}>
-                {p.bio}
-              </p>
-            )}
-          </div>
-
-          {rows.length > 0 && (
-            <ul className="flex flex-col" style={{ borderTop: `1px solid ${f.edge}` }}>
-              {rows.map((r) => (
-                <li key={r.icon} style={{ borderBottom: `1px solid ${f.edge}` }}>
-                  <a
-                    href={r.href}
-                    {...(r.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="flex items-center gap-3.5 py-3 text-[0.98rem] transition-opacity hover:opacity-70"
-                  >
-                    <span style={{ color: f.soft }}>
-                      <Icon name={r.icon} />
-                    </span>
-                    <span className="truncate">{r.text}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <div className="flex items-end justify-between gap-4">
-            <p className="flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.24em]" style={{ color: f.soft }}>
-              <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden>
-                <path d="M3 8.5l3.2 3L13 4.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Authentic
-            </p>
-            <p className="text-[0.72rem] tabular-nums tracking-[0.2em]" style={{ color: f.soft }}>
-              {braceletId}
-            </p>
-          </div>
+              {p.bio && (
+                <p
+                  className="pt-3 text-[0.9rem] leading-snug"
+                  style={{ borderTop: `1px solid ${f.edge}`, color: f.soft, fontFamily: "var(--font-italic)", fontStyle: "italic" }}
+                >
+                  {p.bio}
+                </p>
+              )}
+            </div>
+          </TiltCard>
         </div>
-      </TiltCard>
+
+        {/* BACK — how to reach you */}
+        {hasBack && (
+          <div className={wrapCls} style={{ transform: "rotate(0.9deg)" }}>
+            <TiltCard className={cardCls} style={card(f.bgBack, { animationDelay: "0.18s" })}>
+              <EyeMark className="absolute -left-[14%] -top-[34%] w-[72%] opacity-[0.07] pointer-events-none" strokeWidth={0.6} />
+              <div className="relative z-[2] flex-1 flex flex-col justify-between gap-4 p-5 sm:p-6 text-left">
+                <div className="flex items-center justify-between">
+                  <EyeMark className="w-5 opacity-80" strokeWidth={1} />
+                  <Wordmark label={null} className="h-[0.9rem]" />
+                </div>
+
+                <div>
+                  {lines.length > 0 && (
+                    <ul className="flex flex-col">
+                      {lines.map((r, i) => (
+                        <li key={r.icon} style={{ borderTop: i === 0 ? `1px solid ${f.edge}` : undefined, borderBottom: `1px solid ${f.edge}` }}>
+                          <a href={r.href} className="flex items-center gap-3 py-2.5 text-[0.95rem] transition-opacity hover:opacity-70">
+                            <span style={{ color: f.soft }}>
+                              <Icon name={r.icon} />
+                            </span>
+                            <span className="truncate">{r.text}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {chips.length > 0 && (
+                    <ul className={`flex flex-wrap gap-2 ${lines.length ? "mt-3.5" : ""}`}>
+                      {chips.map((r) => (
+                        <li key={r.icon}>
+                          <a
+                            href={r.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.8rem] transition-opacity hover:opacity-70"
+                            style={{ boxShadow: `inset 0 0 0 1px ${f.edge}` }}
+                          >
+                            <span style={{ color: f.soft }}>
+                              <Icon name={r.icon} />
+                            </span>
+                            <span className="truncate max-w-[9rem]">{r.text}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </TiltCard>
+          </div>
+        )}
+      </div>
+
+      <p className="mt-6 flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.24em] text-faint">
+        <svg viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+          <path d="M3 8.5l3.2 3L13 4.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        Authentic OZARA · <span className="tabular-nums">{braceletId}</span>
+      </p>
+
+      <MotionPrompt />
 
       {canSave && (
-        <a href={`/b/${enc}/contact`} className="btn-solid mt-9">
+        <a href={`/b/${enc}/contact`} className="btn-solid mt-8">
           Save contact
         </a>
       )}

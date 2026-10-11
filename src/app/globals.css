@@ -578,6 +578,8 @@ textarea.field {
   transform: translateX(-120%);
   animation: id-card-sheen 1.8s 0.7s var(--ease-lux, ease) forwards;
 }
+/* phone motion drives the tilt itself, already eased in script */
+.id-card.id-card-live { transition: none; }
 @keyframes id-card-in {
   from { opacity: 0; transform: perspective(1100px) translateY(26px) rotateX(10deg) scale(0.97); }
 }
