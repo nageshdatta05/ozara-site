@@ -29,9 +29,9 @@ export function ClaimForm({ initialId = "" }: { initialId?: string }) {
         setMsg(null);
         try {
           const d = await call("/api/account/bracelets", "POST", f);
-          setMsg({ ok: true, text: `${d.braceletId} is now registered to you.` });
+          setMsg({ ok: true, text: "Registered. Now make it yours…" });
           setF({ braceletId: "", code: "" });
-          router.refresh();
+          router.push(`/account/bracelets/${encodeURIComponent(d.braceletId)}`);
         } catch (er) {
           setMsg({ ok: false, text: (er as Error).message });
         }

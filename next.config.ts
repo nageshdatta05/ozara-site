@@ -16,6 +16,22 @@ const nextConfig: NextConfig = {
     // Optimise one image at a time instead of one per CPU core: keeps peak memory low.
     imgOptConcurrency: 1,
   },
+  // Basic browser protections on every page. (No Content-Security-Policy yet: it needs
+  // careful testing against the checkout and animations before it is switched on.)
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+        ],
+      },
+    ];
+  },
   // The placeholder catalogue was replaced by the Wave, the Flow and the Line.
   async redirects() {
     return [

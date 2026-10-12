@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/server/session";
-import { displayStatus, listBracelets } from "@/server/bracelets";
+import { displayStatus, listBracelets, braceletNumber } from "@/server/bracelets";
 import { formatDate, formatWhen } from "@/lib/format";
 import { Badge, statusTone } from "@/components/nfc/Badge";
 
@@ -67,7 +67,7 @@ export default async function BraceletsPage({ searchParams }: { searchParams: Pr
         <table className="w-full min-w-[860px] text-left text-[0.97rem]">
           <thead>
             <tr className="border-b border-[var(--c-ink-line)] text-[0.68rem] uppercase tracking-[0.14em] text-[var(--c-ink-muted)]">
-              <th className="py-3 pr-4 font-medium">Bracelet ID</th>
+              <th className="py-3 pr-4 font-medium">Bracelet</th>
               <th className="py-3 pr-4 font-medium">NFC UID</th>
               <th className="py-3 pr-4 font-medium">Status</th>
               <th className="py-3 pr-4 font-medium">Owner</th>
@@ -83,7 +83,7 @@ export default async function BraceletsPage({ searchParams }: { searchParams: Pr
               return (
                 <tr key={b.id} className="border-b border-[var(--c-ink-line)] hover:bg-white/50">
                   <td className="py-3.5 pr-4 tabular-nums tracking-[0.05em]">
-                    <Link href={`/admin/nfc/bracelets/${b.bracelet_id}`} className="font-medium hover:underline underline-offset-4">{b.bracelet_id}</Link>
+                    <Link href={`/admin/nfc/bracelets/${b.bracelet_id}`} className="font-medium hover:underline underline-offset-4">{braceletNumber(b)}</Link>
                   </td>
                   <td className="py-3.5 pr-4 tabular-nums text-[var(--c-ink-muted)]">{b.nfc_uid ?? "—"}</td>
                   <td className="py-3.5 pr-4">

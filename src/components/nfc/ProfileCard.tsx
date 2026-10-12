@@ -48,6 +48,19 @@ const ICON: Record<string, React.ReactNode> = {
   pin: <path d="M10 17s5-4.6 5-8.5a5 5 0 0 0-10 0C5 12.400 10 17 10 17Zm0-6.2a1.8 1.8 0 1 0 0-3.600 1.8 1.8 0 0 0 0 3.600Z" />,
 };
 
+/** A link on the card — or, in demo mode (homepage, editor preview), plain text that does nothing. */
+function A({ demo, href, external, className, style, children }: { demo: boolean; href: string; external?: boolean; className?: string; style?: React.CSSProperties; children: React.ReactNode }) {
+  return demo ? (
+    <span className={className} style={style}>
+      {children}
+    </span>
+  ) : (
+    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={className} style={style}>
+      {children}
+    </a>
+  );
+}
+
 function Icon({ name }: { name: keyof typeof ICON }) {
   return (
     <svg viewBox="0 0 20 20" className="size-[1.05rem] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -62,17 +75,6 @@ function Icon({ name }: { name: keyof typeof ICON }) {
  */
 export function ProfileCard({ p, braceletId, demo = false, photoSrc }: { p: PublicProfile; braceletId: string; demo?: boolean; photoSrc?: string }) {
   const enc = encodeURIComponent(braceletId);
-  // on the homepage the same card is shown with made-up details: nothing is a live link
-  const A = ({ href, external, className, style, children }: { href: string; external?: boolean; className?: string; style?: React.CSSProperties; children: React.ReactNode }) =>
-    demo ? (
-      <span className={className} style={style}>
-        {children}
-      </span>
-    ) : (
-      <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className={className} style={style}>
-        {children}
-      </a>
-    );
   const f = FINISH[p.cardStyle] ?? FINISH.midnight;
   const rows: { icon: keyof typeof ICON; text: string; href: string; external?: boolean }[] = [];
   if (p.phone) rows.push({ icon: "phone", text: p.phone, href: tel(p.phone) });
@@ -166,7 +168,7 @@ export function ProfileCard({ p, braceletId, demo = false, photoSrc }: { p: Publ
                     <ul className="flex flex-col">
                       {lines.map((r, i) => (
                         <li key={r.icon} style={{ borderTop: i === 0 ? `1px solid ${f.edge}` : undefined, borderBottom: `1px solid ${f.edge}` }}>
-                          <A href={r.href} className="flex items-center gap-3 py-2.5 text-[0.95rem] transition-opacity hover:opacity-70">
+                          <A demo={demo} href={r.href} className="flex items-center gap-3 py-2.5 text-[0.95rem] transition-opacity hover:opacity-70">
                             <span style={{ color: f.soft }}>
                               <Icon name={r.icon} />
                             </span>
@@ -181,6 +183,7 @@ export function ProfileCard({ p, braceletId, demo = false, photoSrc }: { p: Publ
                       {chips.map((r) => (
                         <li key={r.icon}>
                           <A
+                            demo={demo}
                             href={r.href}
                             external
                             className="flex items-center gap-2 rounded-full px-3 py-1.5 text-[0.8rem] transition-opacity hover:opacity-70"

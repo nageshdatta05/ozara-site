@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   if (!(await isAdmin())) return json({ error: "Unauthorised" }, 401);
   try {
     const b = await body<{
-      braceletId: string;
+      braceletId?: string;
       nfcUid?: string;
       productSlug?: string;
       batch?: string;

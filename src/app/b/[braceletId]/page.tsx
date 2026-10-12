@@ -12,6 +12,7 @@ import { ProfileCard } from "@/components/nfc/ProfileCard";
 import { findBracelet } from "@/server/bracelets";
 import { publicProfile } from "@/server/profiles";
 import { currentCustomer } from "@/server/customers";
+import { countHit, overLimit } from "@/server/limits";
 
 // Always ask the backend — never cache an authentication result.
 export const dynamic = "force-dynamic";
@@ -45,7 +46,20 @@ export default async function BraceletPage({ params, searchParams }: Props) {
     return <BraceletEventCheck v={v} />;
   }
 
+  // Someone counting through IDs, or hammering the page, is slowed down: unknown IDs are
+  // counted separately, since a real owner never taps a bracelet that doesn't exist.
+  if ((await overLimit("tap-miss", 8, 10 * 60_000)) || (await overLimit("tap", 120, 60_000))) {
+    return (
+      <main className="min-h-[100svh] flex flex-col items-center justify-center text-center px-6 stage grain">
+        <h1 className="t-display !text-[clamp(2rem,8vw,3rem)] leading-tight">Too many attempts</h1>
+        <p className="t-body mt-4 max-w-[34ch]">Please wait a few minutes and try again.</p>
+      </main>
+    );
+  }
+  if (!prefetch) await countHit("tap", 60_000);
+
   const r = authenticate(braceletId, { channel: "public", device, proof, dryRun: prefetch });
+  if (r.kind === "not_recognized" && !prefetch) await countHit("tap-miss", 10 * 60_000);
   const demo = r.kind !== "not_recognized" && r.demo;
   // the owner's own page, if they have published one (only on a genuine, active bracelet)
   const owner = r.kind === "authentic" && r.registered ? findBracelet(r.braceletId) : undefined;
@@ -120,7 +134,7 @@ export default async function BraceletPage({ params, searchParams }: Props) {
               <div className="mt-10 w-full max-w-sm border border-line p-5 text-left">
                 <p className="t-eyebrow !text-[var(--c-strong)]">Your tap page is empty</p>
                 <p className="text-[0.95rem] text-muted mt-2">Right now people who tap your bracelet only see that it is genuine. Add your name, photo and links, and choose what to show.</p>
-                <Link href="/account/bracelets" className="btn-solid mt-4 inline-block">
+                <Link href={`/account/bracelets/${encodeURIComponent(r.braceletId)}`} className="btn-solid mt-4 inline-block">
                   Set up your tap page
                 </Link>
               </div>

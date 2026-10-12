@@ -18,6 +18,22 @@ function sweep(now: number) {
   for (const [k, list] of hits) if (!list.length || now - list[list.length - 1] > MAX_WINDOW_MS) hits.delete(k);
 }
 
+/** Is this visitor already over `max` hits to `scope` in the window? (does not count a hit) */
+export async function overLimit(scope: string, max: number, windowMs: number) {
+  const list = (hits.get(scope + ":" + (await visitorKey())) ?? []).filter((t) => Date.now() - t < windowMs);
+  return list.length >= max;
+}
+
+/** Count one hit against `scope` for this visitor. */
+export async function countHit(scope: string, windowMs: number) {
+  const key = scope + ":" + (await visitorKey());
+  const now = Date.now();
+  sweep(now);
+  const list = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
+  list.push(now);
+  hits.set(key, list);
+}
+
 export async function visitorKey() {
   const h = await headers();
   return shortHash(h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "local");

@@ -40,6 +40,22 @@ export default async function AccountPage() {
         </div>
       </section>
 
+      {me.email_verified && (
+        <section className="shell pt-8">
+          <div className="border border-line p-5 sm:p-6 flex flex-wrap items-center justify-between gap-5">
+            <div>
+              <p className="font-display text-[1.35rem] leading-tight">{bracelets.length > 0 ? "Your card" : "Register your bracelet"}</p>
+              <p className="text-[0.95rem] text-muted mt-1.5 max-w-[46ch]">
+                {bracelets.length > 0 ? "Choose what people see when they tap your bracelet." : "Use the claim code from the card in your box to make it yours."}
+              </p>
+            </div>
+            <Link href={bracelets.length > 0 ? "/account/card" : "/account/bracelets"} className="btn-solid">
+              {bracelets.length > 0 ? "Edit your card" : "Register bracelet"}
+            </Link>
+          </div>
+        </section>
+      )}
+
       {!me.email_verified && (
         <section className="shell pt-8">
           <div className="border border-[rgb(61_1_3/0.25)] bg-[var(--c-burgundy-tint)] p-5 flex flex-wrap items-center justify-between gap-4">

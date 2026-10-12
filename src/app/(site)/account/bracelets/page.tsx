@@ -6,7 +6,6 @@ import { braceletsForCustomer } from "@/server/bracelets";
 import { products } from "@/data/products";
 import { formatMonth } from "@/lib/format";
 import { ClaimForm, OwnerControls } from "@/components/account/BraceletForms";
-import { ProfileEditor } from "@/components/account/ProfileEditor";
 import { getOwnerProfile } from "@/server/profiles";
 import { mayAct } from "@/server/verifyEmail";
 import { AccountNav } from "@/components/account/AccountNav";
@@ -62,9 +61,16 @@ export default async function BraceletsPage({ searchParams }: { searchParams: Pr
                       Its public page
                       <span className="rule" aria-hidden />
                     </Link>
-                    <div className="mt-5">
-                      <ProfileEditor id={b.bracelet_id} profile={getOwnerProfile(b.id)} disabled={b.status === "revoked"} />
-                    </div>
+                    {b.status !== "revoked" && (
+                      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 border border-line p-4">
+                        <p className="text-[0.95rem] text-muted flex-1 min-w-[12rem]">
+                          {getOwnerProfile(b.id).published ? "Your card is live." : "Your card isn't set up yet."}
+                        </p>
+                        <Link href={`/account/bracelets/${b.bracelet_id}`} className="btn-solid">
+                          {getOwnerProfile(b.id).published ? "Edit your card" : "Set up your card"}
+                        </Link>
+                      </div>
+                    )}
                     <div className="mt-5">
                       <OwnerControls id={b.bracelet_id} status={b.status} visibility={b.owner_visibility} lostByOwner={b.revoked_reason === "Reported lost by owner"} />
                     </div>

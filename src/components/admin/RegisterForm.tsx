@@ -16,7 +16,6 @@ export function RegisterForm({ base, events, products }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF({ ...f, [k]: e.target.value });
-  const id = f.braceletId.trim().toUpperCase();
 
   return (
     <form
@@ -49,8 +48,8 @@ export function RegisterForm({ base, events, products }: Props) {
         </legend>
         <p className="text-[0.92rem] text-[var(--c-ink-muted)] -mt-1 mb-6">These cannot be changed after registration.</p>
         <div className="grid md:grid-cols-2 gap-6">
-          <Field label="Bracelet ID" hint="Written into the tag URL. Letters, numbers, hyphens.">
-            <input className="field uppercase tracking-[0.08em]" required value={f.braceletId} onChange={set("braceletId")} placeholder="BR-000005" autoComplete="off" />
+          <Field label="Bracelet ID" hint="Created automatically: random and unguessable, so nobody can browse other people's pages.">
+            <input className="field" value="Generated when you register" readOnly />
           </Field>
           <Field label="NFC UID" hint="The chip's factory UID, read with an NFC tool. Optional now; permanent once set.">
             <input className="field uppercase tracking-[0.08em]" value={f.nfcUid} onChange={set("nfcUid")} placeholder="04XXXXXXXXXXXX" autoComplete="off" />
@@ -58,7 +57,7 @@ export function RegisterForm({ base, events, products }: Props) {
         </div>
         <div className="mt-6 bg-white/70 border border-[var(--c-ink-line)] px-4 py-3">
           <p className="t-eyebrow !text-[12px]">URL to write into the tag</p>
-          <p className="mt-1 tabular-nums break-all text-[1.02rem]">{base}/b/{id || "…"}</p>
+          <p className="mt-1 text-[0.97rem] text-[var(--c-ink-muted)]">Shown on the next page, once the bracelet is registered ({base}/b/&hellip;).</p>
         </div>
       </fieldset>
 
@@ -109,7 +108,7 @@ export function RegisterForm({ base, events, products }: Props) {
 
       {error && <p role="alert" className="text-[1rem] text-[#8a2130]">{error}</p>}
       <div className="flex gap-3">
-        <button type="submit" disabled={busy || !id} className="btn-solid disabled:opacity-50">{busy ? "Registering…" : "Register bracelet"}</button>
+        <button type="submit" disabled={busy} className="btn-solid disabled:opacity-50">{busy ? "Registering…" : "Register bracelet"}</button>
       </div>
     </form>
   );

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireAdmin } from "@/server/session";
-import { displayStatus, eligibilityFor, findBracelet, logsForBracelet } from "@/server/bracelets";
+import { braceletNumber, displayStatus, eligibilityFor, findBracelet, logsForBracelet } from "@/server/bracelets";
 import { tagUrl } from "@/server/urls";
 import { products } from "@/data/products";
 import { formatDate, formatWhen } from "@/lib/format";
@@ -25,6 +25,7 @@ export default async function BraceletDetail({ params, searchParams }: { params:
     ["Authenticity", b.status === "active" ? <Badge tone="good">Verified</Badge> : <Badge tone="bad">Not valid</Badge>],
     ["Status", <span className="flex gap-1.5" key="s"><Badge tone={b.status === "active" ? "good" : b.status === "suspended" ? "warn" : "bad"}>{b.status === "active" ? "Active" : b.status === "suspended" ? "Suspended" : "Revoked"}</Badge>{b.status === "active" && <Badge tone={statusTone(s)}>{s}</Badge>}</span>],
     ...(b.is_demo ? ([["Record type", <Badge tone="warn" key="d">Demo / test record</Badge>]] as [string, React.ReactNode][]) : []),
+    ["Public ID", <span className="tabular-nums" key="pid">{b.bracelet_id}</span>, true],
     ["NFC identifier", <span className="tabular-nums" key="u">{b.nfc_uid ?? "Not recorded"}</span>, true],
     ["Tag URL", <span className="tabular-nums break-all" key="t">{tagUrl(b.bracelet_id)}</span>, true],
     ["Verification method", b.verification_method === "url_id" ? "Identifier + database lookup" : b.verification_method],
@@ -57,7 +58,7 @@ export default async function BraceletDetail({ params, searchParams }: { params:
       <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
         <div>
           <p className="t-eyebrow">Bracelet</p>
-          <h1 className="font-display text-[clamp(2.2rem,5vw,3.4rem)] leading-none mt-2 tabular-nums">{b.bracelet_id}</h1>
+          <h1 className="font-display text-[clamp(2.2rem,5vw,3.4rem)] leading-none mt-2 tabular-nums">{braceletNumber(b)}</h1>
         </div>
         <a href={`/b/${b.bracelet_id}`} target="_blank" rel="noreferrer" className="btn-line">
           Open public page ↗

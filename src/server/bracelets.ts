@@ -150,8 +150,26 @@ export function eligibilityFor(pk: number) {
 
 export class InputError extends Error {}
 
+/**
+ * Public bracelet IDs are random and unguessable, so nobody can count upward
+ * through them and collect every owner's page. Letters and numbers that are
+ * easy to read out (no 0/O, 1/I). ~50 bits: e.g. OZ-7K3QX-9M2PW.
+ */
+const ID_ABC = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+export function newBraceletId(): string {
+  for (;;) {
+    const b = randomBytes(10);
+    const c = Array.from(b, (x) => ID_ABC[x % ID_ABC.length]).join("");
+    const id = `OZ-${c.slice(0, 5)}-${c.slice(5)}`;
+    if (!findBracelet(id)) return id;
+  }
+}
+
+/** The number the business sees in the admin: Bracelet 1, 2, 3 … (the public ID stays private). */
+export const braceletNumber = (b: Pick<BraceletRow, "id">) => `Bracelet ${b.id}`;
+
 export function createBracelet(input: {
-  braceletId: string;
+  braceletId?: string;
   nfcUid?: string | null;
   productSlug?: string | null;
   batch?: string | null;
@@ -160,7 +178,7 @@ export function createBracelet(input: {
   eligibleEventIds?: number[];
   orderRef?: string | null;
 }): BraceletRow & { claimCode: string } {
-  const braceletId = normaliseId(input.braceletId);
+  const braceletId = input.braceletId?.trim() ? normaliseId(input.braceletId) : newBraceletId();
   if (!ID_PATTERN.test(braceletId)) throw new InputError("Bracelet ID: 3–40 characters, letters, numbers and hyphens.");
   const uid = input.nfcUid ? input.nfcUid.replace(/[\s:]/g, "").toUpperCase() : null;
   if (uid && !UID_PATTERN.test(uid)) throw new InputError("NFC UID: hexadecimal, e.g. 04A1B2C3D4E5F6.");
