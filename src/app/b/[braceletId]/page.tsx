@@ -112,6 +112,25 @@ export default async function BraceletPage({ params, searchParams }: Props) {
               </>
             )}
 
+            {!r.registered && !demo && (
+              <div className="mt-8 w-full max-w-sm border border-line bg-[rgb(246_242_236/0.6)] p-6 text-left">
+                <p className="font-display text-[1.35rem] leading-tight">Is this your bracelet?</p>
+                <ol className="mt-4 space-y-3 text-[0.95rem] text-muted">
+                  <li className="grid grid-cols-[1.4rem_1fr]">
+                    <span className="font-display text-[var(--c-burgundy)]">1</span>
+                    <span>Register it with the claim code from the card in your box.</span>
+                  </li>
+                  <li className="grid grid-cols-[1.4rem_1fr]">
+                    <span className="font-display text-[var(--c-burgundy)]">2</span>
+                    <span>Make your card: choose what people see when they tap it.</span>
+                  </li>
+                </ol>
+                <Link href={`/account/bracelets?claim=${encodeURIComponent(r.braceletId)}`} className="btn-solid mt-6 w-full text-center">
+                  Register this bracelet
+                </Link>
+              </div>
+            )}
+
             {!profile && (
             <dl className={`${profile ? "mt-6" : "mt-10"} w-full max-w-sm text-left`}>
                 <Row k="Bracelet" v={r.braceletId} mono />
@@ -146,12 +165,8 @@ export default async function BraceletPage({ params, searchParams }: Props) {
                   Discover the piece
                 </Link>
               )}
-              {!r.registered && !demo && (
-                <Link href={`/account/bracelets?claim=${encodeURIComponent(r.braceletId)}`} className="btn-solid">
-                  Is this yours? Register it
-                </Link>
-              )}
             </div>
+
           </>
         )}
 

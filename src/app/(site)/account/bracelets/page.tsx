@@ -47,33 +47,33 @@ export default async function BraceletsPage({ searchParams }: { searchParams: Pr
               {list.map((b) => {
                 const p = products.find((x) => x.slug === b.product_slug);
                 return (
-                  <li key={b.bracelet_id} className="py-7 border-b border-line">
+                  <li key={b.bracelet_id} className="py-8 border-b border-line">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
-                      <p className="font-display text-[1.35rem] tabular-nums tracking-[0.04em]">{b.bracelet_id}</p>
+                      <p className="font-display text-[1.5rem] leading-tight">{p ? `${p.name.replace(/^The /, "")} bracelet` : "OZARA bracelet"}</p>
                       <p className="t-eyebrow" style={{ color: b.status === "active" ? "var(--c-deep)" : "var(--c-burgundy)" }}>
                         {b.status === "active" ? "Active" : b.status === "suspended" ? "Reported lost" : "Deactivated"}
                       </p>
                     </div>
-                    <p className="text-[1rem] text-muted mt-1">
-                      {p?.name ?? "OZARA bracelet"} · registered {formatMonth(b.claimed_at)}
+                    <p className="text-[0.9rem] text-muted mt-1.5">
+                      Registered {formatMonth(b.claimed_at)} · <span className="tabular-nums tracking-[0.04em]">{b.bracelet_id}</span>
                     </p>
-                    <Link href={`/b/${b.bracelet_id}`} className="link-quiet mt-4">
-                      Its public page
-                      <span className="rule" aria-hidden />
-                    </Link>
                     {b.status !== "revoked" && (
-                      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 border border-line p-4">
-                        <p className="text-[0.95rem] text-muted flex-1 min-w-[12rem]">
-                          {getOwnerProfile(b.id).published ? "Your card is live." : "Your card isn't set up yet."}
-                        </p>
+                      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
                         <Link href={`/account/bracelets/${b.bracelet_id}`} className="btn-solid">
                           {getOwnerProfile(b.id).published ? "Edit your card" : "Set up your card"}
                         </Link>
+                        <Link href={`/b/${b.bracelet_id}`} className="btn-text">
+                          See what people see
+                        </Link>
+                        <span className="text-[0.88rem] text-muted">{getOwnerProfile(b.id).published ? "Your card is live." : "Your card isn't set up yet."}</span>
                       </div>
                     )}
-                    <div className="mt-5">
-                      <OwnerControls id={b.bracelet_id} status={b.status} visibility={b.owner_visibility} lostByOwner={b.revoked_reason === "Reported lost by owner"} />
-                    </div>
+                    <details className="mt-6 group">
+                      <summary className="btn-text cursor-pointer list-none">More options</summary>
+                      <div className="mt-4">
+                        <OwnerControls id={b.bracelet_id} status={b.status} visibility={b.owner_visibility} lostByOwner={b.revoked_reason === "Reported lost by owner"} />
+                      </div>
+                    </details>
                   </li>
                 );
               })}

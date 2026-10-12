@@ -4,14 +4,12 @@ import { redirect } from "next/navigation";
 import { currentCustomer } from "@/server/customers";
 import { ordersFor, ORDER_STATUS, PAYMENT_STATUS } from "@/server/orders";
 import { formatDate, formatMonth } from "@/lib/format";
-import { DetailsForm, PasswordForm, SignOut } from "@/components/account/AccountForms";
-import { DeleteAccount } from "@/components/account/BraceletForms";
 import { AccountNav } from "@/components/account/AccountNav";
 import { braceletsForCustomer } from "@/server/bracelets";
 import { sizeLabel } from "@/data/products";
 import { EyeMark } from "@/components/brand/Emblem";
 
-export const metadata: Metadata = { title: "Your account", robots: { index: false } };
+export const metadata: Metadata = { title: "Your orders", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
 export default async function AccountPage() {
@@ -34,9 +32,8 @@ export default async function AccountPage() {
             <p className="t-body mt-3">
               Member since {formatMonth(me.created_at)} · {bracelets.length} bracelet{bracelets.length === 1 ? "" : "s"} registered
             </p>
-            <AccountNav current="overview" />
+            <AccountNav current="orders" />
           </div>
-          <SignOut />
         </div>
       </section>
 
@@ -68,8 +65,8 @@ export default async function AccountPage() {
       )}
 
       <section className="shell py-[clamp(3rem,8vh,5rem)] grid lg:grid-cols-12 gap-14">
-        <div className="lg:col-span-7">
-          <h2 className="t-eyebrow !text-[var(--c-strong)]">Reservations &amp; orders</h2>
+        <div className="lg:col-span-8">
+          <h2 className="font-display text-[1.5rem]">Your orders</h2>
           {orders.length === 0 ? (
             <div className="mt-6 border-t border-line pt-8">
               <p className="t-subtitle">Nothing reserved yet.</p>
@@ -106,31 +103,6 @@ export default async function AccountPage() {
           )}
         </div>
 
-        <div className="lg:col-span-4 lg:col-start-9 space-y-14">
-          <div>
-            <h2 className="t-eyebrow !text-[var(--c-strong)] mb-6">Your details</h2>
-            <DetailsForm customer={me} />
-          </div>
-          <div>
-            <h2 className="t-eyebrow !text-[var(--c-strong)] mb-6">Password</h2>
-            <PasswordForm />
-          </div>
-          <div>
-            <h2 className="t-eyebrow !text-[var(--c-strong)] mb-3">Privacy</h2>
-            <p className="text-[0.92rem] text-muted mb-4">
-              Your account details are private. Only what you choose to put on a bracelet&rsquo;s tap page is shown, and you control that under{" "}
-              <Link href="/account/bracelets" className="underline underline-offset-4">
-                Bracelets
-              </Link>
-              . See our{" "}
-              <Link href="/privacy" className="underline underline-offset-4">
-                Privacy Policy
-              </Link>
-              .
-            </p>
-            <DeleteAccount />
-          </div>
-        </div>
       </section>
     </div>
   );

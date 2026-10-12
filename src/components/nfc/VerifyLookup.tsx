@@ -25,7 +25,7 @@ export function VerifyLookup() {
           id="bid"
           value={v}
           onChange={(e) => setV(e.target.value)}
-          placeholder="BR-000001"
+          placeholder="OZ-XXXXX-XXXXX"
           autoComplete="off"
           autoCapitalize="characters"
           className="field !h-[3.25rem] uppercase tracking-[0.1em] placeholder:normal-case placeholder:tracking-normal"

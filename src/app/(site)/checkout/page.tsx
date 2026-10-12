@@ -12,7 +12,7 @@ export default function CheckoutPage() {
           <EyeMark className="w-6 text-[var(--c-strong)]" />
           Checkout
         </p>
-        <h1 className="t-display mt-4">Reserve your piece.</h1>
+        <h1 className="t-display mt-4">Your order.</h1>
       </header>
       <Checkout />
     </div>

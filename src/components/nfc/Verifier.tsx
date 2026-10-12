@@ -181,7 +181,7 @@ export function Verifier({ event, who }: { event: { name: string } | null; who?:
                 id="manual"
                 value={manual}
                 onChange={(e) => setManual(e.target.value)}
-                placeholder="BR-000001"
+                placeholder="OZ-XXXXX-XXXXX"
                 autoComplete="off"
                 autoCapitalize="characters"
                 inputMode="text"

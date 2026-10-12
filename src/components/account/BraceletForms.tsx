@@ -39,7 +39,7 @@ export function ClaimForm({ initialId = "" }: { initialId?: string }) {
       }}
     >
       <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Bracelet ID" value={f.braceletId} onChange={(e) => setF({ ...f, braceletId: e.target.value })} placeholder="BR-000001" autoComplete="off" autoCapitalize="characters" className="uppercase tracking-[0.08em]" />
+        <Field label="Bracelet ID" value={f.braceletId} onChange={(e) => setF({ ...f, braceletId: e.target.value })} placeholder="OZ-XXXXX-XXXXX" autoComplete="off" autoCapitalize="characters" className="uppercase tracking-[0.08em]" />
         <Field label="Claim code" value={f.code} onChange={(e) => setF({ ...f, code: e.target.value })} placeholder="XXXX-XXXX" autoComplete="off" autoCapitalize="characters" className="uppercase tracking-[0.12em]" />
       </div>
       <div className="flex flex-wrap items-center gap-5">
