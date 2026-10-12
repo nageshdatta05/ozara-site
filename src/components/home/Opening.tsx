@@ -149,7 +149,9 @@ export function Opening() {
               </span>
             ))}
           </h1>
-          <p className="t-body !text-[0.98rem] md:!text-[1rem] leading-snug mt-3 md:mt-5 max-w-[32ch] md:max-w-[46ch] fade-in" style={{ animationDelay: "1.9s" }}>
+          {/* phones: under the headline. Laptops: moved to the bottom-left corner, so the
+              headline never reaches up into the bracelet names on a short screen */}
+          <p className="md:hidden t-body !text-[0.98rem] leading-snug mt-3 max-w-[32ch] fade-in" style={{ animationDelay: "1.9s" }}>
             {c.sub}
           </p>
           <a
@@ -158,7 +160,7 @@ export function Opening() {
               e.preventDefault();
               scrollTo("#how-it-works");
             }}
-            className="btn-text mt-4 pointer-events-auto fade-in"
+            className="md:hidden btn-text mt-4 pointer-events-auto fade-in"
             style={{ animationDelay: "2s" }}
           >
             {c.how}
@@ -167,10 +169,19 @@ export function Opening() {
 
         {/* hint: choose / scroll */}
         <div className="hidden md:flex absolute inset-x-0 bottom-[6.5svh] shell justify-between items-end pointer-events-none fade-in" style={{ animationDelay: "2.2s" }}>
-          <p className="t-eyebrow flex items-center gap-3">
-            <EyeMark className="w-6 text-[var(--c-strong)]" />
-            {c.choose}
-          </p>
+          <div className="max-w-[27ch] lg:max-w-[32ch] flex flex-col items-start gap-3">
+            <p className="t-body !text-[0.95rem] leading-snug">{c.sub}</p>
+            <a
+              href="#how-it-works"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("#how-it-works");
+              }}
+              className="btn-text pointer-events-auto"
+            >
+              {c.how}
+            </a>
+          </div>
           <p className="t-eyebrow flex items-center gap-4">
             {c.scroll}
             <span aria-hidden className="relative block h-10 w-px bg-[var(--c-line)] overflow-hidden">
