@@ -36,6 +36,14 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                 </a>
               </div>
             )}
+            {site.contactPhone && (
+              <div>
+                <p className="t-eyebrow mb-2">Phone</p>
+                <a href={`tel:${site.contactPhone.replace(/[^\d+]/g, "")}`} className="font-display text-[1.4rem] text-strong border-b border-line hover:border-[var(--c-strong)] transition-colors">
+                  {site.contactPhone}
+                </a>
+              </div>
+            )}
             <div>
               <p className="t-eyebrow mb-2">Instagram</p>
               <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="font-display text-[1.4rem] text-strong border-b border-line hover:border-[var(--c-strong)] transition-colors">

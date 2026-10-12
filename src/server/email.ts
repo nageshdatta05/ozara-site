@@ -1,5 +1,6 @@
 import "server-only";
 import { db, nowIso } from "./db";
+import { site } from "@/config/site";
 
 /* ==========================================================================
    EMAIL — sent through Resend (https://resend.com) when configured:
@@ -37,7 +38,8 @@ export async function sendEmail(m: Mail): Promise<boolean> {
     const r = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: process.env.EMAIL_FROM, to: [m.to], subject: m.subject, text: m.text }),
+      // replies go to the business inbox, not to the no-reply sender
+      body: JSON.stringify({ from: process.env.EMAIL_FROM, to: [m.to], subject: m.subject, text: m.text, ...(site.contactEmail ? { reply_to: site.contactEmail } : {}) }),
     });
     if (!r.ok) {
       record(m, "failed", `HTTP ${r.status}`);

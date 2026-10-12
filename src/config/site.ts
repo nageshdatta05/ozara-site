@@ -16,7 +16,9 @@ export const site = {
   /** Canonical public address, e.g. https://ozara.co (no trailing slash). */
   url: (env(process.env.NEXT_PUBLIC_SITE_URL) ?? env(process.env.OZARA_PUBLIC_URL) ?? "http://localhost:3000").replace(/\/$/, ""),
   /** Public contact address. When unset, the site sends people to the contact form instead. */
-  contactEmail: env(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
+  contactEmail: env(process.env.NEXT_PUBLIC_CONTACT_EMAIL) ?? "ozara.bracelet@gmail.com",
+  /** Public contact number (set NEXT_PUBLIC_CONTACT_PHONE to change it). */
+  contactPhone: env(process.env.NEXT_PUBLIC_CONTACT_PHONE) ?? "+91 74839 68714",
   instagram: "https://www.instagram.com/ozara.co/",
   year: new Date().getFullYear(),
 };

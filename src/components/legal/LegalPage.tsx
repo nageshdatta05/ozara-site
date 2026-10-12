@@ -52,7 +52,7 @@ export function LegalPage({ eyebrow, title, intro, sections }: { eyebrow: string
             <a href={contactHref("Privacy and terms")} className="underline underline-offset-4 text-[var(--c-strong)]">
               Contact {site.brand}
             </a>
-            .
+            {site.contactPhone ? <> or call {site.contactPhone}</> : null}.
           </p>
         </div>
       </div>
