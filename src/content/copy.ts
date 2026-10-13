@@ -184,7 +184,7 @@ export const copy = {
     /* Product essentials — shown on every piece's page. Keep them true. */
     essentials: {
       materials: (finish: string) => `${finish} finish. The metal and plating for each finish are confirmed with you in writing before your piece is made.`,
-      sizing: "Choose S, M or L. We confirm the fit with you before your piece is made.",
+      sizing: "Choose a size from 15 to 19 (the inside length in cm). Not sure? Use Find my size. We confirm the fit with you before your piece is made.",
       shipping: "Made in the first run. Free delivery in India, usually 7 to 10 working days after dispatch.",
       care: "Store in its pouch. Wipe with a soft, dry cloth. Avoid perfume, chemicals and water. The tag needs no charging.",
       technology: "An NFC tag within. Hold the eye to a phone and your personal page opens on our website, showing only what you chose. No battery, no GPS, no tracking.",
@@ -198,7 +198,7 @@ export const copy = {
       { title: "Does a tap share everything on my phone?", body: "No. It opens a web page. You decide what is on it, and nothing from your phone is sent." },
       { title: "Do I need an app?", body: "No. The tap opens a web page on most modern phones." },
       { title: "Is the technology visible?", body: "No. The tag sits within the bracelet; what you see is the jewellery and the eye." },
-      { title: "Which sizes are offered?", body: "S, M and L. Base Models are ₹4,999 at launch (regular price ₹6,999); pieces with stones are priced by the number of stones." },
+      { title: "Which sizes are offered?", body: "15 to 19 (the inside length in cm). Base Models are ₹4,999 at launch (regular price ₹6,999); pieces with stones are priced by the number of stones." },
     ],
     relatedEyebrow: "The other expressions",
   },

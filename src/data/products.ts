@@ -222,13 +222,28 @@ export function unitPrice(p: Product, gem: GemKey | null): { amount: number; cur
   return extra === null ? null : { amount: p.price.amount + extra, currency: p.price.currency };
 }
 
-/** SIZING — three sizes. The fit is confirmed with the customer before production. */
+/**
+ * SIZING — 15 to 19: the inside length of the bracelet in cm. The fit is
+ * confirmed with the customer before production.
+ */
 export const WRIST_SIZES = [
-  { key: "S", name: "Small" },
-  { key: "M", name: "Medium" },
-  { key: "L", name: "Large" },
+  { key: "15", name: "15 cm" },
+  { key: "16", name: "16 cm" },
+  { key: "17", name: "17 cm" },
+  { key: "18", name: "18 cm" },
+  { key: "19", name: "19 cm" },
 ] as const;
 export type WristSize = (typeof WRIST_SIZES)[number]["key"];
-// earlier reservations stored centimetres — still shown as they were saved
-export const sizeLabel = (s: string | null | undefined) => (!s ? "—" : WRIST_SIZES.find((w) => w.key === s)?.name ?? (/^\d/.test(s) ? `${s} cm` : s));
+/** Comfort allowance added to the wrist measurement. Confirm with the maker. */
+export const FIT_ALLOWANCE_CM = 1.5;
+/** Suggest a size from a wrist measurement in cm; `range` says if it falls outside 15–19. */
+export function suggestSize(wristCm: number): { size: WristSize | null; exact: number; range: "ok" | "small" | "large" } {
+  const exact = wristCm + FIT_ALLOWANCE_CM;
+  if (exact < 14.5) return { size: null, exact, range: "small" };
+  if (exact >= 19.5) return { size: null, exact, range: "large" };
+  return { size: String(Math.round(exact)) as WristSize, exact, range: "ok" };
+}
+// earlier reservations used S / M / L or plain centimetres — still shown as they were saved
+const LEGACY_SIZES: Record<string, string> = { S: "Small", M: "Medium", L: "Large" };
+export const sizeLabel = (s: string | null | undefined) => (!s ? "—" : WRIST_SIZES.find((w) => w.key === s)?.name ?? LEGACY_SIZES[s] ?? (/^\d/.test(s) ? `${s} cm` : s));
 export const validSize = (s: unknown): s is WristSize => typeof s === "string" && WRIST_SIZES.some((w) => w.key === s);

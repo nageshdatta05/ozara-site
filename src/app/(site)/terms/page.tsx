@@ -29,7 +29,7 @@ const sections: LegalSection[] = [
     title: "Made-to-order and customised jewellery",
     body: [
       "Each piece is made to order, with the stones and size you confirm. Images on this website, including the stone previews, illustrate the design; natural stones and hand finishing mean every piece varies slightly in colour, inclusions and finish. The Base Model carries the OZARA eye alone; on pieces with stones, they are set along the band and at the centre of the star.",
-      "Pieces are offered in sizes S, M and L. We confirm the fit with you before production.",
+      "Pieces are offered in sizes 15 to 19 (inside length in cm). We confirm the fit with you before production.",
     ],
   },
   {

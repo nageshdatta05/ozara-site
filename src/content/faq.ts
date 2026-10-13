@@ -113,7 +113,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
       },
       {
         title: "How does sizing work?",
-        body: "Choose S, M or L when you reserve. We confirm the fit with you before your piece is made.",
+        body: "Choose 15, 16, 17, 18 or 19 (the inside length in cm). Measure your wrist and Find my size on the product page will suggest one. We confirm the fit with you before your piece is made.",
       },
       {
         title: "How do I customise my bracelet?",

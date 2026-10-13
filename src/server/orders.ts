@@ -55,7 +55,7 @@ export function createOrder(input: {
     if (p.availability !== "preorder" && p.availability !== "available") throw new InputError(`${p.name} cannot be reserved right now.`);
     const gemKey = GEMS.find((g) => g.key === it.gem)?.key ?? null;
     const qty = Math.min(Math.max(Math.floor(Number(it.qty) || 1), 1), 5);
-    if (!validSize(it.size)) throw new InputError(`Please choose a size (S, M or L) for ${p.name}.`);
+    if (!validSize(it.size)) throw new InputError(`Please choose a size (15 to 19) for ${p.name}.`);
     const price = unitPrice(p, gemKey);
     items.push({
       slug: p.slug,

@@ -10,6 +10,7 @@ import { WaitlistForm } from "@/components/commerce/WaitlistForm";
 import { useCart } from "@/components/commerce/Cart";
 import { EyeMark } from "@/components/brand/Emblem";
 import { Gem } from "./Gem";
+import { SizeGuide } from "./SizeGuide";
 
 type Customise = { eyebrow: string; title: string; body: string; none: string; note: string };
 
@@ -102,7 +103,7 @@ export function PurchasePanel({
           <p id={`${sizeId}-label`} className="t-eyebrow !text-[var(--c-strong)] mb-3">
             Size
           </p>
-          <div role="radiogroup" aria-labelledby={`${sizeId}-label`} aria-describedby={`${sizeId}-help`} className="grid grid-cols-3 gap-2">
+          <div role="radiogroup" aria-labelledby={`${sizeId}-label`} aria-describedby={`${sizeId}-help`} className="grid grid-cols-5 gap-2">
             {WRIST_SIZES.map((w, i) => {
               const on = size === w.key;
               return (
@@ -112,12 +113,12 @@ export function PurchasePanel({
                   type="button"
                   role="radio"
                   aria-checked={on}
-                  aria-label={w.name}
+                  aria-label={`Size ${w.key}, ${w.name}`}
                   onClick={() => {
                     setSize(w.key);
                     setSizeError(false);
                   }}
-                  className="h-[3.4rem] border font-[family-name:var(--font-mark)] text-[1.15rem] tracking-[0.2em] transition-colors duration-500"
+                  className="h-[3.4rem] border font-[family-name:var(--font-mark)] text-[1.15rem] tracking-[0.05em] transition-colors duration-500"
                   style={{
                     borderColor: on ? "var(--c-deep)" : sizeError ? "var(--c-burgundy)" : "var(--c-line-strong)",
                     background: on ? "var(--c-deep)" : "transparent",
@@ -130,8 +131,9 @@ export function PurchasePanel({
             })}
           </div>
           <p id={`${sizeId}-help`} className="mt-2.5 text-[0.92rem]" style={{ color: sizeError ? "var(--c-burgundy)" : "var(--c-text-faint)" }} role={sizeError ? "alert" : undefined}>
-            {sizeError ? "Please choose a size." : "Fit confirmed with you before making."}
+            {sizeError ? "Please choose a size." : "Inside length in cm. Fit confirmed with you before making."}
           </p>
+          <SizeGuide onPick={(s) => { setSize(s); setSizeError(false); }} />
         </div>
       )}
 
