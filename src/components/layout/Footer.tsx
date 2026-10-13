@@ -44,6 +44,8 @@ export function Footer() {
       <div className="shell relative border-t border-line py-6 flex flex-col sm:flex-row gap-3 justify-between t-small !text-faint">
         <span>© {site.year} {site.brand}. All rights reserved.</span>
         <span className="flex gap-6">
+          <Link href="/shipping" className="hover:text-[var(--c-strong)] transition-colors">Shipping</Link>
+          <Link href="/returns" className="hover:text-[var(--c-strong)] transition-colors">Returns</Link>
           <Link href="/privacy" className="hover:text-[var(--c-strong)] transition-colors">Privacy</Link>
           <Link href="/terms" className="hover:text-[var(--c-strong)] transition-colors">Terms</Link>
         </span>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useRef } from "react";
-import { isPreorder, productHref, priceLabel, type Product } from "@/data/products";
+import { formatPrice, isPreorder, productHref, priceLabel, regularPriceFor, type Product } from "@/data/products";
 import { preorder } from "@/config/site";
 import { usePieceTransition } from "@/components/transition/PieceTransition";
 import { PLATE_SIZES } from "@/lib/stage";
@@ -59,7 +59,10 @@ function Row({ p, flip }: { p: Product; flip: boolean }) {
           <p className="t-body mt-5 max-w-[34ch]">{p.form}</p>
           <p className="mt-6 flex items-center gap-4">
             {isPreorder(p) && <span className="badge-preorder">{preorder.label}</span>}
-            <span className="text-[0.92rem] text-muted">{priceLabel(p)}</span>
+            <span className="text-[0.92rem] text-muted">
+              {regularPriceFor(p, null) && <s className="mr-2 opacity-60">{formatPrice(regularPriceFor(p, null))}</s>}
+              {priceLabel(p)}
+            </span>
           </p>
           <Link href={productHref(p)} onClick={open} className="link-quiet mt-9">
             {isPreorder(p) ? `${preorder.cta} — ${p.name}` : `Discover ${p.name}`}

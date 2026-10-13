@@ -44,7 +44,7 @@ export const business = {
   /** Country whose law governs the Terms, e.g. "England and Wales". */
   governingLaw: env(process.env.NEXT_PUBLIC_GOVERNING_LAW),
   /** Date the current Privacy Policy and Terms took effect. */
-  policiesUpdated: "3 October 2026",
+  policiesUpdated: "13 October 2026",
 };
 
 /* ==========================================================================
@@ -188,6 +188,8 @@ export const footer = {
         { label: "Contact", href: "/contact" },
         { label: "Your account", href: "/account" },
         { label: "Instagram", href: "https://www.instagram.com/ozara.co/" },
+        { label: "Shipping", href: "/shipping" },
+        { label: "Returns & refunds", href: "/returns" },
         { label: "Privacy", href: "/privacy" },
         { label: "Terms", href: "/terms" },
       ],

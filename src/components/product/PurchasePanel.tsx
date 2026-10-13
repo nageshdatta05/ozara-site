@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState } from "react";
-import { AVAILABILITY_LABEL, BASE_MODEL, GEMS, WRIST_SIZES, canReserve, formatPrice, gemName, isPreorder, unitPrice, type GemKey, type Product } from "@/data/products";
+import { AVAILABILITY_LABEL, BASE_MODEL, GEMS, WRIST_SIZES, canReserve, formatPrice, gemName, isPreorder, regularPriceFor, unitPrice, type GemKey, type Product } from "@/data/products";
 import { contactHref, launch, preorder } from "@/config/site";
 import { copy } from "@/content/copy";
 import { Accordion } from "@/components/ui/Accordion";
@@ -72,7 +72,11 @@ export function PurchasePanel({
       {/* Price — for the piece as configured */}
       <div className="mt-8 border-t border-line pt-6 flex items-baseline justify-between gap-6" aria-live="polite">
         {price ? (
-          <p className="font-display text-[1.8rem] text-strong leading-none">{formatPrice(price)}</p>
+          <p className="font-display text-[1.8rem] text-strong leading-none">
+            {regularPriceFor(p, gem) && <s className="mr-3 text-[1.1rem] text-faint">{formatPrice(regularPriceFor(p, gem))}</s>}
+            {formatPrice(price)}
+            {regularPriceFor(p, gem) && <span className="ml-3 align-middle badge-preorder">Launch price</span>}
+          </p>
         ) : (
           <p className="text-[1.02rem] text-[var(--c-strong)]">
             {launch.status}

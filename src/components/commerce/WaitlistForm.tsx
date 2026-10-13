@@ -1,5 +1,6 @@
 "use client";
 
+import { pixel } from "@/components/analytics/MetaPixel";
 import { useId, useState } from "react";
 import { waitlist } from "@/config/site";
 
@@ -44,6 +45,7 @@ export function WaitlistForm({ product, source, cta = "Join the waiting list", c
       });
       const d = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(d.error || "Something went wrong — please try again.");
+      if (d.status !== "already") pixel("Lead", { content_name: "waiting list" });
       setState(d.status === "already" ? "already" : "joined");
     } catch (err) {
       setState("error");

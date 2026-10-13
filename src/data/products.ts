@@ -57,6 +57,8 @@ export type Product = {
   } | null;
   specs?: { label: string; value: string }[] | null;
   price: { amount: number; currency: string } | null;
+  /** The regular price, shown crossed out beside `price` while a launch price is on. Base Model only. */
+  regularPrice?: { amount: number; currency: string } | null;
   availability: Availability;
   materials: string[] | null;
   features: string[] | null;
@@ -82,7 +84,8 @@ export const products: Product[] = [
     story: ["The softest of the three — a line that never settles, catching light on every crest."],
     media: collectionMedia.wave,
     image: collectionMedia.wave.hero,
-    price: { amount: 15000, currency: "INR" },
+    price: { amount: 4999, currency: "INR" },
+    regularPrice: { amount: 6999, currency: "INR" },
     availability: "preorder",
     materials: null,
     features: null,
@@ -105,7 +108,8 @@ export const products: Product[] = [
     story: ["Structure and movement at once — every angle shows a different face of the metal."],
     media: collectionMedia.flow,
     image: collectionMedia.flow.hero,
-    price: { amount: 15000, currency: "INR" },
+    price: { amount: 4999, currency: "INR" },
+    regularPrice: { amount: 6999, currency: "INR" },
     availability: "preorder",
     materials: null,
     features: null,
@@ -128,7 +132,8 @@ export const products: Product[] = [
     story: ["Says the least, remembered the longest. The star is the only light on the piece."],
     media: collectionMedia.line,
     image: collectionMedia.line.hero,
-    price: { amount: 15000, currency: "INR" },
+    price: { amount: 4999, currency: "INR" },
+    regularPrice: { amount: 6999, currency: "INR" },
     availability: "preorder",
     materials: null,
     features: null,
@@ -164,6 +169,12 @@ export function formatPrice(price: Product["price"]): string {
     currency: price.currency,
     maximumFractionDigits: 0,
   }).format(price.amount);
+}
+
+/** The regular price to show crossed out, only when it is higher than what the customer pays. Base Model only. */
+export function regularPriceFor(p: Product, gem: GemKey | null): Product["price"] {
+  if (gem || !p.price || !p.regularPrice) return null;
+  return p.regularPrice.amount > p.price.amount ? p.regularPrice : null;
 }
 
 /** Can be added to the bag: on sale, or open for pre-order. */

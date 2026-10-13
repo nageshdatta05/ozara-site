@@ -135,7 +135,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are pre-orders?",
-        body: `${preorder.why} Base Models are ₹15,000, paid securely at checkout. Pieces with stones are priced by the number of stones: we agree it with you, then send a secure payment link.`,
+        body: `${preorder.why} Base Models are ₹4,999 at launch (regular price ₹6,999), paid securely at checkout. Pieces with stones are priced by the number of stones: we agree it with you, then send a secure payment link.`,
       },
       {
         title: "Are the bracelets made to order?",
@@ -143,15 +143,15 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
       },
       {
         title: "How long does delivery take, and what does it cost?",
-        body: "For Base Models, delivery is shown at checkout. For pieces with stones, it is confirmed with you before you pay.",
+        body: "Delivery in India is free. Once your order is dispatched it usually takes 7 to 10 working days. We show the expected dispatch time at checkout. For pieces with stones, the timing is confirmed with you before you pay. See Shipping & delivery.",
       },
       {
         title: "Can I cancel or return?",
-        body: "You can cancel a reservation any time before you pay. Every piece is made to order; the terms for paid orders are in our Terms, alongside your statutory rights.",
+        body: "Base Models can be returned within 7 days of delivery if unworn and in their original packaging. Pieces with stones are made for you, so they cannot be returned for a change of mind. You can cancel a reservation any time before you pay. See Returns & refunds for the details.",
       },
       {
         title: "What if my bracelet is damaged?",
-        body: "Write to us through the Contact page and we will look at it with you. Repair and warranty terms are confirmed in writing.",
+        body: "Write to us through the Contact page within 48 hours of delivery, with photos. We will replace it or refund you. Every OZARA has a 6-month warranty against manufacturing defects.",
       },
       {
         title: "How should I care for my bracelet?",

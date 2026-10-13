@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PieceTransitionProvider } from "@/components/transition/PieceTransition";
 import { CartProvider } from "@/components/commerce/Cart";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { site } from "@/config/site";
 
 const orgLd = {
@@ -29,6 +30,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
+        <MetaPixel />
       </PieceTransitionProvider>
       </CartProvider>
     </SmoothScroll>

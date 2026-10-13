@@ -44,7 +44,7 @@ const sections: LegalSection[] = [
     title: "Cancellations, returns and repairs",
     body: [
       "Before you pay, you can cancel a reservation for a piece with stones at any time by contacting us.",
-      "Because confirmed pieces are made to your specification, the conditions for cancelling a paid order, returns, repairs and warranty are set out in your order confirmation before you pay, together with any statutory rights you have.",
+      "Cancellations, returns, refunds, repairs and warranty are set out on our Returns & refunds page (/returns), and delivery on our Shipping & delivery page (/shipping). They form part of these terms, alongside any statutory rights you have.",
     ],
   },
   {

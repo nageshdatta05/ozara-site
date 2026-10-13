@@ -1,7 +1,8 @@
+import { PixelEvent } from "@/components/analytics/MetaPixel";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { copy } from "@/content/copy";
-import { AVAILABILITY_LABEL, formatPrice, getProduct, getRelated, products } from "@/data/products";
+import { AVAILABILITY_LABEL, formatPrice, getProduct, getRelated, products, regularPriceFor } from "@/data/products";
 import { PieceStage } from "@/components/product/PieceStage";
 import { PieceBuy } from "@/components/product/PieceBuy";
 import { RelatedPieces } from "@/components/product/RelatedPieces";
@@ -51,7 +52,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
     ["Technology", "NFC — tap to verify"],
     ...((p.specs ?? []).map((r) => [r.label, r.value]) as [string, string][]),
     ...(p.materials?.length ? [["Materials", p.materials.join(" · ")] as [string, string]] : []),
-    ...(p.price ? [["Price", formatPrice(p.price)] as [string, string]] : []),
+    ...(p.price ? [["Price", regularPriceFor(p, null) ? `${formatPrice(p.price)} launch price (regular ${formatPrice(regularPriceFor(p, null))})` : formatPrice(p.price)] as [string, string]] : []),
     ["Availability", AVAILABILITY_LABEL[p.availability]],
   ];
   const specsPending = !p.specs?.length && !p.materials?.length;
@@ -82,6 +83,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      {p.price && <PixelEvent name="ViewContent" params={{ content_type: "product", content_ids: [p.slug], content_name: `${site.brand} ${p.name}`, value: p.price.amount, currency: p.price.currency }} />}
       <PieceStage product={p} />
       <PieceBuy product={p} />
 

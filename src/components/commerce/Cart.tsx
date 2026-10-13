@@ -11,6 +11,7 @@ import { ease } from "@/lib/motion";
 import { shopifyCheckoutUrl } from "@/lib/shopify";
 import { Gem } from "@/components/product/Gem";
 import { useSmoothScroll } from "@/components/layout/SmoothScroll";
+import { pixel } from "@/components/analytics/MetaPixel";
 
 /* ==========================================================================
    THE BAG — kept in this browser (localStorage) until checkout. Only the
@@ -66,6 +67,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [lines, ready]);
 
   const add = useCallback((slug: string, gem: GemKey | null, size: string) => {
+    const piece = getProduct(slug);
+    const each = piece ? unitPrice(piece, gem) : null;
+    pixel("AddToCart", { content_type: "product", content_ids: [slug], content_name: piece?.name, ...(each ? { value: each.amount, currency: each.currency } : {}) });
     setLines((ls) => {
       const id = lineId(slug, gem, size);
       const hit = ls.find((l) => l.id === id);
@@ -266,7 +270,7 @@ function BagAction({ lines, anyPreorder }: { lines: CartLine[]; anyPreorder: boo
   if (pay)
     return (
       <>
-        <a href={pay} className="btn-solid w-full">
+        <a href={pay} onClick={() => pixel("InitiateCheckout", { content_type: "product", content_ids: lines.map((l) => l.slug), num_items: lines.reduce((n, l) => n + l.qty, 0) })} className="btn-solid w-full">
           Checkout — pay securely
         </a>
         <p className="text-[0.85rem] text-faint text-center">Payment and delivery through Shopify.</p>
@@ -274,7 +278,7 @@ function BagAction({ lines, anyPreorder }: { lines: CartLine[]; anyPreorder: boo
     );
   return (
     <>
-      <Link href="/checkout" className="btn-solid w-full">
+      <Link href="/checkout" onClick={() => pixel("InitiateCheckout", { content_type: "product", content_ids: lines.map((l) => l.slug), num_items: lines.reduce((n, l) => n + l.qty, 0) })} className="btn-solid w-full">
         {anyPreorder ? "Continue to reservation" : "Checkout"}
       </Link>
       {lines.some((l) => l.gem) && (

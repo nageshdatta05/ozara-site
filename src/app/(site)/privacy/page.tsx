@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
+// True once a Meta Pixel ID is set (see components/analytics/MetaPixel.tsx); the wording below follows it.
+const adsOn = Boolean(process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim());
+
 const sections: LegalSection[] = [
   {
     id: "who",
@@ -52,7 +55,9 @@ const sections: LegalSection[] = [
         "To detect misuse — for example unusual patterns of scans — so a person can review it.",
         "To reply to your messages and, if you joined the waiting list, to tell you about OZARA.",
       ],
-      "We do not sell personal information, and we do not use it for advertising profiles.",
+      adsOn
+        ? "We do not sell personal information. If you accept advertising cookies, Meta receives the browsing information described under Cookies."
+        : "We do not sell personal information, and we do not use it for advertising profiles.",
     ],
   },
   {
@@ -60,14 +65,16 @@ const sections: LegalSection[] = [
     title: "Cookies and local storage",
     body: [
       "We use only cookies that the service needs to work: to keep you signed in to your account, to keep event staff and administrators signed in, and to let your browser show the confirmation of a reservation you just placed. Your shopping bag is kept in your browser's local storage on your device.",
-      "We do not currently use analytics or advertising cookies. If that changes we will update this policy and ask for consent where the law requires it.",
+      adsOn
+        ? "With your consent only, we use the Meta Pixel, provided by Meta Platforms, to measure how our adverts perform and to show our adverts to people who visited this site. It sets cookies and sends Meta information such as the pages you view, items you add to your bag and your device. It stays off until you choose Accept in the cookie notice, and Decline (or ignoring the notice) keeps it off. To change your mind, clear this site's data in your browser. Meta's use of that information is explained in Meta's own privacy policy."
+        : "We do not currently use analytics or advertising cookies. If that changes we will update this policy and ask for consent where the law requires it.",
     ],
   },
   {
     id: "sharing",
     title: "Who we share it with",
     body: [
-      "We share information only with providers that help us run the service — website hosting, email delivery and, once connected, payment processing — and only as needed for that purpose, and with our manufacturing partners where your order details are needed to make your piece. We may disclose information where the law requires it.",
+      "We share information only with providers that help us run the service — website hosting, email delivery, payment processing and, only if you accept advertising cookies, Meta (for advertising measurement) — and only as needed for that purpose, and with our manufacturing partners where your order details are needed to make your piece. We may disclose information where the law requires it.",
     ],
   },
   {
