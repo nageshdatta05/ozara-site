@@ -2,8 +2,8 @@
    PAGE COMPOSITION — reorder, remove or add homepage sections here.
 
    The home page tells one story, in order:
-   DESIRE (the three bracelets) → WHAT IS IT (Wear · Tap · Unlock) →
-   CURIOSITY (the OZARA Eye) → UNDERSTANDING (your OZARA ID) →
+   DESIRE (the hero) → UNDERSTANDING (your OZARA ID, the card, straight
+   after the hero) → CURIOSITY (the OZARA Eye) → WHAT IS IT (Wear · Tap · Unlock) →
    VALUE (your access: OZARA Exclusive / Approved) → BELONGING (status,
    reusable, the few) → DESIRE TO OWN (the three pieces, set with stones,
    pre-order).
@@ -24,10 +24,10 @@ import { Proof } from "@/components/sections/Proof";
 
 export const homeSections: { id: string; component: ComponentType; enabled: boolean }[] = [
   { id: "opening", component: Opening, enabled: true },
+  { id: "identity", component: Identity, enabled: true },
+  { id: "eye", component: TheEye, enabled: true },
   { id: "statement", component: Statement, enabled: true },
   { id: "preorder", component: PreorderBand, enabled: true },
-  { id: "eye", component: TheEye, enabled: true },
-  { id: "identity", component: Identity, enabled: true },
   { id: "access", component: Access, enabled: false }, // events: on hold while the offer is reshaped
   { id: "signature", component: Signature, enabled: true },
   { id: "expressions", component: Expressions, enabled: true },
