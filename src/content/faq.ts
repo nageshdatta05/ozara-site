@@ -135,7 +135,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are pre-orders?",
-        body: `${preorder.why} Base Models are ₹4,999 at launch (regular price ₹6,999), paid securely at checkout. Pieces with stones are priced by the number of stones: we agree it with you, then send a secure payment link.`,
+        body: `${preorder.why} Base Models are ₹7,999 at launch (regular price ₹9,999), paid securely at checkout. Pieces with stones are priced by the number of stones: we agree it with you, then send a secure payment link.`,
       },
       {
         title: "Are the bracelets made to order?",

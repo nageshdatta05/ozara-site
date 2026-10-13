@@ -198,7 +198,7 @@ export const copy = {
       { title: "Does a tap share everything on my phone?", body: "No. It opens a web page. You decide what is on it, and nothing from your phone is sent." },
       { title: "Do I need an app?", body: "No. The tap opens a web page on most modern phones." },
       { title: "Is the technology visible?", body: "No. The tag sits within the bracelet; what you see is the jewellery and the eye." },
-      { title: "Which sizes are offered?", body: "15 to 19 (the inside length in cm). Base Models are ₹4,999 at launch (regular price ₹6,999); pieces with stones are priced by the number of stones." },
+      { title: "Which sizes are offered?", body: "15 to 19 (the inside length in cm). Base Models are ₹7,999 at launch (regular price ₹9,999); pieces with stones are priced by the number of stones." },
     ],
     relatedEyebrow: "The other expressions",
   },
