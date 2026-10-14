@@ -183,7 +183,8 @@ export const copy = {
     },
     /* Product essentials — shown on every piece's page. Keep them true. */
     essentials: {
-      materials: (finish: string) => `${finish} finish. The metal and plating for each finish are confirmed with you in writing before your piece is made.`,
+      materials: (finish: string) =>
+        `Base Model: ${({ Rose: "rose gold", Silver: "silver", Black: "black" } as Record<string, string>)[finish] ?? finish.toLowerCase()} plating over brass. For pieces with stones, the metal is confirmed with you in writing before your piece is made.`,
       sizing: "Choose a size from 15 to 19 (the inside length in cm). Not sure? Use Find my size. We confirm the fit with you before your piece is made.",
       shipping: "Made in the first run. Free delivery in India, usually 7 to 10 working days after dispatch.",
       care: "Store in its pouch. Wipe with a soft, dry cloth. Avoid perfume, chemicals and water. The tag needs no charging.",
