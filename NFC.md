@@ -18,9 +18,9 @@ for secure chips later (see "Upgrading to a cryptographic chip").
 ## Flow
 
 ```
-tap bracelet → phone opens https://<domain>/b/BR-000001
-            → server: verification.authenticate("BR-000001")
-            → SELECT … FROM bracelets WHERE bracelet_id = 'BR-000001'
+tap bracelet → phone opens https://www.ozara.shop/b/OZ-7K3QX-9M2PW
+            → server: verification.authenticate("OZ-7K3QX-9M2PW")
+            → SELECT … FROM bracelets WHERE bracelet_id = 'OZ-7K3QX-9M2PW'
             → result: authentic | revoked | not_recognized  (+ log row)
             → page shows ✓ Authentic / No longer valid / Not recognized
 ```
@@ -55,15 +55,28 @@ event's door result instead (this is how iPhones verify at the door).
 | `POST /api/verify` | organiser session | door check |
 | `/api/admin/*` | admin session | create/update/revoke/restore, eligibility, owners, events |
 
-## Registering a real bracelet
+## Registering a real bracelet (do this once per bracelet, before it ships)
 
-1. Read the chip's UID with any NFC tool (e.g. NXP TagInfo / NFC Tools).
-2. `/admin/nfc` → **Register** → choose a bracelet ID (e.g. `BR-000101`),
-   paste the UID, choose product/batch/events → Register.
-3. Write the URL shown (e.g. `https://ozara.com/b/BR-000101`) to the tag as
-   an NDEF **URL** record (NFC Tools → Write → URL). Lock the tag if you want
-   it read-only.
-4. Tap it with a phone — you should see ✓ Authentic, and a scan in Overview.
+The customer never encodes anything. Whoever packs the bracelet writes the chip once.
+
+1. **Register:** `/admin/nfc` → **Register**. The bracelet ID is created
+   automatically (random and unguessable, e.g. `OZ-7K3QX-9M2PW`). Optionally
+   paste the chip's factory UID (read it with NFC Tools; permanent once set),
+   then choose the model and batch → Register.
+2. **Copy the claim code:** the next page shows the bracelet's link and its
+   claim code. **The claim code is shown only once** (only a hash is stored),
+   so write it on the card that goes in the box straight away.
+3. **Write the chip:** in the free **NFC Tools** app → Write → Add a record →
+   URL → paste `https://www.ozara.shop/b/OZ-XXXXX-XXXXX` (always with `www`) →
+   Write → hold the phone to the eye.
+4. **Test:** tap the bracelet with a phone. It must open the page and show
+   ✓ Authentic, and the scan appears in Overview.
+5. **Lock:** NFC Tools → Other → **Lock tag**. This is permanent: after it, no
+   one can rewrite the chip. Only lock after the test passes.
+6. **Box it** with the claim code card.
+
+The customer then taps the bracelet, presses **Register this bracelet**, enters
+the claim code, and sets up their page in Your account.
 
 ## Event verification
 
@@ -99,7 +112,7 @@ Keep the tag URL exactly as it is. When the app exists:
 
 Use a chip with per-tap dynamic authentication (e.g. NXP NTAG 424 DNA with
 SUN/SDM). The tag URL then carries extra parameters
-(`/b/BR-000101?picc_data=…&cmac=…`) that change on every tap. Implement the
+(`/b/OZ-7K3QX-9M2PW?picc_data=…&cmac=…`) that change on every tap. Implement the
 `ntag424_sun` case in `verifyTagProof()` (decrypt, check UID and counter,
 verify CMAC with a key referenced by `key_ref`), and set
 `verification_method = 'ntag424_sun'` on new bracelets. Old bracelets keep
