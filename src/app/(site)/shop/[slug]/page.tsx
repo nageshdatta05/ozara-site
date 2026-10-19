@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
     ["Availability", AVAILABILITY_LABEL[p.availability]],
   ];
   const specsPending = !p.specs?.length && !p.materials?.length;
-  const craft = [m.eyeMacro, m.hinge, m.curveMacro];
+  const craft = [m.eyeFront, m.above, m.turn];
 
   // Structured data — a price is only stated once one is set.
   const jsonLd = {

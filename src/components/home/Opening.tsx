@@ -22,8 +22,8 @@ import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
 /** Desktop composition: each piece has its own scale and height on the stone. */
 const LAYOUT = [
-  { w: "min(36vw, 640px)", y: "2.5vh", depth: 1 },
-  { w: "min(38vw, 680px)", y: "-2vh", depth: 1.3 },
+  { w: "min(33vw, 540px)", y: "2vh", depth: 1 },
+  { w: "min(33vw, 540px)", y: "-1.5vh", depth: 1.3 },
 ];
 
 export function Opening() {
@@ -168,7 +168,7 @@ export function Opening() {
 
         {/* hint: choose / scroll */}
         <div className="hidden md:flex absolute inset-x-0 bottom-[6.5svh] shell justify-between items-end pointer-events-none fade-in" style={{ animationDelay: "2.2s" }}>
-          <div className="max-w-[27ch] lg:max-w-[32ch] flex flex-col items-start gap-3">
+          <div className="max-w-[20ch] lg:max-w-[27ch] xl:max-w-[32ch] flex flex-col items-start gap-3">
             <p className="t-body !text-[0.95rem] leading-snug">{c.sub}</p>
             <a
               href="#how-it-works"
@@ -231,7 +231,7 @@ function Piece({ product: p, index: i, focus, leaving, live, reduce, sx, sy, onF
   const dimmed = (focus !== null && !focused) || (leaving !== null && leaving !== i);
 
   return (
-    <li className="relative" style={{ width: L.w, marginInline: "-1.6vw", zIndex: focused ? 3 : 1 + i }}>
+    <li className="relative" style={{ width: L.w, marginInline: "2vw", zIndex: focused ? 3 : 1 + i }}>
       <div className="rise" style={{ animationDelay: `${1.05 + [0.12, 0][i]}s`, translate: `0 ${L.y}` }}>
         <motion.div style={{ x: live ? px : 0, y: live ? py : 0 }}>
           <Link
@@ -422,9 +422,9 @@ function MobileRail({ onChoose, reduce }: { onChoose: PieceProps["onChoose"]; re
                   sizes={PLATE_SIZES}
                   quality={90}
                   priority={i === 1}
-                  className="w-[118%] max-w-none -ml-[9%] h-auto"
+                  className="w-[94%] mx-auto h-auto"
                 />
-                <div className="text-center -mt-[3%]">
+                <div className="text-center mt-3">
                   <p className="t-name text-[0.92rem]">{p.name}</p>
                   <p className="t-eyebrow !text-[11.5px] mt-2">{p.expression}</p>
                 </div>

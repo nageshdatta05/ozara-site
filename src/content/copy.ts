@@ -179,7 +179,7 @@ export const copy = {
     },
     craft: {
       eyebrow: "Details",
-      lines: ["The eye, brushed flat.", "The hinge.", "The line of the form."],
+      lines: ["The eye, up close.", "From above.", "The line of the form."],
     },
     /* Product essentials — shown on every piece's page. Keep them true. */
     essentials: {

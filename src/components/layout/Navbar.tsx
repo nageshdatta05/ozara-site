@@ -213,7 +213,7 @@ function Menu({ pathname }: { pathname: string }) {
               <p className="t-eyebrow mt-5">The eye · The wave · The few</p>
             </div>
           </div>
-          <ul className="grid grid-cols-3 gap-4">
+          <ul className="grid grid-cols-2 gap-6">
             {products.map((p) => (
               <li key={p.id}>
                 <Link href={productHref(p)} className="group block text-center">

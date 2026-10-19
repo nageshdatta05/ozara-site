@@ -112,7 +112,7 @@ function EyeFigure({
   const m = collectionMedia.flow;
   const tag = collectionMedia.wave.nfcEye;
   // optimised URLs for SVG <image> (next/image can't sit inside an SVG)
-  const macroSrc = getImageProps({ src: m.eyeMacro.src, alt: "", width: m.eyeMacro.width, height: m.eyeMacro.height, quality: 90 }).props.src;
+  const macroSrc = getImageProps({ src: m.eyeFront.src, alt: "", width: m.eyeFront.width, height: m.eyeFront.height, quality: 90 }).props.src;
   const nfcSrc = getImageProps({ src: tag.src, alt: "", width: tag.width, height: tag.height, quality: 88 }).props.src;
   return (
     <svg viewBox="-170 -120 340 240" className="w-full max-w-[640px] overflow-visible" aria-hidden>
@@ -155,7 +155,7 @@ function Sequence() {
       <path d={starPath(0, 0, 58, 50, 7)} fill="none" stroke="var(--c-strong)" strokeWidth={0.8} />
     </svg>,
     <div key="m" className="relative aspect-[480/452] w-[78%] mx-auto overflow-hidden" style={{ clipPath: "ellipse(50% 38% at 50% 52%)" }}>
-      <Image src={m.eyeMacro.src} alt={m.eyeMacro.alt} fill sizes="80vw" className="object-cover" />
+      <Image src={m.eyeFront.src} alt={m.eyeFront.alt} fill sizes="80vw" className="object-cover" />
     </div>,
     <div key="n" className="relative aspect-[1224/668] w-full overflow-hidden">
       <Image src={collectionMedia.wave.nfcEye.src} alt={collectionMedia.wave.nfcEye.alt} fill sizes="100vw" className="object-cover" />

@@ -10,7 +10,12 @@ import { Photo } from "@/components/ui/Photo";
 import { collectionMedia } from "@/data/media";
 
 /** Wear: the piece. Tap: the Eye. Unlock: the stones. */
-const STEP_IMAGES = [collectionMedia.wave.portrait, collectionMedia.flow.eyeMacro, collectionMedia.flow.portrait];
+// upright crops of wide photographs, each aimed at the eye
+const STEP_IMAGES = [
+  { ...collectionMedia.wave.turn, position: "82% 55%" },
+  { ...collectionMedia.flow.nfcEye, position: "72% 50%" },
+  { ...collectionMedia.flow.curveMacro, position: "24% 55%" },
+];
 import { useReducedMotion } from "@/lib/hooks";
 
 /**
