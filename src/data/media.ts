@@ -67,9 +67,11 @@ type StoneKey = "sapphire" | "ruby" | "emerald" | "amethyst" | "diamond";
 
 /* Pixel sizes of each model's files (the source photographs differ in size). */
 const SIZES = {
-  wave: { piece: [2400, 1340], eye: [960, 904], wide: [1403, 766], curve: [1007, 948], hinge: [1007, 615], gemEye: [1792, 1344], gemDetail: [1541, 1156] },
-  flow: { piece: [2400, 1600], eye: [1200, 1130], wide: [1809, 987], curve: [922, 868], hinge: [922, 563], gemEye: [1571, 1178], gemDetail: [1352, 1014] },
+  wave: { campaignH: 1333, piece: [2400, 1600], eye: [1800, 1695], wide: [2274, 1241], curve: [2240, 1792], hinge: [2172, 1328], gemEye: [1792, 1344], gemDetail: [1541, 1156] },
+  flow: { campaignH: 1333, piece: [2400, 1600], eye: [1800, 1695], wide: [2400, 1310], curve: [2240, 1792], hinge: [2319, 1417], gemEye: [1571, 1178], gemDetail: [1352, 1014] },
 } as const;
+
+const SHOW_STONE_PHOTOS = false;
 
 const STONES = [
   ["ruby", "rubies"],
@@ -89,7 +91,9 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
   const s = SIZES[key];
   const stonePhotos: BraceletMedia["stonePhotos"] = {};
   const stonePortraits: BraceletMedia["stonePortraits"] = {};
-  for (const [k, plural] of STONES) {
+  // Stone-set photographs are hidden until real photos of the final pieces exist:
+  // the old ones show an earlier form of the bracelets. Flip SHOW_STONE_PHOTOS to bring them back.
+  if (SHOW_STONE_PHOTOS) for (const [k, plural] of STONES) {
     stonePhotos[k] = [
       img(`${p}/${k}-piece.jpg`, 2400, 1600, `${name} in ${metal}, set with ${plural}, on marble`, "50% 50%"),
       img(`${p}/${k}-eye.jpg`, s.gemEye[0], s.gemEye[1], `The eye of ${name} — a ${k} in the star, ${plural} either side`),
@@ -99,10 +103,10 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
   }
   return {
     plate: { ...img(`${p}/plate-cut.png`, 1605, 891, `${name} in ${metal}`), eye },
-    hero: img(`${p}/campaign.jpg`, 2400, 1332, `${name} in ${metal} on marble, in window light`, "50% 50%"),
+    hero: img(`${p}/campaign.jpg`, 2400, s.campaignH, `${name} in ${metal} on linen, in window light`, "50% 50%"),
     studio: img(`${p}/piece.jpg`, s.piece[0], s.piece[1], `${name} in ${metal}, the OZARA eye at its centre`, "50% 50%"),
     eyeMacro: img(`${p}/eye.jpg`, s.eye[0], s.eye[1], `Close-up of the OZARA eye on ${name}`),
-    curveMacro: img(`${p}/curve.jpg`, s.curve[0], s.curve[1], `The band of ${name}, where it crosses and turns`),
+    curveMacro: img(`${p}/curve.jpg`, s.curve[0], s.curve[1], `${name}, seen from the side of its band`),
     hinge: img(`${p}/hinge-detail.jpg`, s.hinge[0], s.hinge[1], `The hinge of ${name}`),
     nfcEye: img(`${p}/eye-wide.jpg`, s.wide[0], s.wide[1], `The eye of ${name}, where the bracelet meets your phone`, "50% 50%"),
     portrait: img(`${p}/portrait.jpg`, 1400, 1750, `${name} in ${metal}`, "50% 55%"),
@@ -113,13 +117,13 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
 }
 
 export const collectionMedia = {
-  wave: bracelet("wave", "The Wave", "gold", { x: 43.2, y: 61.6 }),
-  flow: bracelet("flow", "The Flow", "silver", { x: 46.6, y: 67 }),
+  wave: bracelet("wave", "The Wave", "gold", { x: 49.6, y: 61.4 }, { plate: { src: "/media/collection/wave/plate-cut.png", width: 1826, height: 765, alt: "The Wave in gold", eye: { x: 49.6, y: 61.4 } } }),
+  flow: bracelet("flow", "The Flow", "silver", { x: 49.5, y: 63.8 }, { plate: { src: "/media/collection/flow/plate-cut.png", width: 1935, height: 765, alt: "The Flow in silver", eye: { x: 49.5, y: 63.8 } } }),
 };
 
 /* Diamond: photographed for the Flow (Oct 2026). The Wave's
    diamond photograph shows an earlier form of the piece, so it is not used. */
-collectionMedia.flow.stonePhotos.diamond = [
+if (SHOW_STONE_PHOTOS) collectionMedia.flow.stonePhotos.diamond = [
   img("/media/collection/flow/diamond-piece.jpg", 1536, 1024, "The Flow with diamonds, on marble in soft light", "50% 55%"),
   img("/media/collection/flow/diamond-eye.jpg", 1536, 1024, "The eye of The Flow, a diamond in the star and diamonds either side"),
   img("/media/collection/flow/diamond-detail.jpg", 1400, 985, "The eye and diamonds of The Flow, seen at an angle"),

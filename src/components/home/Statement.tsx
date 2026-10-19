@@ -10,7 +10,7 @@ import { Photo } from "@/components/ui/Photo";
 import { collectionMedia } from "@/data/media";
 
 /** Wear: the piece. Tap: the Eye. Unlock: the stones. */
-const STEP_IMAGES = [collectionMedia.wave.portrait, collectionMedia.flow.eyeMacro, collectionMedia.flow.stonePortraits.sapphire!];
+const STEP_IMAGES = [collectionMedia.wave.portrait, collectionMedia.flow.eyeMacro, collectionMedia.flow.portrait];
 import { useReducedMotion } from "@/lib/hooks";
 
 /**

@@ -146,7 +146,7 @@ export const copy = {
   },
 
   worn: {
-    eyebrow: "Set with stones",
+    eyebrow: "The collection",
     headline: ["Two designs.", "*One vision.*"],
   },
 

@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: site.brand,
     title: `${site.brand} — ${site.tagline}`,
     description: site.description,
-    images: [{ url: "/media/collection/flow/campaign.jpg", width: 2400, height: 1332, alt: "The Flow, an OZARA bracelet in silver, on marble" }],
+    images: [{ url: "/media/share/pair.jpg", width: 1600, height: 838, alt: "The Wave in gold and the Flow in silver, OZARA bracelets, on linen" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
