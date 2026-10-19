@@ -75,7 +75,7 @@ export const products: Product[] = [
     name: "The Wave",
     expression: "Fluid. Refined. Timeless.",
     signoff: "Effortless. Iconic.",
-    finish: "Rose",
+    finish: "Gold",
     tone: { hue: "#b98e6e", wash: "#eedfd2", ink: "dark" },
     form: "A fluid, ergonomic wave — shaped for everyday comfort.",
     setting: { left: { x: 13.8, y: 61 }, right: { x: 49.5, y: 66 }, size: 3.6, squash: 0.62, metal: "#c9a07c" },

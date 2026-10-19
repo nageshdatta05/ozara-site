@@ -109,7 +109,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are the bracelets made of?",
-        body: "Base Models are brass with a plated finish: the Wave in rose gold plating and the Flow in silver plating. For pieces with stones, the metal is confirmed with you in writing before making.",
+        body: "Base Models are brass with a plated finish: the Wave in gold plating and the Flow in silver plating. For pieces with stones, the metal is confirmed with you in writing before making.",
       },
       {
         title: "How does sizing work?",

@@ -113,7 +113,7 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
 }
 
 export const collectionMedia = {
-  wave: bracelet("wave", "The Wave", "rose", { x: 43.2, y: 61.6 }),
+  wave: bracelet("wave", "The Wave", "gold", { x: 43.2, y: 61.6 }),
   flow: bracelet("flow", "The Flow", "silver", { x: 46.6, y: 67 }),
 };
 
