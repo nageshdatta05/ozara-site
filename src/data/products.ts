@@ -8,7 +8,7 @@
    • add materials    → fill `materials` (strings); same for `features`
    • add sizes        → `variants.sizes`
    • add specs        → `specs: [{ label: "Width", value: "6 mm" }]`
-   • swap imagery     → replace the files in /public/media/collection/<key>
+   • swap imagery     → replace the files in /public/media/pieces/<key>
    Anything left `null` is simply not shown.
 
    Names, the three-word expressions, the sign-offs and the design notes come

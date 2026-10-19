@@ -93,7 +93,7 @@ const STONES = [
  * full resolution; nothing is enlarged.
  */
 function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x: number; y: number }, extra: Partial<BraceletMedia> = {}): BraceletMedia {
-  const p = `/media/collection/${key}`;
+  const p = `/media/pieces/${key}`;
   const s = SIZES[key];
   const stonePhotos: BraceletMedia["stonePhotos"] = {};
   const stonePortraits: BraceletMedia["stonePortraits"] = {};
@@ -126,16 +126,16 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
 }
 
 export const collectionMedia = {
-  wave: bracelet("wave", "The Wave", "gold", { x: 49.6, y: 61.4 }, { plate: { src: "/media/collection/wave/plate-cut.png", width: 1826, height: 765, alt: "The Wave in gold", eye: { x: 49.6, y: 61.4 } } }),
-  flow: bracelet("flow", "The Flow", "silver", { x: 49.5, y: 63.8 }, { plate: { src: "/media/collection/flow/plate-cut.png", width: 1935, height: 765, alt: "The Flow in silver", eye: { x: 49.5, y: 63.8 } } }),
+  wave: bracelet("wave", "The Wave", "gold", { x: 49.6, y: 61.4 }, { plate: { src: "/media/pieces/wave/plate-cut.png", width: 1826, height: 765, alt: "The Wave in gold", eye: { x: 49.6, y: 61.4 } } }),
+  flow: bracelet("flow", "The Flow", "silver", { x: 49.5, y: 63.8 }, { plate: { src: "/media/pieces/flow/plate-cut.png", width: 1935, height: 765, alt: "The Flow in silver", eye: { x: 49.5, y: 63.8 } } }),
 };
 
 /* Diamond: photographed for the Flow (Oct 2026). The Wave's
    diamond photograph shows an earlier form of the piece, so it is not used. */
 if (SHOW_STONE_PHOTOS) collectionMedia.flow.stonePhotos.diamond = [
-  img("/media/collection/flow/diamond-piece.jpg", 1536, 1024, "The Flow with diamonds, on marble in soft light", "50% 55%"),
-  img("/media/collection/flow/diamond-eye.jpg", 1536, 1024, "The eye of The Flow, a diamond in the star and diamonds either side"),
-  img("/media/collection/flow/diamond-detail.jpg", 1400, 985, "The eye and diamonds of The Flow, seen at an angle"),
+  img("/media/pieces/flow/diamond-piece.jpg", 1536, 1024, "The Flow with diamonds, on marble in soft light", "50% 55%"),
+  img("/media/pieces/flow/diamond-eye.jpg", 1536, 1024, "The eye of The Flow, a diamond in the star and diamonds either side"),
+  img("/media/pieces/flow/diamond-detail.jpg", 1400, 985, "The eye and diamonds of The Flow, seen at an angle"),
 ];
 
 export type CollectionKey = keyof typeof collectionMedia;
