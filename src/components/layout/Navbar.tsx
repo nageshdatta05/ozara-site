@@ -162,7 +162,7 @@ export function Navbar() {
   );
 }
 
-/** The full menu — the whole house, and the three pieces. */
+/** The full menu — the whole house, and the two pieces. */
 function Menu({ pathname }: { pathname: string }) {
   // keyboard users land inside the menu
   useEffect(() => {

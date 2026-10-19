@@ -69,7 +69,6 @@ type StoneKey = "sapphire" | "ruby" | "emerald" | "amethyst" | "diamond";
 const SIZES = {
   wave: { piece: [2400, 1340], eye: [960, 904], wide: [1403, 766], curve: [1007, 948], hinge: [1007, 615], gemEye: [1792, 1344], gemDetail: [1541, 1156] },
   flow: { piece: [2400, 1600], eye: [1200, 1130], wide: [1809, 987], curve: [922, 868], hinge: [922, 563], gemEye: [1571, 1178], gemDetail: [1352, 1014] },
-  line: { piece: [2400, 1600], eye: [1200, 1130], wide: [2000, 1092], curve: [922, 868], hinge: [922, 563], gemEye: [1714, 1286], gemDetail: [1290, 968] },
 } as const;
 
 const STONES = [
@@ -116,20 +115,14 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
 export const collectionMedia = {
   wave: bracelet("wave", "The Wave", "rose", { x: 43.2, y: 61.6 }),
   flow: bracelet("flow", "The Flow", "silver", { x: 46.6, y: 67 }),
-  line: bracelet("line", "The Line", "black", { x: 48.6, y: 67.9 }),
 };
 
-/* Diamond: photographed for the Flow and the Line (Oct 2026). The Wave's
+/* Diamond: photographed for the Flow (Oct 2026). The Wave's
    diamond photograph shows an earlier form of the piece, so it is not used. */
 collectionMedia.flow.stonePhotos.diamond = [
   img("/media/collection/flow/diamond-piece.jpg", 1536, 1024, "The Flow with diamonds, on marble in soft light", "50% 55%"),
   img("/media/collection/flow/diamond-eye.jpg", 1536, 1024, "The eye of The Flow, a diamond in the star and diamonds either side"),
   img("/media/collection/flow/diamond-detail.jpg", 1400, 985, "The eye and diamonds of The Flow, seen at an angle"),
-];
-collectionMedia.line.stonePhotos.diamond = [
-  img("/media/collection/line/diamond-piece.jpg", 1536, 1024, "The Line with diamonds, on marble in soft light", "50% 55%"),
-  img("/media/collection/line/diamond-eye.jpg", 1600, 800, "The eye of The Line, a diamond in the star and diamonds either side"),
-  img("/media/collection/line/diamond-detail.jpg", 1400, 744, "The diamonds set along the band of The Line"),
 ];
 
 export type CollectionKey = keyof typeof collectionMedia;

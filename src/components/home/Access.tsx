@@ -13,7 +13,7 @@ import { RevealText } from "@/components/ui/RevealText";
  */
 export function Access() {
   const c = copy.access;
-  const eye = collectionMedia.line.stonePhotos.sapphire![1];
+  const eye = collectionMedia.wave.stonePhotos.sapphire![1];
   return (
     <section aria-label={c.eyebrow} data-theme="dark" className="relative bg-espresso theme-dark section-pad overflow-hidden">
       <div className="shell">

@@ -34,7 +34,7 @@
   /* ---- Metals (one per bracelet) ---------------------------------------- */
   --c-rose: #b98e6e;     /* The Wave */
   --c-silver: #9ea4ab;   /* The Flow */
-  --c-graphite: #3b3835; /* The Line */
+  --c-graphite: #3b3835;
 
   /* ---- Semantic (light by default) -------------------------------------- */
   --c-bg: var(--c-paper);

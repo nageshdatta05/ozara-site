@@ -15,7 +15,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What is OZARA?",
-        body: `A luxury bracelet with NFC technology inside. Tap it to a phone and your personal page, your ${site.brand} ID, opens, showing the details and links you choose to share. Collection 01 is three designs: the Wave, the Flow and the Line.`,
+        body: `A luxury bracelet with NFC technology inside. Tap it to a phone and your personal page, your ${site.brand} ID, opens, showing the details and links you choose to share. Collection 01 is two designs: the Wave and the Flow.`,
       },
       {
         title: "What makes OZARA different?",
@@ -109,7 +109,7 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are the bracelets made of?",
-        body: "Base Models are brass with a plated finish: the Wave in rose gold plating, the Flow in silver plating, the Line in black plating. For pieces with stones, the metal is confirmed with you in writing before making.",
+        body: "Base Models are brass with a plated finish: the Wave in rose gold plating and the Flow in silver plating. For pieces with stones, the metal is confirmed with you in writing before making.",
       },
       {
         title: "How does sizing work?",

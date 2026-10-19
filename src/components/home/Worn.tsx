@@ -8,12 +8,12 @@ import { MaskReveal } from "@/components/ui/MaskReveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/ui/Reveal";
 
-/** The three, each set with a different stone — at different heights, like prints pinned to a wall. */
-const STONE: Record<string, GemKey> = { wave: "ruby", flow: "sapphire", line: "emerald" };
+/** The two, each set with a different stone — at different heights, like prints pinned to a wall. */
+const STONE: Record<string, GemKey> = { wave: "ruby", flow: "sapphire" };
 
 export function Worn() {
   const c = copy.worn;
-  const offsets = ["lg:mt-[14vh]", "", "lg:mt-[24vh]"];
+  const offsets = ["lg:mt-[14vh]", ""];
   return (
     <section aria-label={c.eyebrow} className="relative bg-paper section-pad overflow-hidden">
       <div className="shell">
@@ -28,7 +28,7 @@ export function Worn() {
             const stone = STONE[p.key];
             const image = p.media.stonePortraits[stone as keyof typeof p.media.stonePortraits] ?? p.media.portrait;
             return (
-            <li key={p.id} className={`${["lg:col-span-3 lg:col-start-2", "lg:col-span-4", "col-span-2 lg:col-span-3 w-[62%] mx-auto lg:w-auto lg:mx-0"][i]} ${offsets[i]}`}>
+            <li key={p.id} className={`${["lg:col-span-4 lg:col-start-2", "lg:col-span-5 lg:col-start-7"][i]} ${offsets[i]}`}>
               <Link href={`${productHref(p)}?stone=${stone}`} className="group block">
                 <MaskReveal className="relative aspect-[4/5]" delay={i * 0.12} duration={1.6}>
                   <Photo image={image} parallax={7} className="absolute inset-0 transition-transform duration-[1400ms] ease-[var(--ease-lux)] group-hover:scale-[1.03]" sizes="(min-width:1024px) 28vw, 50vw" />

@@ -9,7 +9,7 @@ import { CollectionIndex } from "@/components/product/CollectionIndex";
 
 export const metadata: Metadata = {
   title: "Collection",
-  description: "The Wave, the Flow and the Line — three OZARA bracelets, each with the OZARA eye and a digital identity of its own. Open for pre-order.",
+  description: "The Wave and the Flow — two OZARA bracelets, each with the OZARA eye and a digital identity of its own. Open for pre-order.",
   alternates: { canonical: "/shop" },
 };
 

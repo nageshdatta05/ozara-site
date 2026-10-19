@@ -5,7 +5,7 @@
    DESIRE (the hero) → UNDERSTANDING (your OZARA ID, the card, straight
    after the hero) → CURIOSITY (the OZARA Eye) → WHAT IS IT (Wear · Tap · Unlock) →
    VALUE (your access: OZARA Exclusive / Approved) → BELONGING (status,
-   reusable, the few) → DESIRE TO OWN (the three pieces, set with stones,
+   reusable, the few) → DESIRE TO OWN (the two pieces, set with stones,
    pre-order).
    ========================================================================== */
 

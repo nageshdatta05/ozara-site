@@ -1,27 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
-import { useRef } from "react";
 import { products, productHref, type Product } from "@/data/products";
 import { copy } from "@/content/copy";
 import { Photo } from "@/components/ui/Photo";
 import { MaskReveal } from "@/components/ui/MaskReveal";
 import { Reveal } from "@/components/ui/Reveal";
 import { usePieceTransition } from "@/components/transition/PieceTransition";
-import { ease } from "@/lib/motion";
 
 /**
  * EXPLORE — each piece gets its own composition rather than a card:
- * the Wave on linen, the Flow in the light, the Line in the one dark room.
+ * the Wave on linen, the Flow in the light.
  */
 export function Expressions() {
-  const [wave, flow, line] = products;
+  const [wave, flow] = products;
   return (
     <div id="collection" aria-label={copy.expressions.eyebrow}>
       <WaveChapter p={wave} />
       <OraChapter p={flow} />
-      <LineChapter p={line} />
     </div>
   );
 }
@@ -101,33 +97,6 @@ function OraChapter({ p }: { p: Product }) {
             <Photo image={p.media.portrait} parallax={6} zoom className="absolute inset-0" sizes="(min-width:1024px) 30vw, 100vw" />
           </MaskReveal>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* The Line — the one dark room. The campaign frame, wide and quiet. */
-function LineChapter({ p }: { p: Product }) {
-  const ref = useRef<HTMLElement>(null);
-  return (
-    <section ref={ref} aria-label={p.name} data-theme="dark" className="relative bg-espresso section-pad overflow-hidden theme-dark">
-      <div className="shell grid lg:grid-cols-12 gap-y-14 items-center">
-        <div className="lg:col-span-4 order-2 lg:order-1">
-          <Title p={p} light />
-        </div>
-        <motion.div
-          className="lg:col-span-7 lg:col-start-6 order-1 lg:order-2 relative"
-          initial={{ opacity: 0, scale: 1.04 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 2, ease: ease.lux }}
-        >
-          <div className="relative aspect-[1597/891]">
-            <Photo image={p.media.hero} parallax={5} className="absolute inset-0" sizes="(min-width:1024px) 58vw, 100vw" />
-            {/* let the warm stone fall away into the room */}
-            <div aria-hidden className="absolute inset-0" style={{ boxShadow: "inset 0 0 120px 40px var(--c-espresso)" }} />
-          </div>
-        </motion.div>
       </div>
     </section>
   );

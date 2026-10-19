@@ -36,9 +36,9 @@ export function seedDemoData(conn: DatabaseSync) {
     );
     const b1 = insert.run("BR-000001", "04A1B2C3D4E501", "the-flow", "DEMO", "active", null, null, null, "Demo — active, unregistered, eligible for the demo event.", claim, daysAgo(3), daysAgo(3));
     const b2 = insert.run("BR-000002", "04A1B2C3D4E502", "the-wave", "DEMO", "active", owner.lastInsertRowid, daysAgo(2), null, "Demo — active, registered.", claim, daysAgo(3), daysAgo(2));
-    const b3 = insert.run("BR-000003", "04A1B2C3D4E503", "the-line", "DEMO", "revoked", null, null, "Deactivated (demo).", "Demo — deactivated.", claim, daysAgo(3), daysAgo(1));
+    const b3 = insert.run("BR-000003", "04A1B2C3D4E503", "the-flow", "DEMO", "revoked", null, null, "Deactivated (demo).", "Demo — deactivated.", claim, daysAgo(3), daysAgo(1));
     const b4 = insert.run("BR-000004", "04A1B2C3D4E504", "the-flow", "DEMO", "active", null, null, null, "Demo — active, not eligible for the demo event.", claim, daysAgo(3), daysAgo(3));
-    insert.run("BR-000005", "04A1B2C3D4E505", "the-line", "DEMO", "suspended", null, null, "Reported lost (demo).", "Demo — suspended (reported lost).", claim, daysAgo(3), daysAgo(1));
+    insert.run("BR-000005", "04A1B2C3D4E505", "the-flow", "DEMO", "suspended", null, null, "Reported lost (demo).", "Demo — suspended (reported lost).", claim, daysAgo(3), daysAgo(1));
 
     const elig = conn.prepare("INSERT INTO event_eligibility (bracelet_id, event_id, status, updated_at) VALUES (?,?,?,?)");
     elig.run(b1.lastInsertRowid, evA.lastInsertRowid, "eligible", daysAgo(3));

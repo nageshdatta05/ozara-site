@@ -1,7 +1,7 @@
 /* ==========================================================================
    COPY — every word on the site, in one place.
-   Lines from the OZARA design boards are used as written ("Three expressions.
-   One identity.", "Your world, verified.", the three-word expressions).
+   Lines from the OZARA design boards are used as written ("Your world,
+   verified.", the three-word expressions). Collection 01 is two pieces.
    Wrap a word in *asterisks* to set it in italic.
    Nothing here states a metal, a size, a price or a date — those are not
    confirmed yet.
@@ -11,7 +11,7 @@ export const copy = {
   opening: {
     label: "The collection",
     eyebrow: "The luxury NFC bracelet",
-    headline: ["Three expressions.", "One identity."],
+    headline: ["Two expressions.", "One identity."],
     sub: "Tap it to a phone and your personal page opens, with the details, links and photo you choose to share.",
     how: "See how it works",
     choose: "Choose a piece",
@@ -147,7 +147,7 @@ export const copy = {
 
   worn: {
     eyebrow: "Set with stones",
-    headline: ["Three designs.", "*One vision.*"],
+    headline: ["Two designs.", "*One vision.*"],
   },
 
   closing: {
@@ -206,8 +206,8 @@ export const copy = {
 
   shop: {
     eyebrow: "Collection 01",
-    headline: ["Three expressions.", "*One identity.*"],
-    body: "Three bracelets. One eye.",
+    headline: ["Two expressions.", "*One identity.*"],
+    body: "Two bracelets. One eye.",
   },
 
   technology: {
@@ -230,10 +230,10 @@ export const copy = {
   about: {
     eyebrow: "About",
     headline: ["Jewellery meets", "*technology.*"],
-    intro: "A luxury bracelet that opens your personal page with a tap, Three designs, one sign: the Eye.",
+    intro: "A luxury bracelet that opens your personal page with a tap. Two designs, one sign: the Eye.",
     sections: [
       { title: "The eye", body: "A ring and a four-pointed star. Set into the metal, it becomes an eye — and where the piece meets your phone." },
-      { title: "The wave", body: "The Wave rises and falls, the Flow turns, the Line holds one curve. Jewellery that follows the wrist." },
+      { title: "The wave", body: "The Wave rises and falls; the Flow turns. Jewellery that follows the wrist." },
       { title: "The few", body: "Fewer pieces, each one known. Made in a first run and tied to its owner." },
       { title: "Jewellery first", body: "You should see a bracelet, not a device." },
     ],

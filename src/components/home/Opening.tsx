@@ -14,17 +14,16 @@ import { ease } from "@/lib/motion";
 import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
 /* ==========================================================================
-   THE OPENING — three objects on a travertine stage.
-   Not three product cards: three pieces in a quiet exhibition. The eye opens
+   THE OPENING — two objects on a travertine stage.
+   Not two product cards: two pieces in a quiet exhibition. The eye opens
    on the room; the pointer becomes an eye that opens over a piece; choosing
    one carries you into it. On phones the pieces are a swipeable rail.
    ========================================================================== */
 
 /** Desktop composition: each piece has its own scale and height on the stone. */
 const LAYOUT = [
-  { w: "min(31vw, 560px)", y: "3vh", depth: 1 },
-  { w: "min(34vw, 620px)", y: "-2.5vh", depth: 1.4 },
-  { w: "min(30vw, 540px)", y: "4.5vh", depth: 0.8 },
+  { w: "min(36vw, 640px)", y: "2.5vh", depth: 1 },
+  { w: "min(38vw, 680px)", y: "-2vh", depth: 1.3 },
 ];
 
 export function Opening() {
@@ -101,12 +100,12 @@ export function Opening() {
             className="absolute inset-0 transition-opacity duration-[1400ms] ease-[var(--ease-lux)]"
             style={{
               opacity: focus === i ? 1 : 0,
-              background: `radial-gradient(38% 44% at ${[24, 50, 76][i]}% 48%, ${p.tone.wash}, transparent 72%)`,
+              background: `radial-gradient(38% 44% at ${[34, 66][i]}% 48%, ${p.tone.wash}, transparent 72%)`,
             }}
           />
         ))}
 
-        {/* ---- Desktop & tablet: the three pieces on the stone ---- */}
+        {/* ---- Desktop & tablet: the two pieces on the stone ---- */}
         <motion.ul
           className="hidden md:flex absolute inset-x-0 top-[9%] bottom-[31%] items-center justify-center"
           style={{ y: piecesY }}
@@ -232,8 +231,8 @@ function Piece({ product: p, index: i, focus, leaving, live, reduce, sx, sy, onF
   const dimmed = (focus !== null && !focused) || (leaving !== null && leaving !== i);
 
   return (
-    <li className="relative" style={{ width: L.w, marginInline: "-1.6vw", zIndex: focused ? 3 : 2 - Math.abs(1 - i) }}>
-      <div className="rise" style={{ animationDelay: `${1.05 + [0.12, 0, 0.22][i]}s`, translate: `0 ${L.y}` }}>
+    <li className="relative" style={{ width: L.w, marginInline: "-1.6vw", zIndex: focused ? 3 : 1 + i }}>
+      <div className="rise" style={{ animationDelay: `${1.05 + [0.12, 0][i]}s`, translate: `0 ${L.y}` }}>
         <motion.div style={{ x: live ? px : 0, y: live ? py : 0 }}>
           <Link
             ref={ref}
@@ -434,7 +433,7 @@ function MobileRail({ onChoose, reduce }: { onChoose: PieceProps["onChoose"]; re
           </li>
         ))}
       </ul>
-      {/* where you are: three small eyes */}
+      {/* where you are: one small eye per piece */}
       <div className="flex justify-center gap-3 pt-4" aria-hidden>
         {products.map((p, i) => (
           <EyeMark key={p.id} className="w-5 text-[var(--c-strong)] transition-opacity duration-500" open={active === i ? 1 : 0.15} />

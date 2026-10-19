@@ -99,7 +99,6 @@ export const shopify = {
   baseModel: {
     "the-wave": { "15": "67610446987571", "16": "67610447020339", "17": "67610447053107", "18": "67698591007027", "19": "67698591039795" },
     "the-flow": { "15": "67610447085875", "16": "67610447118643", "17": "67610447151411", "18": "67698593300787", "19": "67698593333555" },
-    "the-line": { "15": "67610447184179", "16": "67610447216947", "17": "67610447249715", "18": "67698593562931", "19": "67698593595699" },
   } as Record<string, Partial<Record<string, string>>>,
 };
 
@@ -169,7 +168,6 @@ export const footer = {
       links: [
         { label: "The Wave", href: "/shop/the-wave" },
         { label: "The Flow", href: "/shop/the-flow" },
-        { label: "The Line", href: "/shop/the-line" },
         { label: "All pieces", href: "/shop" },
       ],
     },

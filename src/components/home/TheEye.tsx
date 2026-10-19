@@ -110,7 +110,7 @@ function EyeFigure({
   line: MotionValue<number>;
 }) {
   const m = collectionMedia.flow;
-  const tag = collectionMedia.line.nfcEye;
+  const tag = collectionMedia.wave.nfcEye;
   // optimised URLs for SVG <image> (next/image can't sit inside an SVG)
   const macroSrc = getImageProps({ src: m.eyeMacro.src, alt: "", width: m.eyeMacro.width, height: m.eyeMacro.height, quality: 90 }).props.src;
   const nfcSrc = getImageProps({ src: tag.src, alt: "", width: tag.width, height: tag.height, quality: 88 }).props.src;
@@ -158,7 +158,7 @@ function Sequence() {
       <Image src={m.eyeMacro.src} alt={m.eyeMacro.alt} fill sizes="80vw" className="object-cover" />
     </div>,
     <div key="n" className="relative aspect-[1224/668] w-full overflow-hidden">
-      <Image src={collectionMedia.line.nfcEye.src} alt={collectionMedia.line.nfcEye.alt} fill sizes="100vw" className="object-cover" />
+      <Image src={collectionMedia.wave.nfcEye.src} alt={collectionMedia.wave.nfcEye.alt} fill sizes="100vw" className="object-cover" />
     </div>,
   ];
   return (

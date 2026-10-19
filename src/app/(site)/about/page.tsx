@@ -12,7 +12,7 @@ import { Makers } from "@/components/sections/Makers";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "OZARA — jewellery meets technology. Three bracelets that share one sign: the eye.",
+  description: "OZARA — jewellery meets technology. Two bracelets that share one sign: the eye.",
   alternates: { canonical: "/about" },
 };
 
@@ -55,8 +55,8 @@ export default function AboutPage() {
 
       <section className="relative bg-linen section-pad overflow-hidden">
         <div className="shell grid lg:grid-cols-12 gap-14 items-center">
-          <div className="lg:col-span-6 grid grid-cols-3 gap-3">
-            {(["wave", "flow", "line"] as const).map((k, i) => (
+          <div className="lg:col-span-6 grid grid-cols-2 gap-3">
+            {(["wave", "flow"] as const).map((k, i) => (
               <MaskReveal key={k} className={`relative aspect-[480/452] ${i === 1 ? "mt-10" : ""}`} delay={i * 0.1}>
                 <Photo image={collectionMedia[k].curveMacro} className="absolute inset-0" sizes="16vw" />
               </MaskReveal>
