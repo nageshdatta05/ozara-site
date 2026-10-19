@@ -16,7 +16,7 @@ import { ease } from "@/lib/motion";
  */
 export function Signature() {
   const c = copy.signature;
-  const images = [collectionMedia.wave.eyeFront, collectionMedia.flow.turn, collectionMedia.wave.curveMacro];
+  const images = [collectionMedia.wave.above, collectionMedia.flow.turn, collectionMedia.wave.curveMacro];
   return (
     <section aria-label={c.eyebrow} className="relative bg-linen section-pad overflow-hidden">
       <div className="shell">

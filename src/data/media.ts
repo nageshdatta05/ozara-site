@@ -60,6 +60,10 @@ export type BraceletMedia = {
   turn: ImageAsset;
   /** The piece from high above, in a near-square frame. */
   above: ImageAsset;
+  /** Very wide frame of the turned piece, for the product page's story. */
+  story: ImageAsset;
+  /** The clasp, close. */
+  clasp: ImageAsset;
   /**
    * Photographs of this model set with a stone: the piece, the eye, and the
    * stones close. Shown on the product page when that stone is chosen.
@@ -73,8 +77,8 @@ type StoneKey = "sapphire" | "ruby" | "emerald" | "amethyst" | "diamond";
 
 /* Pixel sizes of each model's files (the source photographs differ in size). */
 const SIZES = {
-  wave: { eyeFront: [1900, 1789], turn: [2240, 1792], above: [1519, 1430], campaignH: 1333, piece: [2400, 1600], eye: [1800, 1695], wide: [2274, 1241], curve: [2240, 1792], hinge: [2172, 1328], gemEye: [1792, 1344], gemDetail: [1541, 1156] },
-  flow: { eyeFront: [1900, 1789], turn: [2240, 1792], above: [1904, 1792], campaignH: 1333, piece: [2400, 1600], eye: [1800, 1695], wide: [2400, 1310], curve: [2240, 1792], hinge: [2319, 1417], gemEye: [1571, 1178], gemDetail: [1352, 1014] },
+  wave: { story: [2384, 1084], eyeFront: [1900, 1789], turn: [2240, 1792], above: [1519, 1430], campaignH: 1333, piece: [2400, 1600], eye: [1800, 1695], wide: [2274, 1241], curve: [2240, 1792], hinge: [2172, 1328], gemEye: [1792, 1344], gemDetail: [1541, 1156] },
+  flow: { story: [2400, 1090], eyeFront: [1900, 1789], turn: [2240, 1792], above: [1904, 1792], campaignH: 1333, piece: [2400, 1600], eye: [1800, 1695], wide: [2400, 1310], curve: [2240, 1792], hinge: [2319, 1417], gemEye: [1571, 1178], gemDetail: [1352, 1014] },
 } as const;
 
 const SHOW_STONE_PHOTOS = false;
@@ -119,6 +123,8 @@ function bracelet(key: keyof typeof SIZES, name: string, metal: string, eye: { x
     eyeFront: img(`${p}/eye-front.jpg`, s.eyeFront[0], s.eyeFront[1], `The eye of ${name}, straight on`),
     turn: img(`${p}/turn.jpg`, s.turn[0], s.turn[1], `${name} in ${metal}, turned`),
     above: img(`${p}/above.jpg`, s.above[0], s.above[1], `${name} in ${metal}, seen from above`),
+    story: img(`${p}/story.jpg`, s.story[0], s.story[1], `${name} in ${metal} on linen, in window light`, "50% 50%"),
+    clasp: img(`${p}/clasp.jpg`, 1150, 1082, `The clasp of ${name}`),
     stonePhotos,
     stonePortraits,
     ...extra,

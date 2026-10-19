@@ -22,8 +22,9 @@ import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
 /** Desktop composition: each piece has its own scale and height on the stone. */
 const LAYOUT = [
-  { w: "min(33vw, 540px)", y: "2vh", depth: 1 },
-  { w: "min(33vw, 540px)", y: "-1.5vh", depth: 1.3 },
+  // same height and the same line for both: widths follow each cut-out's proportions
+  { w: "min(31.1vw, 510px)", y: "0vh", depth: 1.15 },
+  { w: "min(33vw, 540px)", y: "0vh", depth: 1.15 },
 ];
 
 export function Opening() {

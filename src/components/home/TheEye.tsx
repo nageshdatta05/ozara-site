@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { getImageProps } from "next/image";
+import { getImageProps } from "next/image";
 import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef, useState } from "react";
 import { copy } from "@/content/copy";
@@ -36,6 +36,52 @@ function shape(t: number) {
     `C${pt(-c1, -top)} ${pt(-side, -c2)} ${pt(-side, 0)}`,
     `C${pt(-side, c2)} ${pt(-c1, top)} ${pt(0, top)}Z`,
   ].join(" ");
+}
+
+/* The eye photograph (eye straight on): the real eye spans about 65% of its width
+   and the star sits at its centre, so at this size the eye fills the almond. */
+const EYE_PHOTO = { x: -196, y: -190, width: 393, height: 370 };
+
+function useEyeSrc() {
+  const m = collectionMedia.flow.eyeFront;
+  // optimised URL for SVG <image> (next/image can't sit inside an SVG)
+  return getImageProps({ src: m.src, alt: "", width: m.width, height: m.height, quality: 90 }).props.src;
+}
+
+function TapRings() {
+  return (
+    <g fill="none" stroke="var(--c-strong)" strokeWidth={0.7}>
+      {[0, 1, 2].map((i) => (
+        <motion.ellipse
+          key={i}
+          cx={0}
+          cy={0}
+          initial={{ rx: 150, ry: 62, opacity: 0 }}
+          animate={{ rx: [150, 205], ry: [62, 118], opacity: [0.55, 0] }}
+          transition={{ duration: 2.4, delay: i * 0.8, repeat: Infinity, ease: "easeOut" }}
+        />
+      ))}
+    </g>
+  );
+}
+
+/* The almond with the real eye inside, still — for phones and reduced motion. */
+function EyeStill({ tap = false }: { tap?: boolean }) {
+  const src = useEyeSrc();
+  return (
+    <svg viewBox="-170 -120 340 240" className="w-[86%] mx-auto overflow-visible" aria-hidden>
+      <defs>
+        <clipPath id={tap ? "eye-clip-tap" : "eye-clip-still"}>
+          <path d={shape(1)} />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${tap ? "eye-clip-tap" : "eye-clip-still"})`}>
+        <image href={src} {...EYE_PHOTO} preserveAspectRatio="xMidYMid slice" />
+      </g>
+      <path d={shape(1)} fill="none" stroke="var(--c-strong)" strokeWidth={0.8} opacity={0.25} />
+      {tap && <TapRings />}
+    </svg>
+  );
 }
 
 export function TheEye() {
@@ -109,11 +155,7 @@ function EyeFigure({
   nfc: MotionValue<number>;
   line: MotionValue<number>;
 }) {
-  const m = collectionMedia.flow;
-  const tag = collectionMedia.wave.nfcEye;
-  // optimised URLs for SVG <image> (next/image can't sit inside an SVG)
-  const macroSrc = getImageProps({ src: m.eyeFront.src, alt: "", width: m.eyeFront.width, height: m.eyeFront.height, quality: 90 }).props.src;
-  const nfcSrc = getImageProps({ src: tag.src, alt: "", width: tag.width, height: tag.height, quality: 88 }).props.src;
+  const macroSrc = useEyeSrc();
   return (
     <svg viewBox="-170 -120 340 240" className="w-full max-w-[640px] overflow-visible" aria-hidden>
       <defs>
@@ -121,15 +163,16 @@ function EyeFigure({
           <motion.path d={d} />
         </clipPath>
       </defs>
-      {/* the photographs, inside the almond — placed so the star sits at the centre */}
+      {/* the real eye, inside the almond — scaled so its outline meets the almond and the star sits at the centre */}
       <g clipPath="url(#eye-clip)">
         <motion.g style={{ opacity: photo, scale: photoScale }}>
-          <image href={macroSrc} x={-195} y={-184} width={390} height={367} preserveAspectRatio="xMidYMid slice" />
-        </motion.g>
-        <motion.g style={{ opacity: nfc }}>
-          <image href={nfcSrc} x={-294} y={-160} width={588} height={321} preserveAspectRatio="xMidYMid slice" />
+          <image href={macroSrc} {...EYE_PHOTO} preserveAspectRatio="xMidYMid slice" />
         </motion.g>
       </g>
+      {/* the tap: rings travelling out from the star */}
+      <motion.g style={{ opacity: nfc }}>
+        <TapRings />
+      </motion.g>
       {/* the emblem's ring, becoming the lid */}
       <motion.path d={d} fill="none" stroke="var(--c-strong)" strokeWidth={0.8} style={{ opacity: line }} />
       <motion.g style={{ opacity: cross }} stroke="var(--c-strong)" strokeWidth={0.6}>
@@ -144,7 +187,6 @@ function EyeFigure({
 /* Phones & reduced motion: the same three moments, one after another. */
 function Sequence() {
   const c = copy.eye;
-  const m = collectionMedia.flow;
   const visuals = [
     <svg key="e" viewBox="-170 -120 340 240" className="w-[72%] mx-auto" aria-hidden>
       <path d={shape(0)} fill="none" stroke="var(--c-strong)" strokeWidth={0.8} />
@@ -154,12 +196,8 @@ function Sequence() {
       </g>
       <path d={starPath(0, 0, 58, 50, 7)} fill="none" stroke="var(--c-strong)" strokeWidth={0.8} />
     </svg>,
-    <div key="m" className="relative aspect-[480/452] w-[78%] mx-auto overflow-hidden" style={{ clipPath: "ellipse(50% 38% at 50% 52%)" }}>
-      <Image src={m.eyeFront.src} alt={m.eyeFront.alt} fill sizes="80vw" className="object-cover" />
-    </div>,
-    <div key="n" className="relative aspect-[1224/668] w-full overflow-hidden">
-      <Image src={collectionMedia.wave.nfcEye.src} alt={collectionMedia.wave.nfcEye.alt} fill sizes="100vw" className="object-cover" />
-    </div>,
+    <EyeStill key="m" />,
+    <EyeStill key="n" tap />,
   ];
   return (
     <section aria-label={c.eyebrow} className="relative bg-paper section-pad">

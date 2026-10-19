@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
     ["Availability", AVAILABILITY_LABEL[p.availability]],
   ];
   const specsPending = !p.specs?.length && !p.materials?.length;
-  const craft = [m.eyeFront, m.above, m.turn];
+  const craft = [m.eyeFront, m.above, m.clasp];
 
   // Structured data — a price is only stated once one is set.
   const jsonLd = {
@@ -90,8 +90,8 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
       {/* ── Story: the campaign frame, and a few words ─────────────── */}
       <section className={`relative overflow-hidden section-pad ${p.tone.ink === "light" ? "bg-espresso theme-dark" : "bg-linen"}`} data-theme={p.tone.ink === "light" ? "dark" : "light"}>
         <div className="shell">
-          <MaskReveal className="relative aspect-[16/9] lg:aspect-[21/9] lg:w-[86%] lg:ml-auto" duration={1.8}>
-            <Photo image={m.hero} parallax={6} className="absolute inset-0" sizes="(min-width:1024px) 80vw, 100vw" />
+          <MaskReveal className="relative aspect-[11/5] lg:w-[86%] lg:ml-auto" duration={1.8}>
+            <Photo image={m.story} parallax={6} className="absolute inset-0" sizes="(min-width:1024px) 80vw, 100vw" />
             {p.tone.ink === "light" && <div aria-hidden className="absolute inset-0" style={{ boxShadow: "inset 0 0 120px 40px var(--c-espresso)" }} />}
           </MaskReveal>
           <div className="grid lg:grid-cols-12 gap-10 mt-14 lg:-mt-24 relative">

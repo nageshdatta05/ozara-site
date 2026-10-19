@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/config/site";
 import { Emblem, EyeMark } from "@/components/brand/Emblem";
-import { media } from "@/data/media";
+import { collectionMedia } from "@/data/media";
 import { VerifyLookup } from "@/components/nfc/VerifyLookup";
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function AuthenticityPage() {
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
             <div className="relative aspect-[1224/668] overflow-hidden">
-              <Image src={media.nfcEye.src} alt={media.nfcEye.alt} fill priority sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
+              <Image src={collectionMedia.wave.nfcEye.src} alt={collectionMedia.wave.nfcEye.alt} fill priority sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
             </div>
           </div>
         </div>
