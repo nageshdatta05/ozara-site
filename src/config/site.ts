@@ -100,7 +100,17 @@ export const shopify = {
     "the-wave": { "15": "67610446987571", "16": "67610447020339", "17": "67610447053107", "18": "67698591007027", "19": "67698591039795" },
     "the-flow": { "15": "67610447085875", "16": "67610447118643", "17": "67610447151411", "18": "67698593300787", "19": "67698593333555" },
   } as Record<string, Partial<Record<string, string>>>,
+  /**
+   * Shopify product IDs. Meta's catalogue (synced from Shopify) groups each
+   * piece's sizes under this ID, so Pixel events name products by it.
+   */
+  productId: { "the-wave": "15400901050675", "the-flow": "15400901083443" } as Record<string, string>,
 };
+
+/** Pixel product fields that match Meta's catalogue: the piece's Shopify product ID, as a product group. */
+export function pixelProduct(slugs: string[]) {
+  return { content_type: "product_group", content_ids: slugs.map((s) => shopify.productId[s] ?? s) };
+}
 
 /**
  * THE MAKERS — OZARA's manufacturing partners. Only facts the partner

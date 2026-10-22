@@ -13,7 +13,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import { Accordion } from "@/components/ui/Accordion";
 import { ConceptTag } from "@/components/ui/ConceptTag";
 import { EyeMark } from "@/components/brand/Emblem";
-import { site } from "@/config/site";
+import { pixelProduct, site } from "@/config/site";
 import { allFaqs } from "@/content/faq";
 import { Makers } from "@/components/sections/Makers";
 import Link from "next/link";
@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   return (
     <article>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      {p.price && <PixelEvent name="ViewContent" params={{ content_type: "product", content_ids: [p.slug], content_name: `${site.brand} ${p.name}`, value: p.price.amount, currency: p.price.currency }} />}
+      {p.price && <PixelEvent name="ViewContent" params={{ ...pixelProduct([p.slug]), content_name: `${site.brand} ${p.name}`, value: p.price.amount, currency: p.price.currency }} />}
       <PieceStage product={p} />
       <PieceBuy product={p} />
 
