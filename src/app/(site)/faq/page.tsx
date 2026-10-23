@@ -9,7 +9,7 @@ import { EyeMark } from "@/components/brand/Emblem";
 
 export const metadata: Metadata = {
   title: "Questions",
-  description: "OZARA — the eye, the wave, NFC authentication, ownership, gemstone customisation, sizing, pre-orders, delivery and support.",
+  description: "OZARA — the eye, the wave, NFC authentication, ownership, sizing, pre-orders, delivery and support.",
   alternates: { canonical: "/faq" },
 };
 

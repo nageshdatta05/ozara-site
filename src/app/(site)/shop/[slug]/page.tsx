@@ -186,7 +186,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             <RevealText lines={["Questions, *answered.*"]} className="t-title" />
           </div>
           <div className="lg:col-span-7 lg:col-start-6">
-            <Accordion items={["Which gemstones are available?", "How does sizing work?", "What are pre-orders?", "How does NFC work?"].map((t) => allFaqs.find((f) => f.title === t)!)} large />
+            <Accordion items={["What are the bracelets made of?", "How does sizing work?", "What are pre-orders?", "How does NFC work?"].map((t) => allFaqs.find((f) => f.title === t)!)} large />
             <Link href="/faq" className="link-quiet mt-8">
               All questions
               <span className="rule" aria-hidden />

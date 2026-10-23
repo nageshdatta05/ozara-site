@@ -69,9 +69,9 @@ export const preorder = {
   why: "Made in a single first run, in order of reservation.",
   /** What happens after reserving — shown on product pages and at checkout. */
   steps: [
-    "Base Model: pay securely at checkout.",
-    "With stones: we price it with you, then send a payment link.",
-    "Made in the first run, and registered to you.",
+    "Choose your size and pay securely at checkout.",
+    "Made in the first run, in order of payment.",
+    "Delivered to you, with your claim code to register it.",
   ],
   note: "",
 };
@@ -97,8 +97,8 @@ export const payments = {
 export const shopify = {
   store: env(process.env.NEXT_PUBLIC_SHOPIFY_STORE) ?? "z4seei-7d.myshopify.com",
   baseModel: {
-    "the-wave": { "15": "67610446987571", "16": "67610447020339", "17": "67610447053107", "18": "67698591007027", "19": "67698591039795" },
-    "the-flow": { "15": "67610447085875", "16": "67610447118643", "17": "67610447151411", "18": "67698593300787", "19": "67698593333555" },
+    "the-wave": { "16": "67610447020339", "17": "67610447053107", "18": "67698591007027" },
+    "the-flow": { "16": "67610447118643", "17": "67610447151411", "18": "67698593300787" },
   } as Record<string, Partial<Record<string, string>>>,
   /**
    * Shopify product IDs. Meta's catalogue (synced from Shopify) groups each

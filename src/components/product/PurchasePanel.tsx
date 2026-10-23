@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState } from "react";
-import { AVAILABILITY_LABEL, BASE_MODEL, GEMS, WRIST_SIZES, canReserve, formatPrice, gemName, isPreorder, regularPriceFor, unitPrice, type GemKey, type Product } from "@/data/products";
+import { AVAILABILITY_LABEL, BASE_MODEL, GEMS, GEM_CUSTOMISATION, WRIST_SIZES, canReserve, formatPrice, gemName, isPreorder, regularPriceFor, unitPrice, type GemKey, type Product } from "@/data/products";
 import { contactHref, launch, preorder } from "@/config/site";
 import { copy } from "@/content/copy";
 import { Accordion } from "@/components/ui/Accordion";
@@ -87,7 +87,8 @@ export function PurchasePanel({
         <p className="t-eyebrow">{AVAILABILITY_LABEL[p.availability]}</p>
       </div>
 
-      {/* Customisation — stones along the band and at the heart of the star */}
+      {/* Customisation — stones along the band and at the heart of the star (off until the stones have photographs) */}
+      {GEM_CUSTOMISATION && (
       <fieldset className="mt-8">
         <legend className="t-eyebrow !text-[var(--c-strong)] mb-1.5">
           {customise.eyebrow} <span className="text-faint ml-2 normal-case tracking-normal font-normal">{gemName(gem)}</span>
@@ -96,6 +97,7 @@ export function PurchasePanel({
         <StoneTray gem={gem} onGem={onGem} noneLabel={customise.none} />
         <p className="mt-4 text-[0.82rem] text-faint">{customise.note}</p>
       </fieldset>
+      )}
 
       {/* Size — the customer's wrist measurement */}
       {reservable && (
@@ -103,7 +105,7 @@ export function PurchasePanel({
           <p id={`${sizeId}-label`} className="t-eyebrow !text-[var(--c-strong)] mb-3">
             Size
           </p>
-          <div role="radiogroup" aria-labelledby={`${sizeId}-label`} aria-describedby={`${sizeId}-help`} className="grid grid-cols-5 gap-2">
+          <div role="radiogroup" aria-labelledby={`${sizeId}-label`} aria-describedby={`${sizeId}-help`} className="grid grid-cols-3 gap-2">
             {WRIST_SIZES.map((w, i) => {
               const on = size === w.key;
               return (

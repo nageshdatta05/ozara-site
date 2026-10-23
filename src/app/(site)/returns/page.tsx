@@ -18,7 +18,6 @@ const sections: LegalSection[] = [
     body: [
       [
         "Base Models can be returned within 7 days of delivery if they are unworn, undamaged and in their original packaging.",
-        "Pieces with stones are made for you, so they cannot be returned if you simply change your mind. Faults are always covered.",
         "Refunds go back to the way you paid, within 7 to 10 working days of us receiving and checking the piece.",
         "Every OZARA has a 6-month warranty against manufacturing defects.",
       ],
@@ -29,7 +28,6 @@ const sections: LegalSection[] = [
     title: "Cancelling an order",
     body: [
       "Base Model: you can cancel any time before we dispatch it and we will refund you in full. Write to us with your order number.",
-      "Piece with stones: you can cancel at any time before you pay. Once you have paid and we have confirmed your stones and size, the piece is made for you and cannot be cancelled.",
     ],
   },
   {

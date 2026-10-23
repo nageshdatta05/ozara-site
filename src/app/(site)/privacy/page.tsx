@@ -24,7 +24,7 @@ const sections: LegalSection[] = [
       "We collect only what each part of the service needs:",
       [
         "Account: your name, email address, optional phone number and a securely hashed password (we never store your password itself).",
-        "Reservations and orders: your name, email, optional phone, delivery address, the pieces, stones and size you chose, and any note you add.",
+        "Reservations and orders: your name, email, optional phone, delivery address, the pieces and size you chose, and any note you add.",
         "Bracelet ownership: which bracelets are registered to your account, when, and whether you show your initials on their public pages.",
         "Your tap page (optional): if you add one, the name, line, photo, phone, email, website, Instagram and LinkedIn details you enter, and which of them you have switched on.",
         "Waiting list: your email address and which piece or page you signed up from.",

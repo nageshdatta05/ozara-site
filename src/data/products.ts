@@ -199,24 +199,25 @@ export function unitPrice(p: Product, gem: GemKey | null): { amount: number; cur
 }
 
 /**
- * SIZING — 15 to 19: the inside length of the bracelet in cm. The fit is
+ * SIZING — 16, 17 and 18: the inside length of the bracelet in cm (the maker
+ * can also do 15 and 19; offer them again here if needed). The fit is
  * confirmed with the customer before production.
  */
 export const WRIST_SIZES = [
-  { key: "15", name: "15 cm" },
   { key: "16", name: "16 cm" },
   { key: "17", name: "17 cm" },
   { key: "18", name: "18 cm" },
-  { key: "19", name: "19 cm" },
 ] as const;
+/** Gemstone customisation is switched off until the stones have photographs. */
+export const GEM_CUSTOMISATION = false;
 export type WristSize = (typeof WRIST_SIZES)[number]["key"];
 /** Comfort allowance added to the wrist measurement. Confirm with the maker. */
 export const FIT_ALLOWANCE_CM = 1.5;
-/** Suggest a size from a wrist measurement in cm; `range` says if it falls outside 15–19. */
+/** Suggest a size from a wrist measurement in cm; `range` says if it falls outside 16–18. */
 export function suggestSize(wristCm: number): { size: WristSize | null; exact: number; range: "ok" | "small" | "large" } {
   const exact = wristCm + FIT_ALLOWANCE_CM;
-  if (exact < 14.5) return { size: null, exact, range: "small" };
-  if (exact >= 19.5) return { size: null, exact, range: "large" };
+  if (exact < 15.5) return { size: null, exact, range: "small" };
+  if (exact >= 18.5) return { size: null, exact, range: "large" };
   return { size: String(Math.round(exact)) as WristSize, exact, range: "ok" };
 }
 // earlier reservations used S / M / L or plain centimetres — still shown as they were saved

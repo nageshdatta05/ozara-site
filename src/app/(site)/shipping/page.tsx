@@ -39,7 +39,6 @@ const sections: LegalSection[] = [
     title: "How long it takes",
     body: [
       "OZARA bracelets are made in a first run, in order of reservation. We show the expected dispatch time at checkout and confirm it by email. Once your order is dispatched, delivery usually takes 7 to 10 working days.",
-      "For pieces with stones, we confirm the timing with you before you pay.",
       "These are estimates, not guarantees. Couriers can be delayed by weather, holidays and local conditions. If something changes, we will tell you.",
     ],
   },

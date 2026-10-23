@@ -50,8 +50,8 @@ export function SizeGuide({ onPick }: { onPick: (s: WristSize) => void }) {
                 </button>
               </div>
             )}
-            {res?.range === "small" && <p className="text-muted">Your wrist is smaller than our sizes cover (15 to 19). Contact us and we will see what we can do.</p>}
-            {res?.range === "large" && <p className="text-muted">Your wrist is larger than our sizes cover (15 to 19). Contact us and we will see what we can do.</p>}
+            {res?.range === "small" && <p className="text-muted">Your wrist is smaller than our sizes cover (16 to 18). Contact us and we will see what we can do.</p>}
+            {res?.range === "large" && <p className="text-muted">Your wrist is larger than our sizes cover (16 to 18). Contact us and we will see what we can do.</p>}
           </div>
           <p className="text-[0.85rem] text-faint">Sizes are the inside length of the bracelet in cm. We always confirm the fit with you before making it.</p>
         </div>

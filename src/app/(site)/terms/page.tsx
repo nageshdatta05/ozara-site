@@ -20,7 +20,6 @@ const sections: LegalSection[] = [
     body: [
       "Collection 01 is offered by pre-order and made in a first production run, in the order pieces are paid for or reserved.",
       "Base Models are sold at the price shown and paid in full at checkout, through Shopify. A contract of sale is formed when your payment is accepted and we confirm your order.",
-      "Pieces with stones are priced by the number of stones you choose. Placing a reservation for one does not take payment and does not form a contract: we contact you to agree the stones, price, size, delivery and timing, then send a secure payment link. A contract is formed when you pay. Until then either of us may cancel the reservation, at no cost to you.",
       "Delivery dates are estimates until confirmed in writing.",
     ],
   },
@@ -28,22 +27,21 @@ const sections: LegalSection[] = [
     id: "custom",
     title: "Made-to-order and customised jewellery",
     body: [
-      "Each piece is made to order, with the stones and size you confirm. Images on this website, including the stone previews, illustrate the design; natural stones and hand finishing mean every piece varies slightly in colour, inclusions and finish. The Base Model carries the OZARA eye alone; on pieces with stones, they are set along the band and at the centre of the star.",
-      "Pieces are offered in sizes 15 to 19 (inside length in cm). We confirm the fit with you before production.",
+      "Each piece is made to order, in the size you confirm. Images on this website illustrate the design; hand finishing means every piece varies slightly in finish. The Base Model carries the OZARA eye alone.",
+      "Pieces are offered in sizes 16, 17 and 18 (inside length in cm). We confirm the fit with you before production.",
     ],
   },
   {
     id: "prices",
     title: "Prices and payment",
     body: [
-      "Base Model prices are shown on the website and charged at checkout. Prices for pieces with stones are agreed with you before payment. Payment is taken through Shopify and its payment providers; we never see or store your full card details.",
+      "Base Model prices are shown on the website and charged at checkout. Payment is taken through Shopify and its payment providers; we never see or store your full card details.",
     ],
   },
   {
     id: "cancellations",
     title: "Cancellations, returns and repairs",
     body: [
-      "Before you pay, you can cancel a reservation for a piece with stones at any time by contacting us.",
       "Cancellations, returns, refunds, repairs and warranty are set out on our Returns & refunds page (/returns), and delivery on our Shipping & delivery page (/shipping). They form part of these terms, alongside any statutory rights you have.",
     ],
   },

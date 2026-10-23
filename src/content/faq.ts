@@ -109,19 +109,11 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are the bracelets made of?",
-        body: "Base Models are brass with a plated finish: the Wave in gold plating and the Flow in silver plating. For pieces with stones, the metal is confirmed with you in writing before making.",
+        body: "Base Models are brass with a plated finish: the Wave in gold plating and the Flow in silver plating.",
       },
       {
         title: "How does sizing work?",
-        body: "Choose 15, 16, 17, 18 or 19 (the inside length in cm). Measure your wrist and Find my size on the product page will suggest one. We confirm the fit with you before your piece is made.",
-      },
-      {
-        title: "How do I customise my bracelet?",
-        body: "Start from the Base Model — the Eye alone — or choose a stone. Stones are set along the band and at the centre of the star; how many is up to you.",
-      },
-      {
-        title: "Which gemstones are available?",
-        body: "Sapphire, ruby, emerald, amethyst and diamond — set along the band and at the centre of the star. The Base Model has no stones.",
+        body: "Choose 16, 17 or 18 (the inside length in cm). Measure your wrist and Find my size on the product page will suggest one. We confirm the fit with you before your piece is made.",
       },
       {
         title: "Can I personalise my jewellery further?",
@@ -135,19 +127,19 @@ export const faqGroups: { key: string; title: string; items: Faq[] }[] = [
     items: [
       {
         title: "What are pre-orders?",
-        body: `${preorder.why} Base Models are ₹7,999 at launch (regular price ₹9,999), paid securely at checkout. Pieces with stones are priced by the number of stones: we agree it with you, then send a secure payment link.`,
+        body: `${preorder.why} Base Models are ₹7,999 at launch (regular price ₹9,999), paid securely at checkout.`,
       },
       {
         title: "Are the bracelets made to order?",
-        body: "Yes — in a first run, with the stones and size you confirm.",
+        body: "Yes — in a first run, with the size you confirm.",
       },
       {
         title: "How long does delivery take, and what does it cost?",
-        body: "Delivery in India is free. Once your order is dispatched it usually takes 7 to 10 working days. We show the expected dispatch time at checkout. For pieces with stones, the timing is confirmed with you before you pay. See Shipping & delivery.",
+        body: "Delivery in India is free. Once your order is dispatched it usually takes 7 to 10 working days. We show the expected dispatch time at checkout. See Shipping & delivery.",
       },
       {
         title: "Can I cancel or return?",
-        body: "Base Models can be returned within 7 days of delivery if unworn and in their original packaging. Pieces with stones are made for you, so they cannot be returned for a change of mind. You can cancel a reservation any time before you pay. See Returns & refunds for the details.",
+        body: "Base Models can be returned within 7 days of delivery if unworn and in their original packaging. You can cancel a reservation any time before you pay. See Returns & refunds for the details.",
       },
       {
         title: "What if my bracelet is damaged?",
